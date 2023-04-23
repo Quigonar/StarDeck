@@ -1,67 +1,69 @@
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-      <div *ngIf="create_account == false; else elseBlock1">
-          <!-- Icon -->
-        <div class="fadeIn first">
-          <img src="assets/img/logoTEC.png" id="icon" alt="User Icon" />
+<div class="background">
+  <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <div *ngIf="create_account == false; else elseBlock1">
+            <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="assets/img/logo.png" id="icon" alt="User Icon" />
+          </div>
+          <!-- Login Form -->
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+            <input type="text" formControlName="user" id="user" class="fadeIn second" placeholder="Usuario" required>
+            <input type="password" formControlName="password" id="password" class="fadeIn third" placeholder="Contraseña" required>
+            <input type="submit" class="fadeIn fourth" value="Ingresar">
+          </form>
+      
+          <!-- Remind Passowrd & Create Account -->
+          <div id="formFooter">
+            <a class="underlineHover" (click)="signUp()">Crear Cuenta</a>
+            <a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</a>
+            <a class="underlineHover" (click)="forgotPassword()">Olvido Contraseña?</a>
+          </div>
         </div>
-        <!-- Login Form -->
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-          <input type="text" formControlName="user" id="user" class="fadeIn second" placeholder="Usuario" required>
-          <input type="password" formControlName="password" id="password" class="fadeIn third" placeholder="Contraseña" required>
-          <input type="submit" class="fadeIn fourth" value="Ingresar">
-        </form>
+        <ng-template #elseBlock1>
+          <div class="header">
+            <div class="row">
+              <div class="fadeIn first">
+                <h3 class="title">  Sign Up  </h3>
+              </div>
+            </div>
+            <div class="row">
+              <a>&nbsp;</a>
+            </div>
+          </div>
+          <!-- Sign Up Form -->
+          <form [formGroup]="signUpForm" (ngSubmit)="onSignUp(signUpForm.value)">
+            <input type="text" formControlName="name" id="name" class="fadeIn second" placeholder="Nombre" required>
+            <input type="text" formControlName="email" id="email" class="fadeIn second" placeholder="Email" required>
+            <div class="input-container">
+              <div class="fadeIn second">
+                <input type="text" formControlName="username" id="username" placeholder="Nickname" required>
+                <span class="input-counter"> {{ username_count }} / 30 </span>
+              </div>
+            </div>
+            <!--<span class="fadeIn second"> {{ username_count }} / 30 </span>-->
+            <select formControlName="nationality" [attr.placeholder]="'Nacionalidad'" class="fadeIn second">
+              <option value="" disabled selected style="display:none;">Nacionalidad</option>
+              <option *ngFor="let nation of nations" [value]="nation">{{ nation }}</option>
+            </select>
+
+            <div class="input-container">
+              <div class="fadeIn second">
+                <input type="password" formControlName="password" id="password" placeholder="Contraseña" required>
+                <span class="input-counter"> {{ password_count }} / 8 </span>
+              </div>
+            </div>
+
+            <input type="password" formControlName="password_confirmation" id="password_confirmation" class="fadeIn second" placeholder="Confirme Contraseña" required>
+            <input type="submit" class="fadeIn third" value="Crear Cuenta">
+          </form>
+      
+          <!-- Return -->
+          <div id="formFooter">
+            <a class="underlineHover" (click)="signUp()">Ya tienes cuenta?</a>
+          </div>
+        </ng-template>
     
-        <!-- Remind Passowrd & Create Account -->
-        <div id="formFooter">
-          <a class="underlineHover" (click)="signUp()">Crear Cuenta</a>
-          <a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</a>
-          <a class="underlineHover" (click)="forgotPassword()">Olvido Contraseña?</a>
-        </div>
       </div>
-      <ng-template #elseBlock1>
-        <div class="header">
-          <div class="row">
-            <div class="fadeIn first">
-              <h3 class="title">  Sign Up  </h3>
-            </div>
-          </div>
-          <div class="row">
-            <a>&nbsp;</a>
-          </div>
-        </div>
-        <!-- Login Form -->
-        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp(signUpForm.value)">
-          <input type="text" formControlName="name" id="name" class="fadeIn second" placeholder="Nombre" required>
-          <input type="text" formControlName="email" id="email" class="fadeIn second" placeholder="Email" required>
-          <div class="input-container">
-            <div class="fadeIn second">
-              <input type="text" formControlName="username" id="username" placeholder="Nickname" required>
-              <span class="input-counter"> {{ username_count }} / 30 </span>
-            </div>
-          </div>
-          <!--<span class="fadeIn second"> {{ username_count }} / 30 </span>-->
-          <select formControlName="nationality" [attr.placeholder]="'Nacionalidad'" class="fadeIn second">
-            <option value="" disabled selected style="display:none;">Nacionalidad</option>
-            <option *ngFor="let nation of nations" [value]="nation">{{ nation }}</option>
-          </select>
-
-          <div class="input-container">
-            <div class="fadeIn second">
-              <input type="password" formControlName="password" id="password" placeholder="Contraseña" required>
-              <span class="input-counter"> {{ password_count }} / 8 </span>
-            </div>
-          </div>
-
-          <input type="password" formControlName="password_confirmation" id="password_confirmation" class="fadeIn second" placeholder="Confirme Contraseña" required>
-          <input type="submit" class="fadeIn third" value="Crear Cuenta">
-        </form>
-    
-        <!-- Return -->
-        <div id="formFooter">
-          <a class="underlineHover" (click)="signUp()">Ya tienes cuenta?</a>
-        </div>
-      </ng-template>
-  
     </div>
   </div>

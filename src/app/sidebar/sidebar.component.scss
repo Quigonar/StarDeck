@@ -1,0 +1,19 @@
+.center {
+    padding-top:0.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.logo {
+    height: 100%;
+    position: relative;
+  }
+
+  .logo img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 100%;
+    max-height: 100%;
+  }

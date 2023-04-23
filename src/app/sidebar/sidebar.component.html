@@ -5,7 +5,9 @@
             <!--<div class="logo-img">
                 <img src="/assets/img/logoTEC.png"/>
             </div>-->
-            StarDeck
+            <div *ngIf="user.userLogged() == 'admin'">
+                StarDeck Manager
+            </div>
         </a>
     </div>
     <ul class="nav responsive-nav">

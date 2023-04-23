@@ -244,6 +244,9 @@
     &[data-color="purple"]:after{
         @include icon-gradient($new-purple, $purple-color-bottom);
     }
+    &[data-color="gray"]:after{
+        @include icon-gradient($new-gray, $gray-color-bottom)
+    }
 }
 
 

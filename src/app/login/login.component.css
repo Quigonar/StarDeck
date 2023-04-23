@@ -1,14 +1,18 @@
 html {
-    background-color: #56baed;
+    background-color: #d1c9d4;
   }
   
   body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
   }
+
+  .background {
+    background-color: #d1c9d4;
+  }
   
   a {
-    color: #92badd;
+    color: #c5bbc9;
     display:inline-block;
     text-decoration: none;
     font-weight: 400;
@@ -56,19 +60,19 @@ html {
   #formContent {
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
-    background: #fff;
+    background: #343444;
     padding: 30px;
     width: 90%;
     max-width: 450px;
     position: relative;
     padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 30px 60px 0 rgba(84, 212, 196,0.3);
+    box-shadow: 0 30px 60px 0 rgba(84, 212, 196,0.3);
     text-align: center;
   }
   
   #formFooter {
-    background-color: #f6f6f6;
+    background-color: #343444;
     border-top: 1px solid #dce8f1;
     padding: 25px;
     text-align: center;
@@ -85,12 +89,12 @@ html {
   }
   
   h2.active {
-    color: #0d0d0d;
-    border-bottom: 2px solid #5fbae9;
+    color: white;
+    border-bottom: 2px solid #c5bbc9;
   }
   
   h4.active {
-    color: #0d0d0d;
+    color: white;
   }
   
   
@@ -98,7 +102,7 @@ html {
   /* FORM TYPOGRAPHY*/
   
   input[type=button], input[type=submit], input[type=reset]  {
-    background-color: #56baed;
+    background-color: #c5bbc9;
     border: none;
     color: white;
     padding: 15px 80px;
@@ -107,8 +111,8 @@ html {
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-box-shadow: 0 10px 30px 0 rgba(50,50,70,0.4);
+    box-shadow: 0 10px 30px 0 rgba(50,50,70,0.4);
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
     margin: 5px 20px 40px 20px;
@@ -120,7 +124,7 @@ html {
   }
   
   input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-    background-color: #39ace7;
+    background-color:  lighten(#c5bbc9);
   }
   
   input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
@@ -140,9 +144,8 @@ html {
     padding: 10px;
     border: none;
     border-radius: 20px;
-    background-color: #f2f2f2;
+    background-color: #f3f1f4;
     padding-right: 45px;
-    background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
     padding: 15px 32px;
@@ -162,14 +165,18 @@ html {
     border-radius: 5px 5px 5px 5px;
   }
 
+  .input-container input[type="password"]:focus {
+    border-bottom: 2px solid #57d3c4;
+    background-color: #fff;
+  }
+
   .input-container input[type="text"] {
     width: 100%;
     padding: 10px;
     border: none;
     border-radius: 20px;
-    background-color: #f2f2f2;
+    background-color: #f3f1f4;
     padding-right: 45px;
-    background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
     padding: 15px 32px;
@@ -187,6 +194,11 @@ html {
     transition: all 0.5s ease-in-out;
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
+  }
+
+  .input-container input[type="text"]:focus {
+    border-bottom: 2px solid #57d3c4;
+    background-color: #fff;
   }
   
   .input-counter {
@@ -206,7 +218,7 @@ html {
   }
   
   input[type=text] {
-    background-color: #f6f6f6;
+    background-color: #f3f1f4;
     border: none;
     color: #0d0d0d;
     padding: 15px 32px;
@@ -228,7 +240,7 @@ html {
   
   input[type=text]:focus {
     background-color: #fff;
-    border-bottom: 2px solid #5fbae9;
+    border-bottom: 2px solid #57d3c4;
   }
   
   input[type=text]:placeholder {
@@ -236,7 +248,7 @@ html {
   }
 
   select {
-    background-color: #f6f6f6;
+    background-color: #f3f1f4;
     border: none;
     color: #0d0d0d;
     padding: 15px 32px;
@@ -258,11 +270,15 @@ html {
 
   select:focus {
     background-color: #fff;
-    border-bottom: 2px solid #5fbae9;
+    border-bottom: 2px solid #57d3c4;
+  }
+
+  select:placeholder {
+    color: #cccccc;
   }
 
   input[type=password] {
-    background-color: #f6f6f6;
+    background-color: #f3f1f4;
     border: none;
     color: #0d0d0d;
     padding: 15px 32px;
@@ -284,7 +300,7 @@ html {
   
   input[type=password]:focus {
     background-color: #fff;
-    border-bottom: 2px solid #5fbae9;
+    border-bottom: 2px solid #57d3c4;
   }
   
   input[type=password]:placeholder {
@@ -350,6 +366,10 @@ html {
     -moz-animation-duration:1s;
     animation-duration:1s;
   }
+
+  .title {
+    color: white;
+  }
   
   .fadeIn.first {
     -webkit-animation-delay: 0.4s;
@@ -382,13 +402,13 @@ html {
     bottom: -10px;
     width: 0;
     height: 2px;
-    background-color: #56baed;
+    background-color: #57d3c4;
     content: "";
     transition: width 0.2s;
   }
   
   .underlineHover:hover {
-    color: #0d0d0d;
+    color: #c4bccc;
   }
   
   .underlineHover:hover:after{
