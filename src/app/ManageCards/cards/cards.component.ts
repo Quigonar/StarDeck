@@ -23,7 +23,10 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
     //PEDIR DEL API LA LISTA DE CARTAS Y REEMPLAZAR this.cards
-    this.cards = [
+    this.api.getCards().subscribe(cards => {
+      this.cards = cards
+    })
+    /*this.cards = [
       {ID : "asdf1", Nombre : "Carta 1", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 1", Tipo : "Ultra-Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf2", Nombre : "Carta 2", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 2", Tipo : "Muy Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf3", Nombre : "Carta 3", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 3", Tipo : "Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
@@ -38,7 +41,7 @@ export class CardsComponent implements OnInit {
       {ID : "asdf12", Nombre : "Carta 12", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 2", Tipo : "Muy Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf13", Nombre : "Carta 13", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 3", Tipo : "Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf14", Nombre : "Carta 14", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 4", Tipo : "Normal", Descripcion : "Esta carta hace tal cosa", Estado : true},
-    ]
+    ]*/
   }
   
 }

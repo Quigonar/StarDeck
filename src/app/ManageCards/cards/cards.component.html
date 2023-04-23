@@ -46,28 +46,30 @@
                     <div class="play-card">
                         <div class="play-card-face">
                             <div class="play-card-title"> {{card.Nombre}} </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="play-card-stat">
+                                        <span class="icon-combat"></span> {{card.Costo}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="play-card-stat">
+                                        <span class="icon-energy"></span> {{card.Energia}}
+                                    </div>
+                                </div>
+                            </div>
                             <div class="play-card-image">
                                 <img [src]="card.Imagen" alt="Imagen">
                             </div>
-                            <div class="play-card-info">
-                                <div class="play-card-stats">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="play-card-stat">
-                                        <div class="stat-name">Energia</div>
-                                        <div class="stat-value">{{card.Energia}}</div>
-                                    </div>
-                                    <div class="play-card-stat">
-                                        <div class="stat-name">Tipo</div>
-                                        <div class="stat-value">{{card.Tipo}}</div>
+                                        {{card.Raza}}
                                     </div>
                                 </div>
-                                <div class="play-card-stats">
+                                <div class="col-md-6">
                                     <div class="play-card-stat">
-                                        <div class="stat-name">Costo</div>
-                                        <div class="stat-value">{{card.Costo}}</div>
-                                    </div>
-                                    <div class="play-card-stat">
-                                        <div class="stat-name">Raza</div>
-                                        <div class="stat-value">{{card.Raza}}</div>
+                                        {{card.Tipo}}
                                     </div>
                                 </div>
                             </div>
@@ -83,28 +85,30 @@
                             <div class="play-card">
                                 <div class="play-card-face">
                                     <div class="play-card-title"> {{card.Nombre}} </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="play-card-stat">
+                                                <span class="icon-combat"></span> {{card.Costo}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="play-card-stat">
+                                                <span class="icon-energy"></span> {{card.Energia}}
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="play-card-image">
                                         <img [src]="card.Imagen" alt="Imagen">
                                     </div>
-                                    <div class="play-card-info">
-                                        <div class="play-card-stats">
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="play-card-stat">
-                                                <div class="stat-name">Energia</div>
-                                                <div class="stat-value">{{card.Energia}}</div>
-                                            </div>
-                                            <div class="play-card-stat">
-                                                <div class="stat-name">Tipo</div>
-                                                <div class="stat-value">{{card.Tipo}}</div>
+                                                {{card.Raza}}
                                             </div>
                                         </div>
-                                        <div class="play-card-stats">
+                                        <div class="col-md-6">
                                             <div class="play-card-stat">
-                                                <div class="stat-name">Costo</div>
-                                                <div class="stat-value">{{card.Costo}}</div>
-                                            </div>
-                                            <div class="play-card-stat">
-                                                <div class="stat-name">Raza</div>
-                                                <div class="stat-value">{{card.Raza}}</div>
+                                                {{card.Tipo}}
                                             </div>
                                         </div>
                                     </div>

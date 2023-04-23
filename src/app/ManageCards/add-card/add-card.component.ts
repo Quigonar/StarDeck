@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CardsI } from 'app/models/cards.interface';
+import { RazasI } from 'app/models/razas.interface';
 import { AlertService } from 'app/services/alert.service';
 import { ApiService } from 'app/services/api.service';
 import { Subscription } from 'rxjs';
@@ -16,7 +17,7 @@ export class AddCardComponent implements OnInit {
   public card: CardsI
   private routeSub: Subscription
 
-  public razas
+  public razas : RazasI[]
   public tipos
 
   name_count : number = 0
@@ -71,14 +72,16 @@ export class AddCardComponent implements OnInit {
 
   onAdd(form){
     this.card = form
+    this.card.ID = ""
     console.log(this.card)
     // HACER POST POR EL API
-
-    var icon = "fa fa-check"
-    var type = "success"
-    var message = "La carta ha sido creada exitosamente"
-    this.alert.createAlert(icon, type, message)
-    this.router.navigate(['/cartas'])
+    this.api.addCard(this.card).subscribe(answer => {
+      var icon = "fa fa-check"
+      var type = "success"
+      var message = "La carta ha sido creada exitosamente"
+      this.alert.createAlert(icon, type, message)
+      this.router.navigate(['/cartas'])
+    })
   }
   
   back(){
@@ -99,8 +102,10 @@ export class AddCardComponent implements OnInit {
     }
 
     //Pedir del API las diferentes razas posibles y reemplazar this.razas
-    this.razas = ["Raza 1", "Raza 2", "Raza 3", "Raza 4", "Raza 5"]
-    this.tipos = ["Ultra-Rara", "Muy Rara", "Rara", "Normal", "Basica"]
+    this.api.getRazas().subscribe(razas => {
+      this.razas = razas
+    })
+    this.tipos = ["Ultra-Rara", "Muy Rara", "Rara", "Normal", "Básica"]
   }
 
 }

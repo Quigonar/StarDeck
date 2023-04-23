@@ -3,13 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { async, Observable } from 'rxjs'
 import { recommender } from 'googleapis/build/src/apis/recommender';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CardsI } from 'app/models/cards.interface';
+import { RazasI } from 'app/models/razas.interface';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  url:string = "https://ubytecapi20221124012449.azurewebsites.net/"
+  url:string = "https://localhost:7085/"
   private sanitizer: DomSanitizer
 
   constructor(private http:HttpClient) { }
@@ -34,6 +36,23 @@ export class ApiService {
     }
   })
 
+  getCards():Observable<CardsI[]>{
+    let dir = this.url + "carta/lista"
+    return this.http.get<CardsI[]>(dir)
+  }
+  addCard(card:CardsI):Observable<string>{
+    let dir = this.url + "carta/guardar"
+    return this.http.post<string>(dir, card)
+  }
+  updateCard(card:CardsI):Observable<string>{
+    let dir = this.url + "carta/editar"
+    return this.http.put<string>(dir, card)
+  }
+
+  getRazas():Observable<RazasI[]>{
+    let dir = this.url + "carta/razas"
+    return this.http.get<RazasI[]>(dir)
+  }
   /*login(username:string, password:string):Observable<LoginI>{
     let dir = this.url + "login/get/" + username + "/" + password
     return this.http.get<LoginI>(dir)
