@@ -6,4 +6,8 @@ export interface PlayerI {
     Contrasena:string;
     Correo:string;
     Estado:boolean;
+    Avatar:string;
+    Ranking:number;
+    Monedas:number;
+    Administrador:boolean;
 }

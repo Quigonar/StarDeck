@@ -5,6 +5,7 @@ import { recommender } from 'googleapis/build/src/apis/recommender';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CardsI } from 'app/models/cards.interface';
 import { RazasI } from 'app/models/razas.interface';
+import { PlayerI } from 'app/models/player.interface';
 
 
 @Injectable({
@@ -52,6 +53,11 @@ export class ApiService {
   getRazas():Observable<RazasI[]>{
     let dir = this.url + "carta/razas"
     return this.http.get<RazasI[]>(dir)
+  }
+
+  addUser(player:PlayerI):Observable<string>{
+    let dir = this.url + "usuario/guardarJugador"
+    return this.http.post<string>(dir, player)
   }
   /*login(username:string, password:string):Observable<LoginI>{
     let dir = this.url + "login/get/" + username + "/" + password

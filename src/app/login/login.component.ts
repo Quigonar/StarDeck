@@ -52,7 +52,11 @@ export class LoginComponent implements OnInit {
       Nacionalidad: '',
       Contrasena: '',
       Correo: '',
-      Estado: true
+      Estado: true,
+      Administrador: false,
+      Ranking: 0,
+      Monedas: 0,
+      Avatar: ''
     }
   }
 
@@ -128,8 +132,9 @@ export class LoginComponent implements OnInit {
       message = "Porfavor asegúrese de que las contraseñas coincidan, vuelva a intentarlo."
       this.alert.createAlert(icon,type,message)
     }
-    
+
     // Tambien hay que revisar si el correo se encuentra o no en la base de datos, devolver error exclusivo para caso de que el correo ya se encuentre en el DB
+    // Si devuelve 1 es que el username existe, 2 correo existe, caulquier otra cosa success
 
     else {
       this.player.Nombre = form.name
@@ -140,13 +145,29 @@ export class LoginComponent implements OnInit {
       console.log(this.player)
 
       //Hacer el post por el API y desde el API responder con el ID dado al jugador y reemplazar this.player.ID
+      this.api.addUser(this.player).subscribe(answer => {
+        if (answer === "1") {
+          icon = "fa fa-exclamation-triangle"
+          type = "danger"
+          message = "El usuario ingresado ya existe, cambielo y vuelva a intentarlo."
+          this.alert.createAlert(icon,type,message)
+        }
+        else if (answer === "2") {
+          icon = "fa fa-exclamation-triangle"
+          type = "danger"
+          message = "El correo ingresado ya existe, cambielo y vuelva a intentarlo."
+          this.alert.createAlert(icon,type,message)
+        } else {
+          icon = "fa fa-check"
+          type = "success"
+          message = "La cuenta ha sido creada exitosamente"
+          this.alert.createAlert(icon,type,message)
+          this.player.ID = answer
+          this.routeService.switch("first", this.player.ID)
+        }
+      })
 
-      icon = "fa fa-check"
-      type = "success"
-      message = "La cuenta ha sido creada exitosamente"
-      this.alert.createAlert(icon,type,message)
       
-      this.routeService.switch("first", this.player.ID)
     }
   }
 }
