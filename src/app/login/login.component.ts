@@ -146,13 +146,14 @@ export class LoginComponent implements OnInit {
 
       //Hacer el post por el API y desde el API responder con el ID dado al jugador y reemplazar this.player.ID
       this.api.addUser(this.player).subscribe(answer => {
-        if (answer === "1") {
+        console.log(answer)
+        if (answer === "2") {
           icon = "fa fa-exclamation-triangle"
           type = "danger"
           message = "El usuario ingresado ya existe, cambielo y vuelva a intentarlo."
           this.alert.createAlert(icon,type,message)
         }
-        else if (answer === "2") {
+        else if (answer === "1") {
           icon = "fa fa-exclamation-triangle"
           type = "danger"
           message = "El correo ingresado ya existe, cambielo y vuelva a intentarlo."
