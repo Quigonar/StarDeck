@@ -71,17 +71,51 @@ export class AddCardComponent implements OnInit {
   }
 
   onAdd(form){
-    this.card = form
-    this.card.ID = ""
-    console.log(this.card)
+    var type, message, icon
     // HACER POST POR EL API
-    this.api.addCard(this.card).subscribe(answer => {
-      var icon = "fa fa-check"
-      var type = "success"
-      var message = "La carta ha sido creada exitosamente"
-      this.alert.createAlert(icon, type, message)
-      this.router.navigate(['/cartas'])
-    })
+    if (form.Nombre === '' || form.Energia === '' || form.Costo === '' || form.Imagen === '' || form.Raza === '' || form.Tipo === '' || form.Descripcion === '') {
+      icon = "fa fa-exclamation-triangle"
+      type = "danger"
+      message = "Porfavor asegúrese de que todas las casillas esten llenas, vuelva a intentarlo."
+      this.alert.createAlert(icon,type,message)
+    }
+    else if (form.Nombre.length > 30 || form.Nombre.length < 1) {
+      icon = "fa fa-exclamation-triangle"
+      type = "danger"
+      message = "Porfavor asegúrese de que el usuario contenga entre 1-30 caracteres, vuelva a intentarlo."
+      this.alert.createAlert(icon,type,message)
+    }
+    else if (form.Energia > 100 && form.Energia < -100) {
+      icon = "fa fa-exclamation-triangle"
+      type = "danger"
+      message = "Porfavor asegúrese de que la energia se encuentre en el rango de -100 a 100, vuelva a intentarlo."
+      this.alert.createAlert(icon,type,message)
+    }
+    else if (form.Costo > 100 && form.Costo < 0) {
+      icon = "fa fa-exclamation-triangle"
+      type = "danger"
+      message = "Porfavor asegúrese de que el costo se encuentre en el rango de 0 a 100, vuelva a intentarlo."
+      this.alert.createAlert(icon,type,message)
+    }
+    else if (form.Descripcion.length > 1000) {
+      icon = "fa fa-exclamation-triangle"
+      type = "danger"
+      message = "Porfavor asegúrese de que la descripcion no contenga mas de 1000 caracteres, vuelva a intentarlo."
+      this.alert.createAlert(icon,type,message)
+    }
+    else {
+      this.card = form
+      this.card.Id = ""
+
+      this.api.addCard(this.card).subscribe(answer => {
+        var icon = "fa fa-check"
+        var type = "success"
+        var message = "La carta ha sido creada exitosamente"
+        this.alert.createAlert(icon, type, message)
+        this.router.navigate(['/cartas'])
+      })
+    }
+    
   }
   
   back(){
@@ -93,7 +127,7 @@ export class AddCardComponent implements OnInit {
       Nombre: '',
       Energia: 0,
       Costo: 0,
-      ID: '',
+      Id: '',
       Imagen: '',
       Raza: '',
       Tipo: '',

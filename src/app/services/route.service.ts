@@ -12,7 +12,6 @@ export class RouteService {
   }
 
   switch(user: string, id:string) {
-    console.log("switching to: " + user)
     this.storage.set(user)
     this.storage.setID(id)
     this.onUserChange.emit(user)

@@ -100,7 +100,6 @@ export class NavbarComponent implements OnInit{
     }
 
     getAffiliations(id:any){
-        console.log(id)
         this.router.navigate(['/affiliation/' + id])
     }
 }

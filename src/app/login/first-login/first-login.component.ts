@@ -15,12 +15,11 @@ export class FirstLoginComponent implements OnInit {
   constructor(private router:Router, private api:ApiService, private routeService:RouteService, private location: Location) { }
 
   choose_card() {
-    console.log("here")
     this.router.navigate(['/choose-card/1'])
   }
 
   ngOnInit(): void {
-    this.cardsGiven = [
+    /*this.cardsGiven = [
       {ID : "asdf1", Nombre : "Carta 1", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 1", Tipo : "Ultra-Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf2", Nombre : "Carta 2", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 2", Tipo : "Muy Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf3", Nombre : "Carta 3", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 3", Tipo : "Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
@@ -45,9 +44,14 @@ export class FirstLoginComponent implements OnInit {
       {ID : "asdf22", Nombre : "Carta 22", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 3", Tipo : "Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf23", Nombre : "Carta 23", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 4", Tipo : "Normal", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf24", Nombre : "Carta 24", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 5", Tipo : "Basica", Descripcion : "Esta carta hace tal cosa", Estado : true}
-    ]
-    this.routeService.setCards(this.cardsGiven)
-    this.cardsGiven = this.cardsGiven.slice(0,15)
+    ]*/
+    this.api.getFirstLoginCards().subscribe(cards => {
+      this.cardsGiven = cards
+      this.routeService.setCards(cards)
+      this.cardsGiven = this.cardsGiven.slice(0,15)
+    })
+
+    
   }
 
 }

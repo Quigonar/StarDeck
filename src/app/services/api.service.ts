@@ -41,6 +41,14 @@ export class ApiService {
     let dir = this.url + "carta/lista"
     return this.http.get<CardsI[]>(dir)
   }
+  getFirstLoginCards():Observable<CardsI[]>{
+    let dir = this.url + "carta/getnewDeck"
+    return this.http.get<CardsI[]>(dir)
+  }
+  getCardID(card:any):Observable<CardsI>{
+    let dir = this.url + "carta/lista/" + card
+    return this.http.get<CardsI>(dir)
+  }
   addCard(card:CardsI):Observable<string>{
     let dir = this.url + "carta/guardar"
     return this.http.post<string>(dir, card)
