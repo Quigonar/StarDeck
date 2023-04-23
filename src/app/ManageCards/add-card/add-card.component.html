@@ -1,0 +1,138 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn" (click)="back()">
+                    <i class="fa fa-chevron-left"></i>
+                    <span class="title"> Volver </span>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header">
+                    <h4 class="title">Crear Carta</h4>
+                </div>
+                <div class="content">
+                    <form [formGroup]="cardForm" (ngSubmit)="onAdd(cardForm.value)">
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Nombre de la Carta</label>
+                                        <div class="input-container">
+                                            <input type="text" formControlName="Nombre" id="nombre" placeholder="Nombre" required>
+                                            <span class="input-counter"> {{ name_count }} / 30 </span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Energia</label>
+                                        <input formControlName="Energia" type="number" class="form-control" placeholder="Energia">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Costo</label>
+                                        <input formControlName="Costo" type="number" class="form-control" placeholder="Costo">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Imagen</label>
+                                        <input type="file" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="center">
+                                        <div class="play-card">
+                                            <div class="play-card-face">
+                                                <div class="play-card-title"> {{card.Nombre}} </div>
+                                                <div class="play-card-image">
+                                                    <img [src]="card.Imagen" alt="Imagen">
+                                                </div>
+                                                <div class="play-card-info">
+                                                    <div class="play-card-stats">
+                                                        <div class="play-card-stat">
+                                                            <div class="stat-name">Energia</div>
+                                                            <div class="stat-value">{{card.Energia}}</div>
+                                                        </div>
+                                                        <div class="play-card-stat">
+                                                            <div class="stat-name">Tipo</div>
+                                                            <div class="stat-value">{{card.Tipo}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="play-card-stats">
+                                                        <div class="play-card-stat">
+                                                            <div class="stat-name">Costo</div>
+                                                            <div class="stat-value">{{card.Costo}}</div>
+                                                        </div>
+                                                        <div class="play-card-stat">
+                                                            <div class="stat-name">Raza</div>
+                                                            <div class="stat-value">{{card.Raza}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="play-card-back">
+                                                <div class="play-card-description"> {{card.Descripcion}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="center">
+                                        <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                        <input type="submit" value="Crear Carta" class="btn">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Raza</label>
+                                        <select formControlName="Raza" [attr.placeholder]="'Raza'">
+                                            <option value="" disabled selected style="display:none;">Raza</option>
+                                            <option *ngFor="let raza of razas" [value]="raza">{{ raza }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <select formControlName="Tipo" [attr.placeholder]="'Tipo'">
+                                            <option value="" disabled selected style="display:none;">Tipo</option>
+                                            <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Descripcion</label>
+                                        <span class="input-counter2"> {{ desc_count }} / 1000 </span>
+                                        <div class="input-container">
+                                            <textarea type="text" formControlName="Descripcion" id="Descripcion" placeholder="Descripcion" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <input type="checkbox" [(ngModel)]="activo" formControlName="Estado" id="Estado">
+                                        <label>&nbsp; Activa</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,112 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="title">  Lista de Cartas Asignadas  </h4>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let card of cardsGiven; index as i">
+                <div *ngIf="(i + 1) % 6 != 0; else elseBlock" class="col-md-2">
+                    <div class="play-card">
+                        <div class="play-card-face">
+                            <div class="play-card-title"> {{card.Nombre}} </div>
+                            <div class="play-card-image">
+                                <img [src]="card.Imagen" alt="Imagen">
+                            </div>
+                            <div class="play-card-info">
+                                <div class="play-card-stats">
+                                    <div class="play-card-stat">
+                                        <div class="stat-name">Energia</div>
+                                        <div class="stat-value">{{card.Energia}}</div>
+                                    </div>
+                                    <div class="play-card-stat">
+                                        <div class="stat-name">Tipo</div>
+                                        <div class="stat-value">{{card.Tipo}}</div>
+                                    </div>
+                                </div>
+                                <div class="play-card-stats">
+                                    <div class="play-card-stat">
+                                        <div class="stat-name">Costo</div>
+                                        <div class="stat-value">{{card.Costo}}</div>
+                                    </div>
+                                    <div class="play-card-stat">
+                                        <div class="stat-name">Raza</div>
+                                        <div class="stat-value">{{card.Raza}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="play-card-back">
+                            <div class="play-card-description"> {{card.Descripcion}} </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="play-card">
+                                <div class="play-card-face">
+                                    <div class="play-card-title"> {{card.Nombre}} </div>
+                                    <div class="play-card-image">
+                                        <img [src]="card.Imagen" alt="Imagen">
+                                    </div>
+                                    <div class="play-card-info">
+                                        <div class="play-card-stats">
+                                            <div class="play-card-stat">
+                                                <div class="stat-name">Energia</div>
+                                                <div class="stat-value">{{card.Energia}}</div>
+                                            </div>
+                                            <div class="play-card-stat">
+                                                <div class="stat-name">Tipo</div>
+                                                <div class="stat-value">{{card.Tipo}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="play-card-stats">
+                                            <div class="play-card-stat">
+                                                <div class="stat-name">Costo</div>
+                                                <div class="stat-value">{{card.Costo}}</div>
+                                            </div>
+                                            <div class="play-card-stat">
+                                                <div class="stat-name">Raza</div>
+                                                <div class="stat-value">{{card.Raza}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="play-card-back">
+                                    <div class="play-card-description"> {{card.Descripcion}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                </ng-template>
+            </div>
+            <div class="col-md-2">
+                <div class="play-card-disabled" (click)="choose_card()">
+                    <div class="play-card-disabled-logo"> + </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="play-card-disabled" (click)="choose_card()">
+                    <div class="play-card-disabled-logo"> + </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="play-card-disabled" (click)="choose_card()">
+                    <div class="play-card-disabled-logo"> + </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

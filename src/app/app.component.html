@@ -1,0 +1,21 @@
+<div *ngIf="user.userLogged() != 'login'; else elseBlock">
+    <div *ngIf="user.userLogged() != 'first'; else elseBlock2">
+        <div class="wrapper">
+            <div class="sidebar" data-color="green" data-image="">
+                <app-sidebar></app-sidebar>
+            </div>
+        
+            <div class="main-panel">
+                <navbar-cmp></navbar-cmp>
+                <router-outlet></router-outlet>
+                <footer-cmp></footer-cmp>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <router-outlet></router-outlet>
+</ng-template>
+<ng-template #elseBlock2>
+    <router-outlet></router-outlet>
+</ng-template>
