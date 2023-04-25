@@ -1,5 +1,5 @@
 export interface PlayerI {
-    ID:string;
+    Id:string;
     Nombre:string;
     Username:string;
     Nacionalidad:string;

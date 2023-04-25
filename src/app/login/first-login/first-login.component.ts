@@ -20,6 +20,7 @@ export class FirstLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+<<<<<<< Updated upstream
     this.cardsGiven = [
       {ID : "asdf1", Nombre : "Carta 1", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 1", Tipo : "Ultra-Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
       {ID : "asdf2", Nombre : "Carta 2", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 2", Tipo : "Muy Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
@@ -48,6 +49,16 @@ export class FirstLoginComponent implements OnInit {
     ]
     this.routeService.setCards(this.cardsGiven)
     this.cardsGiven = this.cardsGiven.slice(0,15)
+=======
+    this.api.getFirstLoginCards().subscribe(cards => {
+      let last_basic_card = 15
+      this.cardsGiven = cards
+      this.routeService.setCards(cards)
+      this.cardsGiven = this.cardsGiven.slice(0,last_basic_card)
+    })
+
+    
+>>>>>>> Stashed changes
   }
 
 }

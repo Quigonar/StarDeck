@@ -5,6 +5,8 @@ import { CardsI } from 'app/models/cards.interface';
 import { RazasI } from 'app/models/razas.interface';
 import { AlertService } from 'app/services/alert.service';
 import { ApiService } from 'app/services/api.service';
+import { b64Service } from 'app/services/b64.service';
+import { VerifyService } from 'app/services/verifier.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -25,25 +27,29 @@ export class AddCardComponent implements OnInit {
   activo : boolean = true
 
   public cardForm = new FormGroup({
-    Nombre : new FormControl(),
-    Energia : new FormControl(),
-    Costo : new FormControl(),
-    ID : new FormControl(),
-    Imagen : new FormControl(),
-    Raza : new FormControl(),
-    Tipo : new FormControl(),
-    Descripcion : new FormControl(),
-    Estado : new FormControl()
+    Nombre : new FormControl(''),
+    Energia : new FormControl(0),
+    Costo : new FormControl(0),
+    Imagen : new FormControl(''),
+    Raza : new FormControl(''),
+    Tipo : new FormControl(''),
+    Descripcion : new FormControl(''),
+    Id : new FormControl(''),
+    Estado : new FormControl(true)
   })
 
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
-    this.api.getBase64(event.item(0)).then((imagen: any) => {
-      this.cardForm.controls['Imagen'].setValue(imagen.base)
-      this.card.Imagen = imagen.base
-    })
+    try {
+      this.b64.getBase64(event.item(0)).then((imagen: any) => {
+        this.cardForm.controls['Imagen'].setValue(imagen.base)
+        this.card.Imagen = imagen.base
+      })
+    } catch {
+      //Do nothing
+    }
   }
 
-  constructor(private route:ActivatedRoute, private api:ApiService, private router:Router, private alert:AlertService) { 
+  constructor(private route:ActivatedRoute, private api:ApiService, private router:Router, private alert:AlertService, private b64: b64Service, private InfoVerifier:VerifyService) { 
     //Make card preview update live
     this.cardForm.controls['Nombre'].valueChanges.subscribe((newValue) => {
       this.name_count = newValue.length
@@ -71,6 +77,7 @@ export class AddCardComponent implements OnInit {
   }
 
   onAdd(form){
+<<<<<<< Updated upstream
     this.card = form
     this.card.ID = ""
     console.log(this.card)
@@ -82,6 +89,18 @@ export class AddCardComponent implements OnInit {
       this.alert.createAlert(icon, type, message)
       this.router.navigate(['/cartas'])
     })
+=======
+    if (this.InfoVerifier.verifyCardInfo(form)) {
+      this.card = form
+
+      this.api.addCard(this.card).subscribe(answer => {
+        if (this.InfoVerifier.verifyCardAnswer(answer)) {
+          
+          this.router.navigate(['/cartas'])
+        }
+      })
+    }
+>>>>>>> Stashed changes
   }
   
   back(){

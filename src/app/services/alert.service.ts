@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { async, Observable } from 'rxjs'
-import { recommender } from 'googleapis/build/src/apis/recommender';
-import { DomSanitizer } from '@angular/platform-browser';
 
 declare var $:any;
 
@@ -10,8 +6,6 @@ declare var $:any;
   providedIn: 'root'
 })
 export class AlertService {
-
-    constructor(private http:HttpClient) { }
 
     createAlert(icon, type, message) {
         $.notify({
