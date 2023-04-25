@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { PlayerI } from 'app/models/player.interface';
 import { AlertService } from 'app/services/alert.service';
 import { VerifyService } from 'app/services/verifier.service';
-import { info } from 'console';
+import { SHA256 } from 'crypto-js'
 
 @Component({
   selector: 'app-login',
@@ -89,9 +89,11 @@ export class LoginComponent implements OnInit {
   onSignUp(form) {
     this.player = form
     console.log(this.player)
+    console.log(SHA256(this.player.Contrasena).toString())
 
     if (this.infoVerifier.verifyUserInfo(form)) {
-      
+      //Encriptar la contraseña
+      this.player.Contrasena = SHA256(this.player.Contrasena).toString()
       //Hacer el post por el API
       this.api.addUser(this.player).subscribe(answer => {
         if (this.infoVerifier.verifyUserAnswer(answer)) {
