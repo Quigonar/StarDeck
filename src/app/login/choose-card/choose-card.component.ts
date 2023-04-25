@@ -24,6 +24,7 @@ export class ChooseCardComponent implements OnInit {
     if (parseInt(this.round) < 3) {
        //decir en el api que escogio la carta this.cardsChoose[index]
       this.router.navigate(['choose-card/', parseInt(this.round) + 1])
+      this.cardsChoose = []
       this.ngOnInit()
     } else {
       this.routeService.switch("client",this.routeService.userID())
@@ -36,17 +37,10 @@ export class ChooseCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cardsChoose = [
-      {Id : "asdf16", Nombre : "Carta 16", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 5", Tipo : "Basica", Descripcion : "Esta carta hace tal cosa", Estado : true},
-      {Id : "asdf17", Nombre : "Carta 17", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 1", Tipo : "Ultra-Rara", Descripcion : "Esta carta hace tal cosa", Estado : true},
-      {Id : "asdf18", Nombre : "Carta 18", Costo : 10, Energia : 20, Imagen : null, Raza : "Raza 2", Tipo : "Muy Rara", Descripcion : "Esta carta hace tal cosa", Estado : true}
-    ]
     this.routeSub = this.route.params.subscribe(params => {
       this.round = params['round']
       let counter = 0
       for (let i = ((parseInt(this.round) - 1) * 3); i < ((parseInt(this.round) - 1) * 3) + 3; i++) {
-        //llamar API para conseguir las cartas por ID donde los IDs serian this.routeService.getCards()[i]
-        //reemplazar this.cardsChoose
         this.api.getCardID(this.routeService.getCards()[i]).subscribe(card => {
           this.cardsChoose[counter] = card[0]
           counter++

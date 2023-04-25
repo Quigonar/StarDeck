@@ -5,6 +5,8 @@ import { RouteService } from 'app/services/route.service';
 import { Router } from '@angular/router';
 import { PlayerI } from 'app/models/player.interface';
 import { AlertService } from 'app/services/alert.service';
+import { VerifyService } from 'app/services/verifier.service';
+import { info } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -15,29 +17,36 @@ import { AlertService } from 'app/services/alert.service';
 export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
-    user : new FormControl('',Validators.required),
-    password : new FormControl('',Validators.required)
+    user : new FormControl(''),
+    password : new FormControl('')
   })
+
   signUpForm = new FormGroup({
-    name : new FormControl(''),
-    username : new FormControl(''),
-    nationality : new FormControl(''),
-    password : new FormControl(''),
+    Nombre : new FormControl(''),
+    Username : new FormControl(''),
+    Nacionalidad : new FormControl(''),
+    Contrasena : new FormControl(''),
     password_confirmation : new FormControl(''),
-    email : new FormControl('')
+    Correo : new FormControl(''),
+    Id : new FormControl(''),
+    Estado: new FormControl(true),
+    Administrador: new FormControl(false),
+    Ranking: new FormControl(0),
+    Monedas: new FormControl(0),
+    Avatar: new FormControl('')
   })
 
   create_account : boolean = false
   password_count : number = 0
   username_count : number = 0
-  public player : PlayerI
+  player : PlayerI
   nations : any
 
-  constructor(private api:ApiService, private routeService:RouteService, private router:Router, private alert:AlertService) {
-    this.signUpForm.controls['password'].valueChanges.subscribe((newValue) => {
+  constructor(private api:ApiService, private routeService:RouteService, private router:Router, private alert:AlertService, private infoVerifier:VerifyService) {
+    this.signUpForm.controls['Contrasena'].valueChanges.subscribe((newValue) => {
       this.password_count = newValue.length
     });
-    this.signUpForm.controls['username'].valueChanges.subscribe((newValue) => {
+    this.signUpForm.controls['Username'].valueChanges.subscribe((newValue) => {
       this.username_count = newValue.length
     });
    }
@@ -46,7 +55,7 @@ export class LoginComponent implements OnInit {
     //Call api to import all nations available for the game
     this.nations = ["Costa Rica", "Mexico", "Estados Unidos"]
     this.player = {
-      ID: '',
+      Id: '',
       Nombre: '',
       Username: '',
       Nacionalidad: '',
@@ -69,26 +78,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(form) {
-    /*this.api.login(form.user,form.password).subscribe(response => {
-      console.log(response[0])
-      if (response[0].Type == "admin") {
-        //CHANGE TO USER ID
-        this.routeService.switch("admin", "0")
-      }
-      else if (response[0].Type == "affiliate" && response[0].ID_client == "accepted") {
-        //CHANGE TO USER ID
-        
-        this.routeService.switch("affiliate", response[0].ID_Admin)
-        this.routeService.setAf(response[0].ID_Affiliate)
-      }
-      else if (response[0].Type == "cliente") {
-        //CHANGE TO USER ID
-        this.routeService.switch("client", response[0].ID_client)
-      }
-      else {
-        alert("Username and password does not match")
-      }
-    })*/
     if (form.user === "admin" && form.password === "admin") {
       this.routeService.switch("admin", "0")
     }
@@ -98,7 +87,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSignUp(form) {
+    this.player = form
+    console.log(this.player)
 
+<<<<<<< Updated upstream
     var type, message, icon
     const alphanumericRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
 
@@ -163,10 +155,17 @@ export class LoginComponent implements OnInit {
           this.alert.createAlert(icon,type,message)
           this.player.ID = answer
           this.routeService.switch("first", this.player.ID)
+=======
+    if (this.infoVerifier.verifyUserInfo(form)) {
+      
+      //Hacer el post por el API
+      this.api.addUser(this.player).subscribe(answer => {
+        if (this.infoVerifier.verifyUserAnswer(answer)) {
+          this.player.Id = answer
+          this.routeService.switch("first", this.player.Id)
+>>>>>>> Stashed changes
         }
       })
-
-      
     }
   }
 }

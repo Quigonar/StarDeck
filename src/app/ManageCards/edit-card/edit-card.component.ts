@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { EmployeeI } from 'app/models/employee.interface';
 import { ApiService } from 'app/services/api.service';
 import { Subscription } from 'rxjs';
+import { b64Service } from 'app/services/b64.service';
 
 @Component({
   selector: 'app-edit-card',
@@ -30,12 +31,16 @@ export class EditCardComponent implements OnInit {
   })
 
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
-    this.api.getBase64(event.item(0)).then((imagen: any) => {
-      this.employee.ProfilePic = imagen.base
-    })
+    try {
+      this.b64.getBase64(event.item(0)).then((imagen: any) => {
+        this.employee.ProfilePic = imagen.base
+      })
+    } catch {
+      //Do nothing
+    }
   }
 
-  constructor(private route:ActivatedRoute, private api:ApiService, private router:Router) { }
+  constructor(private route:ActivatedRoute, private api:ApiService, private router:Router, private b64:b64Service) { }
 
   onEdit(form){
     this.employee.FirstN = form.FirstN
