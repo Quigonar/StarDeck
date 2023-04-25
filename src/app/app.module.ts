@@ -62,7 +62,6 @@ export class AppModule {
 
   resetRouterConfig(refresh: boolean) {
     return () => {
-      console.log('resetRouterConfig()');
       const constructedConfig = [
         
         {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CardsI } from 'app/models/cards.interface';
+import { localservices } from 'googleapis/build/src/apis/localservices';
 
 @Injectable()
 
@@ -9,7 +10,6 @@ export class UserStorageService {
     
     if (!this.exists()) {
       localStorage.setItem("user", user);
-      console.log("localStorage: " + localStorage.getItem("user"))
     }
   }
 
@@ -46,14 +46,15 @@ export class UserStorageService {
   }
 
   setCards(cards: CardsI[]) {
-    localStorage.setItem("card1", cards[15].ID)
-    localStorage.setItem("card2", cards[16].ID)
-    localStorage.setItem("card3", cards[17].ID)
-    localStorage.setItem("card4", cards[18].ID)
-    localStorage.setItem("card5", cards[19].ID)
-    localStorage.setItem("card6", cards[20].ID)
-    localStorage.setItem("card7", cards[21].ID)
-    localStorage.setItem("card8", cards[22].ID)
-    localStorage.setItem("card9", cards[23].ID)
+    localStorage.setItem("card1", cards[15].Id)
+    localStorage.setItem("card2", cards[16].Id)
+    localStorage.setItem("card3", cards[17].Id)
+    localStorage.setItem("card4", cards[18].Id)
+    localStorage.setItem("card5", cards[19].Id)
+    localStorage.setItem("card6", cards[20].Id)
+    localStorage.setItem("card7", cards[21].Id)
+    localStorage.setItem("card8", cards[22].Id)
+    localStorage.setItem("card9", cards[23].Id)
+    
   }
 }

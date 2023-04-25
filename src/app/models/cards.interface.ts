@@ -1,5 +1,5 @@
 export interface CardsI {
-    ID:string;
+    Id:string;
     Nombre:string;
     Energia:number;
     Costo:number;

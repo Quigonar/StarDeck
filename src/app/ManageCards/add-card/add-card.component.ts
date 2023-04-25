@@ -77,19 +77,6 @@ export class AddCardComponent implements OnInit {
   }
 
   onAdd(form){
-<<<<<<< Updated upstream
-    this.card = form
-    this.card.ID = ""
-    console.log(this.card)
-    // HACER POST POR EL API
-    this.api.addCard(this.card).subscribe(answer => {
-      var icon = "fa fa-check"
-      var type = "success"
-      var message = "La carta ha sido creada exitosamente"
-      this.alert.createAlert(icon, type, message)
-      this.router.navigate(['/cartas'])
-    })
-=======
     if (this.InfoVerifier.verifyCardInfo(form)) {
       this.card = form
 
@@ -100,7 +87,6 @@ export class AddCardComponent implements OnInit {
         }
       })
     }
->>>>>>> Stashed changes
   }
   
   back(){
@@ -112,7 +98,7 @@ export class AddCardComponent implements OnInit {
       Nombre: '',
       Energia: 0,
       Costo: 0,
-      ID: '',
+      Id: '',
       Imagen: '',
       Raza: '',
       Tipo: '',

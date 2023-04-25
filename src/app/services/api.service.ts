@@ -86,8 +86,6 @@ export class ApiService {
     let dir = this.url + "carta/lista"
     return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
   }
-<<<<<<< Updated upstream
-=======
   getFirstLoginCards():Observable<CardsI[]>{
     let dir = this.url + "carta/getnewDeck"
     return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
@@ -96,7 +94,6 @@ export class ApiService {
     let dir = this.url + "carta/lista/" + card
     return this.makeRequest<CardsI>(dir, 'GET') as Observable<CardsI>
   }
->>>>>>> Stashed changes
   addCard(card:CardsI):Observable<string>{
     let dir = this.url + "carta/guardar"
     return this.makeRequest<string>(dir, 'POST', card)
