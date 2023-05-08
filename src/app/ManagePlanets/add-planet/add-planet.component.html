@@ -1,0 +1,108 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn" (click)="back()">
+                    <i class="fa fa-chevron-left"></i>
+                    <span class="title"> Volver </span>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header">
+                    <h4 class="title">Crear Planeta</h4>
+                </div>
+                <div class="content">
+                    <form [formGroup]="planetForm" (ngSubmit)="onAdd(planetForm.value)">
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Nombre del Planeta</label>
+                                        <div class="input-container">
+                                            <input type="text" formControlName="Nombre" id="nombre" placeholder="Nombre" required>
+                                            <span class="input-counter"> {{ name_count }} / 20 </span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Imagen</label>
+                                        <input type="file" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <input type="checkbox" [(ngModel)]="activo" formControlName="Estado" id="Estado">
+                                        <label>&nbsp; Activa</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="center">
+                                        <div class="planet-card">
+                                            <div class="planet-card-face">
+                                                <div class="planet-card-title"> {{planet.Nombre}} </div>
+                                                <div class="planet-card-image">
+                                                    <img [src]="planet.Imagen" alt="Imagen">
+                                                </div>
+                                            </div>
+                                            <div class="planet-card-back">
+                                                <div class="row">
+                                                    <div class="planet-card-description"> {{planet.Descripcion}} </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="planet-card-stat"> {{planet.Popularidad}} </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="center">
+                                        <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                        <input type="submit" value="Crear Carta" class="btn">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Popularidad</label>
+                                        <select formControlName="Popularidad" [attr.placeholder]="'Popularidad'">
+                                            <option value="" disabled selected style="display:none;">Popularidad</option>
+                                            <option *ngFor="let popularidad of popularidades" [value]="popularidad">{{ popularidad }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Efecto</label>
+                                        <select formControlName="Efecto" [attr.placeholder]="'Efecto'">
+                                            <option value="" disabled selected style="display:none;">Efecto</option>
+                                            <option *ngFor="let efecto of efectos" [value]="efectos.Nombre">{{ efectos.Nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Descripcion</label>
+                                        <span class="input-counter2"> {{ desc_count }} / 1000 </span>
+                                        <div class="input-container">
+                                            <textarea type="text" formControlName="Descripcion" id="Descripcion" placeholder="Descripcion" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

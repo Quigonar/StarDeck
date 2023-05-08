@@ -22,9 +22,9 @@ export class AddCardComponent implements OnInit {
   public razas : RazasI[]
   public tipos
 
-  name_count : number = 0
-  desc_count : number = 0
-  activo : boolean = true
+  public name_count : number = 0
+  public desc_count : number = 0
+  public activo : boolean = true
 
   public cardForm = new FormGroup({
     Nombre : new FormControl(''),

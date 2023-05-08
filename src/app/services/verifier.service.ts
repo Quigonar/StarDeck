@@ -79,7 +79,6 @@ import { AlertService } from './alert.service';
 
     verifyCardInfo(form) {
         var type, message, icon
-        console.log(form)
 
         if (form.Nombre === '' || form.Energia === '' || form.Costo === '' || form.Imagen === '' || form.Raza === '' || form.Tipo === '' || form.Descripcion === '') {
             icon = "fa fa-exclamation-triangle"
@@ -123,6 +122,12 @@ import { AlertService } from './alert.service';
             message = "La carta ha sido creada exitosamente"
             this.alert.createAlert(icon, type, message)
             return true
+        } else if (answer === "Edited Successfully") {
+            icon = "fa fa-check"
+            type = "success"
+            message = "La carta ha sido editada exitosamente"
+            this.alert.createAlert(icon, type, message)
+            return true
         } else {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
@@ -131,4 +136,53 @@ import { AlertService } from './alert.service';
             return false
         }
     }
+
+    verifyPlanetInfo(form) {
+        var type, message, icon
+
+        if (form.Nombre === '' || form.Imagen === '' || form.Popularidad === '' || form.Descripcion === '') {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Porfavor asegúrese de que todas las casillas esten llenas, vuelva a intentarlo."
+            this.alert.createAlert(icon,type,message)
+            return false
+        } else if (form.Nombre.length > 20 || form.Nombre.length < 5) {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Porfavor asegúrese de que el nombre del planeta contenga entre 5-20 caracteres, vuelva a intentarlo."
+            this.alert.createAlert(icon,type,message)
+            return false
+        } else if (form.Descripcion.length > 1000) {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Porfavor asegúrese de que la descripcion no contenga mas de 1000 caracteres, vuelva a intentarlo."
+            this.alert.createAlert(icon,type,message)
+            return false
+        } else return true
+    }
+
+    verifyPlanetAnswer(answer) {
+        var type, message, icon
+
+        if (answer === "Added Successfully") {
+            icon = "fa fa-check"
+            type = "success"
+            message = "El planeta ha sido creado exitosamente"
+            this.alert.createAlert(icon, type, message)
+            return true
+        } else if (answer === "Edited Successfully") {
+            icon = "fa fa-check"
+            type = "success"
+            message = "El planeta ha sido editado exitosamente"
+            this.alert.createAlert(icon, type, message)
+            return true
+        } else {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Error de conexión, porfavor intentelo luego"
+            this.alert.createAlert(icon, type, message)
+            return false
+        }
+    }
+
   }

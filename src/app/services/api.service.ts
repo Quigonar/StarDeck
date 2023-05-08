@@ -7,6 +7,7 @@ import { PlayerI } from 'app/models/player.interface';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AlertService } from './alert.service';
+import { PlanetsI } from 'app/models/planets.interface';
 
 
 @Injectable({
@@ -81,13 +82,10 @@ export class ApiService {
         return of('Something went wrong. Please try again later.');
     }
   }
-
+  
+  //CARDS REQUESTS
   getCards():Observable<CardsI[]>{
     let dir = this.url + "carta/lista"
-    return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
-  }
-  getFirstLoginCards():Observable<CardsI[]>{
-    let dir = this.url + "carta/getnewDeck"
     return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
   }
   getCardID(card:any):Observable<CardsI>{
@@ -103,13 +101,37 @@ export class ApiService {
     return this.makeRequest<string>(dir, 'PUT', card)
   }
 
-  getRazas():Observable<RazasI[]>{
-    let dir = this.url + "carta/razas"
-    return this.makeRequest<RazasI[]>(dir, 'GET') as Observable<RazasI[]>
-  }
-
+  //LOGIN/SIGNUP REQUESTS
   addUser(player:PlayerI):Observable<string>{
     let dir = this.url + "usuario/guardarJugador"
     return this.makeRequest<string>(dir, 'POST', player)
+  }
+  getFirstLoginCards():Observable<CardsI[]>{
+    let dir = this.url + "carta/getnewDeck"
+    return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
+  }
+
+  //PLANETS REQUESTS
+  getPlanets():Observable<PlanetsI[]>{
+    let dir = this.url + "planetas/lista"
+    return this.makeRequest<PlanetsI[]>(dir,'GET') as Observable<PlanetsI[]>
+  }
+  getPlanetID(planeta:any):Observable<PlanetsI>{
+    let dir = this.url + "planetas/lista/" + planeta
+    return this.makeRequest<PlanetsI>(dir, 'GET') as Observable<PlanetsI>
+  }
+  addPlanet(planet:PlanetsI):Observable<string>{
+    let dir = this.url + "planetas/guardar"
+    return this.makeRequest<string>(dir,'POST', planet)
+  }
+  updatePlanet(planet:PlanetsI):Observable<string>{
+    let dir = this.url + "planet/editar"
+    return this.makeRequest<string>(dir, 'PUT', planet)
+  }
+
+  //DROPDOWN TABLES REQUESTS
+  getRazas():Observable<RazasI[]>{
+    let dir = this.url + "carta/razas"
+    return this.makeRequest<RazasI[]>(dir, 'GET') as Observable<RazasI[]>
   }
 }

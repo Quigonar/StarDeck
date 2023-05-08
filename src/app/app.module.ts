@@ -38,7 +38,7 @@ const routes: Routes =[
     AdminLayoutComponent,
     ClientLayoutComponent,
     FirstLoginLayoutComponent,
-    LoginComponent,
+    LoginComponent
   ],
   providers: [
     RouteService,

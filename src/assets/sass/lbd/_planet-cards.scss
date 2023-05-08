@@ -1,0 +1,95 @@
+.planet-card {
+    width: 223px;
+    height: 330px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  
+    .planet-card-face,
+    .planet-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+  
+    .planet-card-face {
+      background-color: none;
+      transform: rotateY(0deg);
+      width: 100%;
+      transition: transform 0.3s ease-in-out;
+      padding: 20px;
+    }
+  
+    .planet-card-back {
+      background-color: #5d5d69;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+      padding: 20px;
+    }
+  
+    .planet-card:hover .planet-card-face {
+      transform: translateY(0%);
+    }
+  
+    .planet-card:hover .planet-card-back {
+      transform: translateY(0%);
+    }
+  
+    .planet-card-image {
+      height: 80%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .planet-card-image img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      max-height: 100%;
+    }
+  
+    .planet-card-stat {
+      font-size: 16px;
+      margin: 0;
+      text-align: center;
+      border-radius: 10px;
+      background-color: #323246;
+      color: white;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    
+    .planet-card-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+      padding-bottom: 5%;
+      padding-top: 5%;
+      padding-left: 5%;
+      text-align: left;
+      background-color: #343444;
+      border-radius: 10px;
+      color: white;
+    }
+    
+    .planet-card-description {
+      font-size: 12px;
+      margin: 0;
+      padding-top: 10px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: white;
+      font-style: italic;
+    }
