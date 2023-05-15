@@ -1,5 +1,5 @@
-<div *ngIf="user.userLogged() != 'login'; else elseBlock">
-    <div *ngIf="user.userLogged() != 'first'; else elseBlock2">
+<div *ngIf="user.userLogged() != 'login' && user.userLogged() != 'first'; else elseBlock">
+    <div *ngIf="user.userLogged() != 'client'; else elseBlock2">
         <div class="wrapper">
             <div class="sidebar" data-color="gray" data-image="">
                 <app-sidebar></app-sidebar>
@@ -8,7 +8,6 @@
             <div class="main-panel">
                 <navbar-cmp></navbar-cmp>
                 <router-outlet></router-outlet>
-                <footer-cmp></footer-cmp>
             </div>
         </div>
     </div>
@@ -17,5 +16,6 @@
     <router-outlet></router-outlet>
 </ng-template>
 <ng-template #elseBlock2>
+    <navbar2-cmp></navbar2-cmp>
     <router-outlet></router-outlet>
 </ng-template>

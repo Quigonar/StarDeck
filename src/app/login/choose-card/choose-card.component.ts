@@ -37,9 +37,10 @@ export class ChooseCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cardsChoose = []
     this.routeSub = this.route.params.subscribe(params => {
       this.round = params['round']
-      let counter = 0
+      var counter = 0
       for (let i = ((parseInt(this.round) - 1) * 3); i < ((parseInt(this.round) - 1) * 3) + 3; i++) {
         this.api.getCardID(this.routeService.getCards()[i]).subscribe(card => {
           this.cardsChoose[counter] = card[0]

@@ -49,4 +49,17 @@ export class TestService {
         }
         return planets
     }
+
+    testDecks(iter:number) {
+        var decks = new Array(iter);
+        for (let i = 1; i <= iter; i++) {
+            decks[i-1] = { 
+                Id : 'D-' + i,
+                Nombre: "Deck #" + i,
+                Cartas: this.testCards(18),
+                Estado: false
+            }
+        }
+        return decks
+    }
 }

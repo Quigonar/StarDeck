@@ -1,3 +1,121 @@
+.navbar {
+    @include horizontal-gradient($new-gray, $gray-color-bottom);
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+}
+
+.navbar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > .dropdown > a:hover .caret {
+        cursor: pointer;
+    }
+    > .dropdown > a:focus .caret {
+        border-bottom-color: $info-color;
+        border-top-color: $info-color;
+        cursor: pointer;
+    }
+}
+
+.navbar-title {
+    font-weight: bold;
+    font-size: 35px;
+    margin-left: 5px;
+    color: white;
+}
+
+.navbar-text {
+    font-size: 30px;
+    color: white;
+    text-align: right;
+    flex-grow: 1;
+}
+
+.navbar-profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 5px;
+    border: 2px solid gray;
+    cursor: pointer;
+}
+
+
+.navbar-sections {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.navbar-section {
+    text-align: center;
+    font-weight: bold;
+    color:white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.navbar-section.active {
+    color: #57d3c4;
+  }
+
+.navbar > li > .dropdown-menu{
+    border-radius: $border-radius-extreme;
+    margin-top: -5px;
+    cursor: pointer;
+}
+
+
+
+.navbar-default {
+    background-color: $white-navbar;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    .navbar-nav{
+        > li > a:not(.btn){
+            color: $dark-gray;
+        }
+
+        > .active > a,
+        > .active > a:not(.btn):hover,
+        > .active > a:not(.btn):focus,
+        > li > a:not(.btn):hover,
+        > li > a:not(.btn):focus {
+            background-color: transparent;
+            border-radius: 3px;
+            color: $info-color;
+            @include opacity(1);
+        }
+
+        > .open > a,
+        > .open > a:hover,
+        > .open > a:focus{
+            background-color: transparent;
+            color: $info-color;
+        }
+
+        .navbar-toggle:hover,.navbar-toggle:focus {
+            background-color: transparent;
+        }
+
+    }
+
+    &:not(.navbar-transparent) .btn-default:hover{
+        color: $info-color;
+        border-color: $info-color;
+    }
+    &:not(.navbar-transparent) .btn-neutral,
+    &:not(.navbar-transparent) .btn-neutral:hover,
+    &:not(.navbar-transparent) .btn-neutral:active{
+            color: $dark-gray;
+        }
+}
+
 .nav {
     > li{
         > a:hover,
@@ -11,7 +129,7 @@
         }
     }
 }
-.navbar{
+.navbar2{
     border: $none;
     font-size: $font-size-navbar;
     border-radius: 0;
@@ -78,11 +196,8 @@
 
 }
 
-.navbar-nav > li > .dropdown-menu{
-    border-radius: $border-radius-extreme;
-    margin-top: -5px;
-}
 
+/*
 .navbar-transparent, [class*="navbar-ct"]{
     .navbar-brand{
         color: $white-color;
@@ -160,60 +275,6 @@
     border-bottom-color: $white-color;
     border-top-color: $white-color;
 }
-
-.navbar-default {
-    background-color: $white-navbar;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-    .navbar-nav{
-        > li > a:not(.btn){
-            color: $dark-gray;
-        }
-
-        > .active > a,
-        > .active > a:not(.btn):hover,
-        > .active > a:not(.btn):focus,
-        > li > a:not(.btn):hover,
-        > li > a:not(.btn):focus {
-            background-color: transparent;
-            border-radius: 3px;
-            color: $info-color;
-            @include opacity(1);
-        }
-
-        > .dropdown > a:hover .caret,
-        > .dropdown > a:focus .caret {
-            border-bottom-color: $info-color;
-            border-top-color: $info-color;
-
-        }
-
-        > .open > a,
-        > .open > a:hover,
-        > .open > a:focus{
-            background-color: transparent;
-            color: $info-color;
-        }
-
-        .navbar-toggle:hover,.navbar-toggle:focus {
-            background-color: transparent;
-        }
-
-    }
-
-    &:not(.navbar-transparent) .btn-default:hover{
-        color: $info-color;
-        border-color: $info-color;
-    }
-    &:not(.navbar-transparent) .btn-neutral,
-    &:not(.navbar-transparent) .btn-neutral:hover,
-    &:not(.navbar-transparent) .btn-neutral:active{
-            color: $dark-gray;
-        }
-}
-
-/*      Navbar with icons            */
-
 .navbar-icons{
     &.navbar .navbar-brand{
         margin-top: 12px;
@@ -293,4 +354,4 @@
     &.navbar-default .navbar-toggle:focus {
         background-color: transparent;
     }
-}
+}*/

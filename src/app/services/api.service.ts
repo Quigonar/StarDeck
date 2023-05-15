@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AlertService } from './alert.service';
 import { PlanetsI } from 'app/models/planets.interface';
+import { DecksI } from 'app/models/decks.interface';
 
 
 @Injectable({
@@ -127,6 +128,12 @@ export class ApiService {
   updatePlanet(planet:PlanetsI):Observable<string>{
     let dir = this.url + "planet/editar"
     return this.makeRequest<string>(dir, 'PUT', planet)
+  }
+
+  //DECKS REQUESTS
+  addDeck(deck:DecksI):Observable<string>{
+    let dir = this.url + "decks/guardar"
+    return this.makeRequest<string>(dir,'POST', deck)
   }
 
   //DROPDOWN TABLES REQUESTS

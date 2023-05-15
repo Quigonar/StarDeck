@@ -185,4 +185,52 @@ import { AlertService } from './alert.service';
         }
     }
 
+    verifyDeckInfo(form){
+        var type, message, icon
+
+        if (form.Nombre === '') {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Porfavor asegúrese de que la casilla del nombre este llena, vuelva a intentarlo."
+            this.alert.createAlert(icon,type,message)
+            return false
+        } else if (form.Nombre.length > 20 || form.Nombre.length < 5) {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Porfavor asegúrese de que el nombre del planeta contenga entre 5-20 caracteres, vuelva a intentarlo."
+            this.alert.createAlert(icon,type,message)
+            return false
+        } else if (form.Cartas.length > 18 || form.Cartas.length < 18) {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Porfavor asegúrese de que las cartas seleccionadas sean exactamente 18, vuelva a intentarlo."
+            this.alert.createAlert(icon,type,message)
+            return false
+        } else return true
+    }
+
+    verifyDeckAnswer(answer) {
+        var type, message, icon
+
+        if (answer === "Added Successfully") {
+            icon = "fa fa-check"
+            type = "success"
+            message = "El mazo ha sido creado exitosamente"
+            this.alert.createAlert(icon, type, message)
+            return true
+        } else if (answer === "Edited Successfully") {
+            icon = "fa fa-check"
+            type = "success"
+            message = "El mazo ha sido editado exitosamente"
+            this.alert.createAlert(icon, type, message)
+            return true
+        } else {
+            icon = "fa fa-exclamation-triangle"
+            type = "danger"
+            message = "Error de conexión, porfavor intentelo luego"
+            this.alert.createAlert(icon, type, message)
+            return false
+        }
+    }
+
   }

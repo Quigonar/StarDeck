@@ -31,32 +31,10 @@ export class NavbarComponent implements OnInit{
         this.router.navigate(['login'])
     }
 
-    shoppingCart(){
-      this.router.navigate(['/shopping-cart/' + this.user.userID()])
-    }
-
     ngOnInit(){
       this.listTitles = Affiliate.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-      //GET FROM API THE CLIENT USER AND REPLACE this.client
-      this.client = {
-        ID: "",
-        FirstN: "",
-        FirstLN: "",
-        SecondLN:"",
-        BDate: "",
-        Username: "",
-        Password: "",
-        Province: "",
-        Canton: "",
-        District: "",
-        PhoneNum: "",
-        Status: "Occupied",
-      }
-      if (this.client.Status == "Occupied") {
-        this.bicycleVisible = true
-      }
     }
 
     sidebarOpen() {
@@ -97,9 +75,5 @@ export class NavbarComponent implements OnInit{
           }
       }
       return 'Home';
-    }
-
-    getAffiliations(id:any){
-        this.router.navigate(['/affiliation/' + id])
     }
 }

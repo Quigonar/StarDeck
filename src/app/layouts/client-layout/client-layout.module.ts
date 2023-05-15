@@ -9,6 +9,9 @@ import { FooterModule } from 'app/shared/footer/footer.module';
 import { NavbarModule } from 'app/shared/navbar/navbar.module';
 import { SidebarModule } from 'app/sidebar/sidebar.module';
 import { FirstLoginComponent } from 'app/login/first-login/first-login.component';
+import { DecksComponent } from 'app/ManageDecks/decks/decks.component';
+import { AddDeckComponent } from 'app/ManageDecks/add-deck/add-deck.component';
+import { EditDeckComponent } from 'app/ManageDecks/edit-deck/edit-deck.component';
 
 
 @NgModule({
@@ -24,6 +27,9 @@ import { FirstLoginComponent } from 'app/login/first-login/first-login.component
     SidebarModule,
   ],
   declarations: [
+    DecksComponent,
+    AddDeckComponent,
+    EditDeckComponent
   ],
   providers: [
   ],
