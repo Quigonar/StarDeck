@@ -54,9 +54,6 @@ export class AddDeckComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.api.getDecks().subscribe(decks => {
-      this.decks = decks
-    })*/
     this.deck = {
       Id: '',
       Nombre: '',
