@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label>Nombre del mazo</label>
                 <div class="input-container">
-                    <input type="text" formControlName="Nombre" id="nombre" placeholder="Nombre del mazo" required>
+                    <input type="text" formControlName="nombre" id="nombre" placeholder="Nombre del mazo" required>
                     <span class="input-counter"> {{ name_count }} / 20 </span>
                 </div>
             </div>
@@ -34,37 +34,37 @@
             <div *ngIf="(i + 1) % 6 != 0; else elseBlock" class="col-md-2">
                 <div class="play-card" (click)="addCardToDeck(card)" [class.selected]="selectedCards.includes(card)">
                     <div class="play-card-face">
-                        <div class="play-card-title"> {{card.Nombre}} </div>
+                        <div class="play-card-title"> {{card.nombre}} </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    <span class="icon-combat"></span> {{card.Costo}}
+                                    <span class="icon-combat"></span> {{card.costo}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    <span class="icon-energy"></span> {{card.Energia}}
+                                    <span class="icon-energy"></span> {{card.energia}}
                                 </div>
                             </div>
                         </div>
                         <div class="play-card-image">
-                            <img [src]="card.Imagen" alt="Imagen">
+                            <img [src]="card.imagen" alt="Imagen">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    {{card.Raza}}
+                                    {{card.raza}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    {{card.Tipo}}
+                                    {{card.tipo}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="play-card-back">
-                        <div class="play-card-description"> {{card.Descripcion}} </div>
+                        <div class="play-card-description"> {{card.descripcion}} </div>
                     </div>
                 </div>
             </div>
@@ -73,37 +73,37 @@
                     <div class="col-md-2">
                         <div class="play-card" (click)="addCardToDeck(card)" [class.selected]="selectedCards.includes(card)">
                             <div class="play-card-face">
-                                <div class="play-card-title"> {{card.Nombre}} </div>
+                                <div class="play-card-title"> {{card.nombre}} </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            <span class="icon-combat"></span> {{card.Costo}}
+                                            <span class="icon-combat"></span> {{card.costo}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            <span class="icon-energy"></span> {{card.Energia}}
+                                            <span class="icon-energy"></span> {{card.energia}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="play-card-image">
-                                    <img [src]="card.Imagen" alt="Imagen">
+                                    <img [src]="card.imagen" alt="Imagen">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            {{card.Raza}}
+                                            {{card.raza}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            {{card.Tipo}}
+                                            {{card.tipo}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="play-card-back">
-                                <div class="play-card-description"> {{card.Descripcion}} </div>
+                                <div class="play-card-description"> {{card.descripcion}} </div>
                             </div>
                         </div>
                     </div>

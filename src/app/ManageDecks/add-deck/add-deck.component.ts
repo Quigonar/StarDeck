@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CardsI } from 'app/models/cards.interface';
 import { DecksI } from 'app/models/decks.interface';
 import { ApiService } from 'app/services/api.service';
+import { RouteService } from 'app/services/route.service';
 import { TestService } from 'app/services/testing.service';
 import { VerifyService } from 'app/services/verifier.service';
 
@@ -20,14 +21,15 @@ export class AddDeckComponent implements OnInit {
   public name_count : number
 
   public deckForm = new FormGroup({
-    Nombre : new FormControl(''),
-    Id : new FormControl(''),
-    Estado : new FormControl(false)
+    nombre : new FormControl(''),
+    id : new FormControl(''),
+    estado : new FormControl(true),
+    id_usuario : new FormControl(this.user.userID())
   })
 
   
-  constructor(private router:Router, private api:ApiService, private test:TestService, private InfoVerifier:VerifyService) { 
-    this.deckForm.controls['Nombre'].valueChanges.subscribe((newValue) => {
+  constructor(private router:Router, private api:ApiService, private test:TestService, private InfoVerifier:VerifyService, private user:RouteService) { 
+    this.deckForm.controls['nombre'].valueChanges.subscribe((newValue) => {
       this.name_count = newValue.length
     })
   }
@@ -46,9 +48,10 @@ export class AddDeckComponent implements OnInit {
     if (this.InfoVerifier.verifyDeckInfo(this.deck)) {
       console.log(this.deck)
       this.api.addDeck(this.deck).subscribe(answer => {
-        if (this.InfoVerifier.verifyDeckAnswer(answer)) {
+        /*if (this.InfoVerifier.verifyDeckAnswer(answer)) {
           this.router.navigate(['/mazos'])
-        }
+        }*/
+        this.router.navigate(['/mazos'])
       })
     }
   }
@@ -58,12 +61,12 @@ export class AddDeckComponent implements OnInit {
       id: '',
       nombre: '',
       cartas: [],
-      estado: false
+      estado: true,
+      id_usuario: this.user.userID()
     }
-    /*this.api.getCards().subscribe(cards => {
+    this.api.getCollectionID(this.user.userID()).subscribe(cards => {
       this.cards = cards
-    })*/
-    this.cards = this.test.testCards(40)
+    })
   }
 
 }

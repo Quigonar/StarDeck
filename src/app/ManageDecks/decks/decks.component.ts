@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CardsI } from 'app/models/cards.interface';
 import { DecksI } from 'app/models/decks.interface';
 import { ApiService } from 'app/services/api.service';
+import { RouteService } from 'app/services/route.service';
 import { TestService } from 'app/services/testing.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class DecksComponent implements OnInit {
   public selectedDeck: DecksI | null = null;
 
   
-  constructor(private router:Router, private api:ApiService, private test:TestService) { }
+  constructor(private router:Router, private api:ApiService, private test:TestService, private user:RouteService) { }
 
   addDeck(){
     this.router.navigate(['/anadir-mazo'])
@@ -34,6 +35,9 @@ export class DecksComponent implements OnInit {
           this.cards = clickedDeck.cartas
           this.selectedDeck = clickedDeck
           //HACER LLAMADA DE API PARA PONER EN ACTIVO ESTE DECK
+          this.api.updateDeckState(this.selectedDeck, this.selectedDeck.id).subscribe(answer => {
+
+          })
         }
         else {
           this.selectedDeck = null
@@ -41,15 +45,26 @@ export class DecksComponent implements OnInit {
         }
       } else {
         deck.estado = false
+        this.api.updateDeckState(deck, deck.id).subscribe(answer => {
+
+        })
       }
     });
   }
 
   ngOnInit(): void {
-    /*this.api.getDecks().subscribe(decks => {
+    this.api.getDecks(this.user.userID()).subscribe(decks => {
       this.decks = decks
-    })*/
-    this.decks = this.test.testDecks(20)
+      this.decks.forEach(deck => {
+        if (deck.estado === true) {
+          this.selectedDeck = deck
+          this.cards = deck.cartas
+          console.log("CARTAS ABAJO:")
+          console.log(this.cards)
+        }
+      });
+    })
+    //this.decks = this.test.testDecks(20)
   }
 
 }

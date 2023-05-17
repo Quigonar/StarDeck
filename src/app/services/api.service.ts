@@ -144,14 +144,26 @@ export class ApiService {
 
   //DECKS REQUESTS
   addDeck(deck:DecksI):Observable<string>{
-    let dir = this.url + "decks/guardar"
+    let dir = this.url + "colection/addDeck"
     return this.makeRequest<string>(dir,'POST', deck)
+  }
+  getDecks(user:any):Observable<DecksI[]>{
+    let dir = this.url + "colection/getdecks/" + user
+    return this.makeRequest<DecksI[]>(dir,'GET') as Observable<DecksI[]>
+  }
+  updateDeckState(deck:DecksI,id:any):Observable<string>{
+    let dir = this.url + "colection/update/" + id
+    return this.makeRequest<string>(dir,'PUT', deck)
   }
 
   //COLLECTION REQUESTS
   addCardToCollection(card:cardsPerUserI):Observable<string>{
     let dir = this.url + "colection/addCartaUsuario"
     return this.makeRequest<string>(dir, 'POST', card)
+  }
+  getCollectionID(user:any):Observable<CardsI[]>{
+    let dir = this.url + "colection/getcolection/" + user
+    return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
   }
 
   //DROPDOWN TABLES REQUESTS

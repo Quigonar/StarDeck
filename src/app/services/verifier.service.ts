@@ -68,7 +68,7 @@ import { AlertService } from './alert.service';
             message = "El correo ingresado ya existe, cambielo y vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (answer.substr(0, 2) === "U-") {
+        } else if (answer.startsWith("U-")) {
             icon = "fa fa-check"
             type = "success"
             message = "La cuenta ha sido creada exitosamente"
@@ -80,31 +80,31 @@ import { AlertService } from './alert.service';
     verifyCardInfo(form) {
         var type, message, icon
 
-        if (form.Nombre === '' || form.Energia === '' || form.Costo === '' || form.Imagen === '' || form.Raza === '' || form.Tipo === '' || form.Descripcion === '') {
+        if (form.nombre === '' || form.energia === '' || form.costo === '' || form.imagen === '' || form.raza === '' || form.tipo === '' || form.descripcion === '') {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que todas las casillas esten llenas, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Nombre.length > 30 || form.Nombre.length < 5) {
+        } else if (form.nombre.length > 30 || form.nombre.length < 5) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que el nombre de la carta contenga entre 5-30 caracteres, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Energia > 100 || form.Energia < -100) {
+        } else if (form.energia > 100 || form.energia < -100) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que la energia se encuentre en el rango de -100 a 100, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Costo > 100 || form.Costo < 0) {
+        } else if (form.costo > 100 || form.costo < 0) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que el costo se encuentre en el rango de 0 a 100, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Descripcion.length > 1000) {
+        } else if (form.descripcion.length > 1000) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que la descripcion no contenga mas de 1000 caracteres, vuelva a intentarlo."
@@ -116,16 +116,10 @@ import { AlertService } from './alert.service';
     verifyCardAnswer(answer) {
         var type, message, icon
 
-        if (answer === "Added Successfully") {
+        if (answer.id.startsWith("C-")) {
             icon = "fa fa-check"
             type = "success"
             message = "La carta ha sido creada exitosamente"
-            this.alert.createAlert(icon, type, message)
-            return true
-        } else if (answer === "Edited Successfully") {
-            icon = "fa fa-check"
-            type = "success"
-            message = "La carta ha sido editada exitosamente"
             this.alert.createAlert(icon, type, message)
             return true
         } else {
@@ -183,19 +177,19 @@ import { AlertService } from './alert.service';
     verifyDeckInfo(form){
         var type, message, icon
 
-        if (form.Nombre === '') {
+        if (form.nombre === '') {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que la casilla del nombre este llena, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Nombre.length > 20 || form.Nombre.length < 5) {
+        } else if (form.nombre.length > 20 || form.nombre.length < 5) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que el nombre del planeta contenga entre 5-20 caracteres, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Cartas.length > 18 || form.Cartas.length < 18) {
+        } else if (form.cartas.length != 18) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que las cartas seleccionadas sean exactamente 18, vuelva a intentarlo."
@@ -207,16 +201,10 @@ import { AlertService } from './alert.service';
     verifyDeckAnswer(answer) {
         var type, message, icon
 
-        if (answer === "Added Successfully") {
+        if (answer.id.startsWith("D-")) {
             icon = "fa fa-check"
             type = "success"
             message = "El mazo ha sido creado exitosamente"
-            this.alert.createAlert(icon, type, message)
-            return true
-        } else if (answer === "Edited Successfully") {
-            icon = "fa fa-check"
-            type = "success"
-            message = "El mazo ha sido editado exitosamente"
             this.alert.createAlert(icon, type, message)
             return true
         } else {

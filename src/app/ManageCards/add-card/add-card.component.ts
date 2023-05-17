@@ -41,7 +41,7 @@ export class AddCardComponent implements OnInit {
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
     try {
       this.b64.getBase64(event.item(0)).then((imagen: any) => {
-        this.cardForm.controls['Imagen'].setValue(imagen.base)
+        this.cardForm.controls['imagen'].setValue(imagen.base)
         this.card.imagen = imagen.base
       })
     } catch {

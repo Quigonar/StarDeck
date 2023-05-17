@@ -5,4 +5,5 @@ export interface DecksI {
     nombre: string;
     cartas: CardsI[];
     estado: boolean;
+    id_usuario: string;
   }

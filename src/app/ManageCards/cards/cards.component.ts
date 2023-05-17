@@ -23,10 +23,10 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.api.getCards().subscribe(cards => {
+    this.api.getCards().subscribe(cards => {
       this.cards = cards
-    })*/
-    this.cards = this.test.testCards(40)
+    })
+    //this.cards = this.test.testCards(40)
   }
   
 }
