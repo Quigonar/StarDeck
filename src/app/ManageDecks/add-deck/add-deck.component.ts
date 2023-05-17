@@ -46,7 +46,6 @@ export class AddDeckComponent implements OnInit {
 
     
     if (this.InfoVerifier.verifyDeckInfo(this.deck)) {
-      console.log(this.deck)
       this.api.addDeck(this.deck).subscribe(answer => {
         /*if (this.InfoVerifier.verifyDeckAnswer(answer)) {
           this.router.navigate(['/mazos'])

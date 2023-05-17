@@ -59,8 +59,6 @@ export class DecksComponent implements OnInit {
         if (deck.estado === true) {
           this.selectedDeck = deck
           this.cards = deck.cartas
-          console.log("CARTAS ABAJO:")
-          console.log(this.cards)
         }
       });
     })

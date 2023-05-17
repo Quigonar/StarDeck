@@ -8,10 +8,11 @@ import { ClientLayoutRoutes } from './client-layout.routing';
 import { FooterModule } from 'app/shared/footer/footer.module';
 import { NavbarModule } from 'app/shared/navbar/navbar.module';
 import { SidebarModule } from 'app/sidebar/sidebar.module';
-import { FirstLoginComponent } from 'app/login/first-login/first-login.component';
 import { DecksComponent } from 'app/ManageDecks/decks/decks.component';
 import { AddDeckComponent } from 'app/ManageDecks/add-deck/add-deck.component';
 import { EditDeckComponent } from 'app/ManageDecks/edit-deck/edit-deck.component';
+import { MatchComponent } from 'app/ManageMatch/match/match.component';
+import { MatchmakingComponent } from 'app/ManageMatch/matchmaking/matchmaking.component';
 
 
 @NgModule({
@@ -29,7 +30,9 @@ import { EditDeckComponent } from 'app/ManageDecks/edit-deck/edit-deck.component
   declarations: [
     DecksComponent,
     AddDeckComponent,
-    EditDeckComponent
+    EditDeckComponent,
+    MatchmakingComponent,
+    MatchComponent
   ],
   providers: [
   ],

@@ -1,0 +1,12 @@
+<div class="container2">
+    <h1 *ngIf="!searchingMatch && !inMatch" class="title">Bienvenido a StarDeck</h1>
+    <h1 *ngIf="!searchingMatch && inMatch" class="title">Estas en una partida, reconectate!</h1>
+    <h1 *ngIf="searchingMatch && !inMatch" class="title">Buscando Partida</h1>
+    <h1 *ngIf="matchNotFound" class="title">No se encontró partida, intentalo más tarde</h1>
+
+
+    <button *ngIf="!searchingMatch && !inMatch" class="btn" (click)="searchGame()">Buscar Partida</button>
+    <button *ngIf="!searchingMatch && inMatch" class="btn" (click)="reconnect()">Reconectar a Partida</button>
+    <h1 *ngIf="searchingMatch && !inMatch" class="title">Tiempo Estimado: {{remainingTime}}</h1>
+    <button *ngIf="matchNotFound" class="btn" (click)="reload()">Aceptar</button>
+</div>

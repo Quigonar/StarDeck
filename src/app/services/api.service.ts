@@ -12,6 +12,7 @@ import { DecksI } from 'app/models/decks.interface';
 import { LoginI } from 'app/models/login.interface';
 import { loginResponseI } from 'app/models/loginResponse.interface';
 import { cardsPerUserI } from 'app/models/cardsPerUser.interface';
+import { MatchI } from 'app/models/match.interface';
 
 
 @Injectable({
@@ -67,7 +68,6 @@ export class ApiService {
       case 'POST':
         return this.http.post<T>(url, data).pipe(
           catchError((error) => {
-            console.log(error)
             if (error.error instanceof ErrorEvent) {
               message = "Un error ha ocurrido: ", error.error.message
               this.alert.createAlert(icon,type,message)
@@ -164,6 +164,20 @@ export class ApiService {
   getCollectionID(user:any):Observable<CardsI[]>{
     let dir = this.url + "colection/getcolection/" + user
     return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
+  }
+
+  //MATCHMAKING REQUESTS
+  searchGame(user:any):Observable<PlayerI>{
+    let dir = this.url + "matchmaking/searchGame/" + user
+    return this.makeRequest<PlayerI>(dir, 'PUT') as Observable<PlayerI>
+  }
+  matchMakingCheck(user:any):Observable<MatchI>{
+    let dir = this.url + "matchmaking/matchmakingCheck/" + user
+    return this.makeRequest<MatchI>(dir, 'GET') as Observable<MatchI>
+  }
+  finishMatch(user:any):Observable<PlayerI>{
+    let dir = this.url + "matchmaking/finishMatch/" + user
+    return this.makeRequest<PlayerI>(dir, 'PUT') as Observable<PlayerI>
   }
 
   //DROPDOWN TABLES REQUESTS

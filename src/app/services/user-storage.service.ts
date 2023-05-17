@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CardsI } from 'app/models/cards.interface';
+import { MatchI } from 'app/models/match.interface';
 import { localservices } from 'googleapis/build/src/apis/localservices';
 
 @Injectable()
@@ -39,6 +40,10 @@ export class UserStorageService {
     return cards
   }
 
+  getMatchID() {
+    return localStorage.getItem("matchID")
+  }
+
   set(user: string) {
     if (!this.exists()) throw new Error("user does not exist.");
     localStorage.setItem("user", user);
@@ -75,5 +80,9 @@ export class UserStorageService {
     localStorage.setItem("card23", cards[22].id)
     localStorage.setItem("card24", cards[23].id)
     
+  }
+
+  setMatchID(match:MatchI) {
+    localStorage.setItem("matchID", match.id_Partida)
   }
 }

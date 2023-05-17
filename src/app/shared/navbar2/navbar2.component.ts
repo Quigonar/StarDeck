@@ -26,7 +26,6 @@ export class Navbar2Component implements OnInit{
     }
 
     viewProfile(playerId) {
-        console.log("Ver Perfil de: " + playerId)
     }
 
     setActiveSection(index: number) {

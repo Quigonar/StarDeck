@@ -158,7 +158,6 @@ import { AlertService } from './alert.service';
     verifyPlanetAnswer(answer) {
         var type, message, icon
 
-        console.log(answer)
         if (answer.id.startsWith("P-")) {
             icon = "fa fa-check"
             type = "success"

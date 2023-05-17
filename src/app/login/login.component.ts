@@ -80,9 +80,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(form) {
-    console.log(form)
     this.api.login(form).subscribe(answer => {
-      console.log(answer)
       if (answer.found && answer.usuario.administrador) {
         this.routeService.switch("admin", answer.usuario.id)
       } else if (answer.found && !answer.usuario.administrador) {
@@ -96,7 +94,6 @@ export class LoginComponent implements OnInit {
 
   onSignUp(form) {
     this.player = form
-    console.log(this.player)
 
     if (this.infoVerifier.verifyUserInfo(form)) {
       

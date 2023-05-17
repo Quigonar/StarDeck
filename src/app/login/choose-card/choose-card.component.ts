@@ -27,14 +27,12 @@ export class ChooseCardComponent implements OnInit {
     if (parseInt(this.round) < 3) {
       this.router.navigate(['choose-card/', parseInt(this.round) + 1])
       this.cardsChosen.push(this.cardsChoose[index])
-      console.log(this.cardsChosen)
       
       this.cardsChoose = []
     } else {
       this.cardsChosen.push(this.cardsChoose[index])
       this.cardsChosen = Array.from(new Set(this.cardsChosen))
       this.cardsChosen = this.cardsChosen.slice(0,4)
-      console.log(this.cardsChosen)
 
       //CALL API AND ADD CHOSEN CARDS
       this.cardsChosen.forEach(card => {
@@ -42,7 +40,6 @@ export class ChooseCardComponent implements OnInit {
           id_carta: card.id,
           id_usuario: this.routeService.userID()
         }
-        console.log(this.cardsPerUser)
         this.api.addCardToCollection(this.cardsPerUser).subscribe(answer => {
 
         })
@@ -54,7 +51,6 @@ export class ChooseCardComponent implements OnInit {
           id_carta: this.allCards[i],
           id_usuario: this.routeService.userID()
         }
-        console.log(this.cardsPerUser)
         this.api.addCardToCollection(this.cardsPerUser).subscribe(answer => {
 
         })
