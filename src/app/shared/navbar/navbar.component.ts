@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { RouteService } from 'app/services/route.service';
 import { ApiService } from 'app/services/api.service';
 import { time } from 'console';
-import { ClientI } from 'app/models/client.interface';
 
 @Component({
     // moduleId: module.id,
@@ -19,7 +18,6 @@ export class NavbarComponent implements OnInit{
     private toggleButton: any;
     private sidebarVisible: boolean;
     public bicycleVisible: boolean = false;
-    public client: ClientI;
 
     constructor(location: Location,  private element: ElementRef, private router:Router, public user:RouteService, private api:ApiService) {
       this.location = location;

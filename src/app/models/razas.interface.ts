@@ -1,4 +1,4 @@
 export interface RazasI {
-    ID:string;
-    Nombre:string;
+    id:string;
+    nombre:string;
 }

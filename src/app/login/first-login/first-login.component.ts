@@ -4,6 +4,7 @@ import { CardsI } from 'app/models/cards.interface';
 import { ApiService } from 'app/services/api.service';
 import { RouteService } from 'app/services/route.service';
 import { Location } from '@angular/common';
+import { cardsPerUserI } from 'app/models/cardsPerUser.interface';
 
 @Component({
   selector: 'app-first-login',
@@ -12,6 +13,7 @@ import { Location } from '@angular/common';
 })
 export class FirstLoginComponent implements OnInit {
   public cardsGiven : CardsI[]
+  public cardsPerUser : cardsPerUserI
   constructor(private router:Router, private api:ApiService, private routeService:RouteService, private location: Location) { }
 
   choose_card() {

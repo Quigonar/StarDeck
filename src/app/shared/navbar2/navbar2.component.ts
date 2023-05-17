@@ -50,18 +50,8 @@ export class Navbar2Component implements OnInit{
                     }
                 }
         });
-        this.player = {
-            Id: '',
-            Nombre: '',
-            Username: '',
-            Nacionalidad: '',
-            Contrasena: '',
-            Correo: '',
-            Estado: true,
-            Avatar: '',
-            Ranking: 120,
-            Monedas: 20,
-            Administrador: false
-        }
+        this.api.getPlayerID(this.user.userID()).subscribe(player => {
+            this.player = player
+        })
     }
 }

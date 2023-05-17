@@ -40,7 +40,7 @@ export class AddDeckComponent implements OnInit {
 
   onAdd(form){
     this.deck = form
-    this.deck.Cartas = this.selectedCards
+    this.deck.cartas = this.selectedCards
 
     
     if (this.InfoVerifier.verifyDeckInfo(this.deck)) {
@@ -55,10 +55,10 @@ export class AddDeckComponent implements OnInit {
 
   ngOnInit(): void {
     this.deck = {
-      Id: '',
-      Nombre: '',
-      Cartas: [],
-      Estado: false
+      id: '',
+      nombre: '',
+      cartas: [],
+      estado: false
     }
     /*this.api.getCards().subscribe(cards => {
       this.cards = cards

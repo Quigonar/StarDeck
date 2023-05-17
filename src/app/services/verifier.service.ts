@@ -20,31 +20,31 @@ import { AlertService } from './alert.service';
         var type, message, icon
         const alphanumericRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
 
-        if (form.Nombre === '' || form.Username === '' || form.Nacionalidad === '' || form.Contrasena === '' || form.password_confirmation === '' || form.Correo === '') {
+        if (form.nombre === '' || form.username === '' || form.nacionalidad === '' || form.contrasena === '' || form.password_confirmation === '' || form.correo === '') {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que todas las casillas esten llenas, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Username.length > 30 || form.Username.length < 1) {
+        } else if (form.username.length > 30 || form.username.length < 1) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que el usuario contenga entre 1-30 caracteres, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Contrasena.length != 8) {
+        } else if (form.contrasena.length != 8) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que la contraseña sea exactamente de 8 caracteres, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (!(alphanumericRegex.test(form.Contrasena))) {
+        } else if (!(alphanumericRegex.test(form.contrasena))) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que la contraseña contenga números y letras, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Contrasena != form.password_confirmation) {
+        } else if (form.contrasena != form.password_confirmation) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que las contraseñas coincidan, vuelva a intentarlo."

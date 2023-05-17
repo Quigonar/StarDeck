@@ -17,23 +17,24 @@ import { info } from 'console';
 export class LoginComponent implements OnInit {
 
   loginForm = new FormGroup({
-    user : new FormControl(''),
-    password : new FormControl('')
+    correo : new FormControl(''),
+    contrasena : new FormControl('')
   })
 
   signUpForm = new FormGroup({
-    Nombre : new FormControl(''),
-    Username : new FormControl(''),
-    Nacionalidad : new FormControl(''),
-    Contrasena : new FormControl(''),
+    nombre : new FormControl(''),
+    username : new FormControl(''),
+    nacionalidad : new FormControl(''),
+    contrasena : new FormControl(''),
     password_confirmation : new FormControl(''),
-    Correo : new FormControl(''),
-    Id : new FormControl(''),
-    Estado: new FormControl(true),
-    Administrador: new FormControl(false),
-    Ranking: new FormControl(0),
-    Monedas: new FormControl(0),
-    Avatar: new FormControl('')
+    correo : new FormControl(''),
+    id : new FormControl(''),
+    estado: new FormControl(true),
+    administrador: new FormControl(false),
+    ranking: new FormControl(0),
+    monedas: new FormControl(0),
+    avatar: new FormControl(''),
+    actividad: new FormControl('')
   })
 
   create_account : boolean = false
@@ -43,10 +44,10 @@ export class LoginComponent implements OnInit {
   nations : any
 
   constructor(private api:ApiService, private routeService:RouteService, private router:Router, private alert:AlertService, private infoVerifier:VerifyService) {
-    this.signUpForm.controls['Contrasena'].valueChanges.subscribe((newValue) => {
+    this.signUpForm.controls['contrasena'].valueChanges.subscribe((newValue) => {
       this.password_count = newValue.length
     });
-    this.signUpForm.controls['Username'].valueChanges.subscribe((newValue) => {
+    this.signUpForm.controls['username'].valueChanges.subscribe((newValue) => {
       this.username_count = newValue.length
     });
    }
@@ -55,17 +56,18 @@ export class LoginComponent implements OnInit {
     //Call api to import all nations available for the game
     this.nations = ["Costa Rica", "Mexico", "Estados Unidos"]
     this.player = {
-      Id: '',
-      Nombre: '',
-      Username: '',
-      Nacionalidad: '',
-      Contrasena: '',
-      Correo: '',
-      Estado: true,
-      Administrador: false,
-      Ranking: 0,
-      Monedas: 0,
-      Avatar: ''
+      id: '',
+      nombre: '',
+      username: '',
+      nacionalidad: '',
+      contrasena: '',
+      correo: '',
+      estado: true,
+      administrador: false,
+      ranking: 0,
+      monedas: 0,
+      avatar: '',
+      actividad: '',
     }
   }
 
@@ -78,12 +80,18 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(form) {
-    if (form.user === "admin" && form.password === "admin") {
-      this.routeService.switch("admin", "0")
-    }
-    else if (form.user === "client" && form.password === "client") {
-      this.routeService.switch("client", "0")
-    }
+    console.log(form)
+    this.api.login(form).subscribe(answer => {
+      console.log(answer)
+      if (answer.found && answer.usuario.administrador) {
+        this.routeService.switch("admin", answer.usuario.id)
+      } else if (answer.found && !answer.usuario.administrador) {
+        this.routeService.switch("client", answer.usuario.id)
+      }
+      else {
+        this.alert.createAlert("fa fa-exclamation-triangle", "danger", "Los credenciales estan erroneos!")
+      }
+    })
   }
 
   onSignUp(form) {
@@ -94,10 +102,12 @@ export class LoginComponent implements OnInit {
       
       //Hacer el post por el API
       this.api.addUser(this.player).subscribe(answer => {
-        if (this.infoVerifier.verifyUserAnswer(answer)) {
-          this.player.Id = answer
-          this.routeService.switch("first", this.player.Id)
+        this.routeService.switch("first",answer.id)
+        /*if (this.infoVerifier.verifyUserAnswer(answer)) {
+          this.player.id = answer
+          this.routeService.switch("first", this.player.id)
         }
+        */
       })
     }
   }

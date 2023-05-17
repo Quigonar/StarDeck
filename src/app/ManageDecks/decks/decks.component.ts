@@ -29,9 +29,9 @@ export class DecksComponent implements OnInit {
   toggleDeck(clickedDeck: DecksI): void {
     this.decks.forEach(deck => {
       if (deck === clickedDeck) {
-        deck.Estado = !deck.Estado
-        if (this.cards === undefined || this.cards.length === 0 || this.cards != clickedDeck.Cartas) {
-          this.cards = clickedDeck.Cartas
+        deck.estado = !deck.estado
+        if (this.cards === undefined || this.cards.length === 0 || this.cards != clickedDeck.cartas) {
+          this.cards = clickedDeck.cartas
           this.selectedDeck = clickedDeck
           //HACER LLAMADA DE API PARA PONER EN ACTIVO ESTE DECK
         }
@@ -40,7 +40,7 @@ export class DecksComponent implements OnInit {
           this.cards = []
         }
       } else {
-        deck.Estado = false
+        deck.estado = false
       }
     });
   }

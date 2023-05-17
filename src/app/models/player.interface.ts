@@ -1,13 +1,14 @@
 export interface PlayerI {
-    Id:string;
-    Nombre:string;
-    Username:string;
-    Nacionalidad:string;
-    Contrasena:string;
-    Correo:string;
-    Estado:boolean;
-    Avatar:string;
-    Ranking:number;
-    Monedas:number;
-    Administrador:boolean;
+    id:string;
+    nombre:string;
+    username:string;
+    nacionalidad:string;
+    contrasena:string;
+    correo:string;
+    estado:boolean;
+    avatar:string;
+    ranking:number;
+    monedas:number;
+    administrador:boolean;
+    actividad:string;
 }

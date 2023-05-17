@@ -9,6 +9,9 @@ import { of } from 'rxjs';
 import { AlertService } from './alert.service';
 import { PlanetsI } from 'app/models/planets.interface';
 import { DecksI } from 'app/models/decks.interface';
+import { LoginI } from 'app/models/login.interface';
+import { loginResponseI } from 'app/models/loginResponse.interface';
+import { cardsPerUserI } from 'app/models/cardsPerUser.interface';
 
 
 @Injectable({
@@ -104,9 +107,17 @@ export class ApiService {
   }
 
   //LOGIN/SIGNUP REQUESTS
-  addUser(player:PlayerI):Observable<string>{
+  login(login: LoginI):Observable<loginResponseI> {
+    let dir = this.url + "login/login"
+    return this.makeRequest<loginResponseI>(dir, 'POST', login) as Observable<loginResponseI>
+  }
+  addUser(player:PlayerI):Observable<PlayerI>{
     let dir = this.url + "usuario/guardarJugador"
-    return this.makeRequest<string>(dir, 'POST', player)
+    return this.makeRequest<PlayerI>(dir, 'POST', player) as Observable<PlayerI>
+  }
+  getPlayerID(id):Observable<PlayerI>{
+    let dir = this.url + "usuario/get/" + id
+    return this.makeRequest<PlayerI>(dir, 'GET') as Observable<PlayerI>
   }
   getFirstLoginCards():Observable<CardsI[]>{
     let dir = this.url + "carta/getnewDeck"
@@ -135,6 +146,12 @@ export class ApiService {
   addDeck(deck:DecksI):Observable<string>{
     let dir = this.url + "decks/guardar"
     return this.makeRequest<string>(dir,'POST', deck)
+  }
+
+  //COLLECTION REQUESTS
+  addCardToCollection(card:cardsPerUserI):Observable<string>{
+    let dir = this.url + "colection/addCartaUsuario"
+    return this.makeRequest<string>(dir, 'POST', card)
   }
 
   //DROPDOWN TABLES REQUESTS

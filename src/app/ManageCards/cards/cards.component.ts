@@ -19,7 +19,7 @@ export class CardsComponent implements OnInit {
     this.router.navigate(['/anadir_carta'])
   }
   editCard(index: number) {
-    this.router.navigate(['/editar_carta/', this.cards[index].Id])
+    this.router.navigate(['/editar_carta/', this.cards[index].id])
   }
 
   ngOnInit(): void {

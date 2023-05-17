@@ -24,21 +24,21 @@ export class EditCardComponent implements OnInit {
   public activo : boolean = true
 
   public cardForm = new FormGroup({
-    Nombre : new FormControl(),
-    Energia : new FormControl(),
-    Costo : new FormControl(),
-    Imagen : new FormControl(),
-    Raza : new FormControl(),
-    Tipo : new FormControl(),
-    Descripcion : new FormControl(),
-    Id : new FormControl(),
-    Estado : new FormControl()
+    nombre : new FormControl(),
+    energia : new FormControl(),
+    costo : new FormControl(),
+    imagen : new FormControl(),
+    raza : new FormControl(),
+    tipo : new FormControl(),
+    descripcion : new FormControl(),
+    id : new FormControl(),
+    estado : new FormControl()
   })
 
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
     try {
       this.b64.getBase64(event.item(0)).then((imagen: any) => {
-        this.card.Imagen = imagen.base
+        this.card.imagen = imagen.base
       })
     } catch {
       //Do nothing
@@ -59,7 +59,7 @@ export class EditCardComponent implements OnInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.api.getCardID(params['id']).subscribe(card => {
         this.card = card
-        this.cardForm.setValue(this.card)
+        //this.cardForm.setValue(this.card)
       })
     })
 
