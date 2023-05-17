@@ -140,19 +140,19 @@ import { AlertService } from './alert.service';
     verifyPlanetInfo(form) {
         var type, message, icon
 
-        if (form.Nombre === '' || form.Imagen === '' || form.Popularidad === '' || form.Descripcion === '') {
+        if (form.nombre === '' || form.imagen === '' || form.tipo === '' || form.descripcion === '') {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que todas las casillas esten llenas, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Nombre.length > 20 || form.Nombre.length < 5) {
+        } else if (form.nombre.length > 20 || form.nombre.length < 5) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que el nombre del planeta contenga entre 5-20 caracteres, vuelva a intentarlo."
             this.alert.createAlert(icon,type,message)
             return false
-        } else if (form.Descripcion.length > 1000) {
+        } else if (form.descripcion.length > 1000) {
             icon = "fa fa-exclamation-triangle"
             type = "danger"
             message = "Porfavor asegúrese de que la descripcion no contenga mas de 1000 caracteres, vuelva a intentarlo."
@@ -164,16 +164,11 @@ import { AlertService } from './alert.service';
     verifyPlanetAnswer(answer) {
         var type, message, icon
 
-        if (answer === "Added Successfully") {
+        console.log(answer)
+        if (answer.id.startsWith("P-")) {
             icon = "fa fa-check"
             type = "success"
             message = "El planeta ha sido creado exitosamente"
-            this.alert.createAlert(icon, type, message)
-            return true
-        } else if (answer === "Edited Successfully") {
-            icon = "fa fa-check"
-            type = "success"
-            message = "El planeta ha sido editado exitosamente"
             this.alert.createAlert(icon, type, message)
             return true
         } else {

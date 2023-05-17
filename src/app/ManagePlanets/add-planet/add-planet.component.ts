@@ -26,20 +26,19 @@ export class AddPlanetComponent implements OnInit {
   public activo : boolean = true
 
   public planetForm = new FormGroup({
-    Nombre : new FormControl(''),
-    Imagen : new FormControl(''),
-    Popularidad : new FormControl(''),
-    Descripcion : new FormControl(''),
-    Id : new FormControl(''),
-    Efecto : new FormControl(''),
-    Estado : new FormControl(true)
+    nombre : new FormControl(''),
+    imagen : new FormControl(''),
+    tipo : new FormControl(''),
+    descripcion : new FormControl(''),
+    id : new FormControl(''),
+    estado : new FormControl(true)
   })
 
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
     try {
       this.b64.getBase64(event.item(0)).then((imagen: any) => {
-        this.planetForm.controls['Imagen'].setValue(imagen.base)
-        this.planet.Imagen = imagen.base
+        this.planetForm.controls['imagen'].setValue(imagen.base)
+        this.planet.imagen = imagen.base
       })
     } catch {
       //Do nothing
@@ -48,22 +47,19 @@ export class AddPlanetComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private api:ApiService, private router:Router, private alert:AlertService, private b64: b64Service, private InfoVerifier:VerifyService) { 
     //Make planet preview update live
-    this.planetForm.controls['Nombre'].valueChanges.subscribe((newValue) => {
+    this.planetForm.controls['nombre'].valueChanges.subscribe((newValue) => {
       this.name_count = newValue.length
-      this.planet.Nombre = newValue
+      this.planet.nombre = newValue
     });
-    this.planetForm.controls['Efecto'].valueChanges.subscribe((newValue) => {
-      this.planet.Efecto = newValue
+    this.planetForm.controls['tipo'].valueChanges.subscribe((newValue) => {
+      this.planet.tipo = newValue
     });
-    this.planetForm.controls['Popularidad'].valueChanges.subscribe((newValue) => {
-      this.planet.Popularidad = newValue
-    });
-    this.planetForm.controls['Descripcion'].valueChanges.subscribe((newValue) => {
+    this.planetForm.controls['descripcion'].valueChanges.subscribe((newValue) => {
       this.desc_count = newValue.length
-      this.planet.Descripcion = newValue
+      this.planet.descripcion = newValue
     });
-    this.planetForm.controls['Estado'].valueChanges.subscribe((newValue) => {
-      this.planet.Estado = newValue
+    this.planetForm.controls['estado'].valueChanges.subscribe((newValue) => {
+      this.planet.estado = newValue
     });
   }
 
@@ -85,17 +81,16 @@ export class AddPlanetComponent implements OnInit {
 
   ngOnInit(): void {
     this.planet = {
-      Nombre: '',
-      Popularidad: '',
-      Id: '',
-      Imagen: '',
-      Efecto: '',
-      Descripcion: '',
-      Estado: true
+      nombre: '',
+      tipo: '',
+      id: '',
+      imagen: '',
+      descripcion: '',
+      estado: true
     }
 
     //Pedir del API las diferentes razas posibles y reemplazar this.razas
-    this.popularidades = ["Raro", "Basico", "Popular"]
+    this.popularidades = ["Popular", "Basico", "Raro"]
   }
 
 }

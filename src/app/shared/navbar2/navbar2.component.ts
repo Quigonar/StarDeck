@@ -8,8 +8,7 @@ import { filter } from 'rxjs/operators';
 @Component({
     // moduleId: module.id,
     selector: 'navbar2-cmp',
-    templateUrl: 'navbar2.component.html',
-    styleUrls: ['./navbar2.component.scss']
+    templateUrl: 'navbar2.component.html'
 })
 
 export class Navbar2Component implements OnInit{

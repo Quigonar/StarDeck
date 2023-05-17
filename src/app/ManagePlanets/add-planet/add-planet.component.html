@@ -23,7 +23,7 @@
                                     <div class="form-group">
                                         <label>Nombre del Planeta</label>
                                         <div class="input-container">
-                                            <input type="text" formControlName="Nombre" id="nombre" placeholder="Nombre" required>
+                                            <input type="text" formControlName="nombre" id="nombre" placeholder="Nombre" required>
                                             <span class="input-counter"> {{ name_count }} / 20 </span>
                                         </div>
                                     </div>
@@ -37,8 +37,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <input type="checkbox" [(ngModel)]="activo" formControlName="Estado" id="Estado">
-                                        <label>&nbsp; Activa</label>
+                                        <input type="checkbox" [(ngModel)]="activo" formControlName="estado" id="Estado">
+                                        <label>&nbsp; Activo</label>
                                     </div>
                                 </div>
                             </div>
@@ -47,17 +47,17 @@
                                     <div class="center">
                                         <div class="planet-card">
                                             <div class="planet-card-face">
-                                                <div class="planet-card-title"> {{planet.Nombre}} </div>
+                                                <div class="planet-card-title"> {{planet.nombre}} </div>
                                                 <div class="planet-card-image">
-                                                    <img [src]="planet.Imagen" alt="Imagen">
+                                                    <img [src]="planet.imagen" alt="Imagen">
                                                 </div>
                                             </div>
                                             <div class="planet-card-back">
                                                 <div class="row">
-                                                    <div class="planet-card-description"> {{planet.Descripcion}} </div>
+                                                    <div class="planet-card-description"> {{planet.descripcion}} </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="planet-card-stat"> {{planet.Popularidad}} </div>
+                                                    <div class="planet-card-stat"> {{planet.tipo}} </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,19 +73,10 @@
                             <div class="col-md-3">
                                 <div class="row">
                                     <div class="form-group">
-                                        <label>Popularidad</label>
-                                        <select formControlName="Popularidad" [attr.placeholder]="'Popularidad'">
-                                            <option value="" disabled selected style="display:none;">Popularidad</option>
-                                            <option *ngFor="let popularidad of popularidades" [value]="popularidad">{{ popularidad }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group">
-                                        <label>Efecto</label>
-                                        <select formControlName="Efecto" [attr.placeholder]="'Efecto'">
-                                            <option value="" disabled selected style="display:none;">Efecto</option>
-                                            <option *ngFor="let efecto of efectos" [value]="efectos.Nombre">{{ efectos.Nombre }}</option>
+                                        <label>Tipo</label>
+                                        <select formControlName="tipo" [attr.placeholder]="'Tipo'">
+                                            <option value="" disabled selected style="display:none;">Tipo</option>
+                                            <option *ngFor="let popularidad of popularidades; index as i" [value]="i + 1">{{ popularidad }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -94,7 +85,7 @@
                                         <label>Descripcion</label>
                                         <span class="input-counter2"> {{ desc_count }} / 1000 </span>
                                         <div class="input-container">
-                                            <textarea type="text" formControlName="Descripcion" id="Descripcion" placeholder="Descripcion" required></textarea>
+                                            <textarea type="text" formControlName="descripcion" id="Descripcion" placeholder="Descripcion" required></textarea>
                                         </div>
                                     </div>
                                 </div>

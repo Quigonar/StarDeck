@@ -1,9 +1,8 @@
 export interface PlanetsI {
-    Id:string;
-    Nombre:string;
-    Imagen:string;
-    Popularidad:string;
-    Descripcion:string;
-    Efecto:string;
-    Estado:boolean;
+    id:string;
+    nombre:string;
+    imagen:string;
+    tipo:string;
+    descripcion:string;
+    estado:boolean;
 }

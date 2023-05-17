@@ -23,10 +23,10 @@ export class PlanetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.api.getPlanets().subscribe(planets => {
+    this.api.getPlanets().subscribe(planets => {
       this.planets = planets
-    })*/
-    this.planets = this.test.testPlanets(40)
+    })
+    //this.planets = this.test.testPlanets(40)
   }
 
 }

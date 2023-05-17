@@ -64,6 +64,7 @@ export class ApiService {
       case 'POST':
         return this.http.post<T>(url, data).pipe(
           catchError((error) => {
+            console.log(error)
             if (error.error instanceof ErrorEvent) {
               message = "Un error ha ocurrido: ", error.error.message
               this.alert.createAlert(icon,type,message)
@@ -114,19 +115,19 @@ export class ApiService {
 
   //PLANETS REQUESTS
   getPlanets():Observable<PlanetsI[]>{
-    let dir = this.url + "planetas/lista"
+    let dir = this.url + "planeta/get"
     return this.makeRequest<PlanetsI[]>(dir,'GET') as Observable<PlanetsI[]>
   }
   getPlanetID(planeta:any):Observable<PlanetsI>{
-    let dir = this.url + "planetas/lista/" + planeta
+    let dir = this.url + "planeta/get/" + planeta
     return this.makeRequest<PlanetsI>(dir, 'GET') as Observable<PlanetsI>
   }
   addPlanet(planet:PlanetsI):Observable<string>{
-    let dir = this.url + "planetas/guardar"
+    let dir = this.url + "planeta/add"
     return this.makeRequest<string>(dir,'POST', planet)
   }
   updatePlanet(planet:PlanetsI):Observable<string>{
-    let dir = this.url + "planet/editar"
+    let dir = this.url + "planeta/update"
     return this.makeRequest<string>(dir, 'PUT', planet)
   }
 
