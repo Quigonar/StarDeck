@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatchI } from 'app/models/match.interface';
+import { PartidaI } from 'app/models/partida.interface';
 import { PlayerI } from 'app/models/player.interface';
 import { ApiService } from 'app/services/api.service';
 import { RouteService } from 'app/services/route.service';
@@ -15,50 +16,46 @@ export class MatchmakingComponent implements OnInit {
   public searchingMatch : boolean = false
   public inMatch : boolean = false
   public matchNotFound : boolean = false
-  public remainingTime: number = 30
+  public remainingTime: number = 60
   public player : PlayerI
   public match : MatchI
   private intervalId : any
   private counterInterval : any
+  private partida : PartidaI
 
   constructor(private router:Router, private api:ApiService, private test:TestService, private user:RouteService) { }
 
   searchGame() {
-    this.api.searchGame(this.player.id).subscribe(player => {
-      this.api.matchMakingCheck(this.player.id).subscribe(match => {
-        this.match = match
-        try {
-          console.log(match)
-          if (match.id_Partida.startsWith("G-") && match.estado === 2) {
-            this.user.setMatchID(this.match)
-            this.router.navigate(["/partida"])
-          }
-        } catch {
-          location.reload()
-        }
-      })
-      
+    this.api.searchGame(this.user.userID()).subscribe(player => {
+      location.reload()
     })
   }
 
   checkForConnection() {
-    this.api.matchMakingCheck(this.player.id).subscribe(match => {
-      this.match = match
-      console.log(match)
-      try {
-        if (match.id_Partida.startsWith("G-") && match.estado === 1) {
-          this.match = match
-        } else if (match.id_Partida.startsWith("G-") && match.estado === 2) {
-          this.user.setMatchID(this.match)
-          this.router.navigate(["/partida"])
-        } else if (this.match.id_Partida.startsWith("G-") && match.estado === 3) {
-          this.user.setMatchID(this.match)
-          this.router.navigate(["/partida"])
+    console.log(this.user.userID())
+    console.log("HERE0")
+    this.api.matchMakingCheck(this.user.userID()).subscribe(match => {
+      console.log("HERE1")
+        if (match.id_Partida !== null) {
+          if (match.id_Partida.startsWith("G-")) {
+            this.user.setMatchID(match)
+            console.log(this.user.matchID())
+          }
         }
-      } catch {
-        //Do Nothing
-      }
+        
+      console.log("HERE3")
+      
+      console.log(this.user.matchID())
+      this.api.getPartidaID(this.user.matchID()).subscribe(partida => {
+        console.log(partida)
+        if (partida.estado === 3) {
+          this.router.navigate(["/partida"])
+          clearInterval(this.intervalId)
+        }
+      })
     })
+
+    
   }
 
   reconnect(){

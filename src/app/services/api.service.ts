@@ -13,6 +13,7 @@ import { LoginI } from 'app/models/login.interface';
 import { loginResponseI } from 'app/models/loginResponse.interface';
 import { cardsPerUserI } from 'app/models/cardsPerUser.interface';
 import { MatchI } from 'app/models/match.interface';
+import { PartidaI } from 'app/models/partida.interface';
 
 
 @Injectable({
@@ -178,6 +179,10 @@ export class ApiService {
   finishMatch(user:any):Observable<PlayerI>{
     let dir = this.url + "matchmaking/finishMatch/" + user
     return this.makeRequest<PlayerI>(dir, 'PUT') as Observable<PlayerI>
+  }
+  getPartidaID(partida:any):Observable<PartidaI>{
+    let dir = this.url + "matchmaking/getPartida/" + partida
+    return this.makeRequest<PartidaI>(dir, 'GET') as Observable<PartidaI>
   }
 
   //DROPDOWN TABLES REQUESTS
