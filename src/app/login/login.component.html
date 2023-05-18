@@ -8,7 +8,7 @@
           </div>
           <!-- Login Form -->
           <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-            <input type="text" formControlName="correo" id="user" class="fadeIn second" placeholder="Usuario" required>
+            <input type="text" formControlName="correo" id="user" class="fadeIn second" placeholder="Correo" required>
             <input type="password" formControlName="contrasena" id="password" class="fadeIn third" placeholder="Contraseña" required>
             <input type="submit" class="fadeIn fourth" value="Ingresar">
           </form>

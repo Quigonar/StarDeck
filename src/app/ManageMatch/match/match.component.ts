@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CardsI } from 'app/models/cards.interface';
 import { DecksI } from 'app/models/decks.interface';
 import { PlanetsI } from 'app/models/planets.interface';
+import { PlayerI } from 'app/models/player.interface';
 import { ApiService } from 'app/services/api.service';
 import { RouteService } from 'app/services/route.service';
 import { TestService } from 'app/services/testing.service';
@@ -22,6 +23,7 @@ export class MatchComponent implements OnInit {
   public handOponent : CardsI[]
 
   public planetsOnMatch : PlanetsI[]
+  public opponent : PlayerI
 
   public searchTerm : any
   public selectedCard: CardsI
@@ -78,6 +80,10 @@ export class MatchComponent implements OnInit {
           }
         }        
       });
+    })
+
+    this.api.getRival(this.user.matchID(), this.user.userID()).subscribe(opponent => {
+      this.opponent = opponent
     })
     //CREAR METODO API PARA TRAER LAS CARTAS DEL OPONENTE
 
