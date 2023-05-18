@@ -39,21 +39,6 @@ export class MatchComponent implements OnInit {
     }
   }
 
-  onAdd(form){
-    this.deck = form
-    //this.deck.cartas = this.selectedCards
-
-    
-    /*if (this.InfoVerifier.verifyDeckInfo(this.deck)) {
-      this.api.addDeck(this.deck).subscribe(answer => {
-        if (this.InfoVerifier.verifyDeckAnswer(answer)) {
-          this.router.navigate(['/mazos'])
-        }
-        this.router.navigate(['/mazos'])
-      })
-    }*/
-  }
-
   getRandomNumbers() {
     let numbers: number[] = [];
 
@@ -88,8 +73,6 @@ export class MatchComponent implements OnInit {
 
           let randomNums = this.getRandomNumbers()
           for (let i = 0; i < 5; i++) {
-            console.log("i: " + i)
-            
             this.hand[i] = this.cardsLeft[randomNums[i]]
             this.cardsLeft = this.cardsLeft.filter(item => item !== this.cardsLeft[randomNums[i]])
           }
@@ -99,6 +82,9 @@ export class MatchComponent implements OnInit {
     //CREAR METODO API PARA TRAER LAS CARTAS DEL OPONENTE
 
     //LLAMAR API PARA TRAER LOS PLANETAS
-    this.planetsOnMatch = this.test.testPlanets(3)
+    //this.planetsOnMatch = this.test.testPlanets(3)
+    this.api.getPlanetasPartida(this.user.matchID()).subscribe(planets => {
+      this.planetsOnMatch = planets
+    })
   }
 }

@@ -184,6 +184,10 @@ export class ApiService {
     let dir = this.url + "matchmaking/getPartida/" + partida
     return this.makeRequest<PartidaI>(dir, 'GET') as Observable<PartidaI>
   }
+  getPlanetasPartida(partida:any):Observable<PlanetsI[]>{
+    let dir = this.url + "matchmaking/getPlanetasPartida/" + partida
+    return this.makeRequest<PlanetsI[]>(dir, 'GET') as Observable<PlanetsI[]>
+  }
 
   //DROPDOWN TABLES REQUESTS
   getRazas():Observable<RazasI[]>{

@@ -16,7 +16,7 @@ export class MatchmakingComponent implements OnInit {
   public searchingMatch : boolean = false
   public inMatch : boolean = false
   public matchNotFound : boolean = false
-  public remainingTime: number = 60
+  public remainingTime: number = 20
   public player : PlayerI
   public match : MatchI
   private intervalId : any
@@ -32,22 +32,15 @@ export class MatchmakingComponent implements OnInit {
   }
 
   checkForConnection() {
-    console.log(this.user.userID())
-    console.log("HERE0")
     this.api.matchMakingCheck(this.user.userID()).subscribe(match => {
-      console.log("HERE1")
         if (match.id_Partida !== null) {
           if (match.id_Partida.startsWith("G-")) {
             this.user.setMatchID(match)
             console.log(this.user.matchID())
           }
         }
-        
-      console.log("HERE3")
       
-      console.log(this.user.matchID())
       this.api.getPartidaID(this.user.matchID()).subscribe(partida => {
-        console.log(partida)
         if (partida.estado === 3) {
           this.router.navigate(["/partida"])
           clearInterval(this.intervalId)
