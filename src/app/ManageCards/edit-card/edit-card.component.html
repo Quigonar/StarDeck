@@ -2,100 +2,139 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="header">
-                        <h4 class="title">Edit Employee</h4>
-                    </div>
-                    <div class="content">
-                        <form [formGroup]="employeeForm" (ngSubmit)="onEdit(employeeForm.value)">
-                            <div class="row">
-                                <div class="col-md-5">
+                <div class="btn" (click)="back()">
+                    <i class="fa fa-chevron-left"></i>
+                    <span class="title"> Volver </span>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header">
+                    <h4 class="title">Editar Carta</h4>
+                </div>
+                <div class="content">
+                    <form [formGroup]="cardForm" (ngSubmit)="onEdit(cardForm.value)">
+                        <div class="row">
+                            <div class="col-md-1">&nbsp;</div>
+                            <div class="col-md-3">
+                                <div class="row">
                                     <div class="form-group">
-                                        <label>ID</label>
-                                        <input formControlName="ID" type="text" class="form-control" placeholder="ID">
+                                        <label>Nombre de la Carta</label>
+                                        <div class="input-container">
+                                            <input type="text" formControlName="nombre" id="nombre" placeholder="Nombre" required>
+                                            <span class="input-counter"> {{ name_count }} / 30 </span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Energia</label>
+                                        <input formControlName="energia" type="number" class="form-control" placeholder="Energia">
                                     </div>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="row">
                                     <div class="form-group">
-                                        <label>Phone Number</label>
-                                        <input formControlName="PhoneNum" type="text" class="form-control" placeholder="Phone Number">
+                                        <label>Costo</label>
+                                        <input formControlName="costo" type="number" class="form-control" placeholder="Costo">
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
+                                <div class="row">
                                     <div class="form-group">
-                                        <label>First Name</label>
-                                        <input formControlName="FirstN" type="text" class="form-control" placeholder="First Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>First Last Name</label>
-                                        <input formControlName="FirstLN" type="text" class="form-control" placeholder="Last Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Second Last Name</label>
-                                        <input formControlName="SecondLN" type="text" class="form-control" placeholder="Last Name">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Province</label>
-                                        <input formControlName="Province" type="text" class="form-control" placeholder="Province">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Canton</label>
-                                        <input formControlName="Canton" type="text" class="form-control" placeholder="Canton">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>District</label>
-                                        <input formControlName="District" type="text" class="form-control" placeholder="District">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input formControlName="Username" type="text" class="form-control" placeholder="Username">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input formControlName="Password" type="text" class="form-control" placeholder="Password">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Profile Picture</label>
+                                        <label>Imagen</label>
                                         <input type="file" accept="image/*">
                                     </div>
                                 </div>
                             </div>
-
-                            <input type="submit" value="Edit Employee" class="btn btn-info btn-fill pull-right">
-
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="center">
+                                        <div class="play-card">
+                                            <div class="play-card-face">
+                                                <div class="play-card-title"> {{card.nombre}} </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="play-card-stat">
+                                                            <span class="icon-combat"></span> {{card.costo}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="play-card-stat">
+                                                            <span class="icon-energy"></span> {{card.energia}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="play-card-image">
+                                                    <img [src]="card.imagen" alt="Imagen">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="play-card-stat">
+                                                            {{card.raza}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="play-card-stat">
+                                                            {{card.tipo}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="play-card-back">
+                                                <div class="play-card-description"> {{card.descripcion}} </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="center">
+                                        <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                        <input type="submit" value="Editar Carta" class="btn">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Raza</label>
+                                        <select formControlName="raza" [attr.placeholder]="'Raza'">
+                                            <option value="" disabled selected style="display:none;">Raza</option>
+                                            <option *ngFor="let raza of razas" [value]="raza.Nombre">{{ raza.Nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <select formControlName="tipo" [attr.placeholder]="'Tipo'">
+                                            <option value="" disabled selected style="display:none;">Tipo</option>
+                                            <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Descripcion</label>
+                                        <span class="input-counter2"> {{ desc_count }} / 1000 </span>
+                                        <div class="input-container">
+                                            <textarea type="text" formControlName="descripcion" id="Descripcion" placeholder="Descripcion" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <input type="checkbox" [(ngModel)]="activo" formControlName="estado" id="Estado">
+                                        <label>&nbsp; Activa</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

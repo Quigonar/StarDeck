@@ -8,8 +8,8 @@
           </div>
           <!-- Login Form -->
           <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-            <input type="text" formControlName="user" id="user" class="fadeIn second" placeholder="Usuario" required>
-            <input type="password" formControlName="password" id="password" class="fadeIn third" placeholder="Contraseña" required>
+            <input type="text" formControlName="correo" id="user" class="fadeIn second" placeholder="Correo" required>
+            <input type="password" formControlName="contrasena" id="password" class="fadeIn third" placeholder="Contraseña" required>
             <input type="submit" class="fadeIn fourth" value="Ingresar">
           </form>
       
@@ -33,23 +33,23 @@
           </div>
           <!-- Sign Up Form -->
           <form [formGroup]="signUpForm" (ngSubmit)="onSignUp(signUpForm.value)">
-            <input type="text" formControlName="Nombre" id="name" class="fadeIn second" placeholder="Nombre" required>
-            <input type="text" formControlName="Correo" id="email" class="fadeIn second" placeholder="Email" required>
+            <input type="text" formControlName="nombre" id="name" class="fadeIn second" placeholder="Nombre" required>
+            <input type="text" formControlName="correo" id="email" class="fadeIn second" placeholder="Email" required>
             <div class="input-container">
               <div class="fadeIn second">
-                <input type="text" formControlName="Username" id="username" placeholder="Nickname" required>
+                <input type="text" formControlName="username" id="username" placeholder="Nickname" required>
                 <span class="input-counter"> {{ username_count }} / 30 </span>
               </div>
             </div>
             <!--<span class="fadeIn second"> {{ username_count }} / 30 </span>-->
-            <select formControlName="Nacionalidad" [attr.placeholder]="'Nacionalidad'" class="fadeIn second">
+            <select formControlName="nacionalidad" [attr.placeholder]="'Nacionalidad'" class="fadeIn second">
               <option value="" disabled selected style="display:none;">Nacionalidad</option>
               <option *ngFor="let nation of nations" [value]="nation">{{ nation }}</option>
             </select>
 
             <div class="input-container">
               <div class="fadeIn second">
-                <input type="password" formControlName="Contrasena" id="Contrasena" placeholder="Contraseña" required>
+                <input type="password" formControlName="contrasena" id="Contrasena" placeholder="Contraseña" required>
                 <span class="input-counter"> {{ password_count }} / 8 </span>
               </div>
             </div>

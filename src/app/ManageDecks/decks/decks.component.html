@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="col-md-3">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" [(ngModel)]="searchTerm" placeholder="Search">
+            <span class="search-icon"><i class="fa fa-search"></i></span>
+        </div>
+        <!-- Chat GPT tiene como conectar este search bar -->
+    </div>
+    <div class="col-md-6">
+        &nbsp;
+    </div>
+    <div class="col-md-3">
+        <!-- Add Button -->
+        <button (click)="addDeck()" type="submit" class="btn pull-right">
+            <div class="font-icon-detail"><i class="fa fa-plus-circle"></i></div>
+        </button>
+    </div>
+</div>
+<div class="container">
+    <div class="sidebar2">
+        <ng-container *ngFor="let deck of decks">
+            <div>
+              <input type="checkbox" (change)="toggleDeck(deck)" [checked]="deck.estado" class="deck" [class.selected]="deck === selectedDeck">
+              <span (click)="toggleDeck(deck)">{{ deck.nombre }}</span>
+            </div>
+          </ng-container>
+    </div>
+    <div class="content">
+        <div *ngFor="let card of cards; index as i">
+            <div *ngIf="(i + 1) % 6 != 0; else elseBlock" class="col-md-2">
+                <div class="play-card">
+                    <div class="play-card-face">
+                        <div class="play-card-title"> {{card.nombre}} </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="play-card-stat">
+                                    <span class="icon-combat"></span> {{card.costo}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="play-card-stat">
+                                    <span class="icon-energy"></span> {{card.energia}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="play-card-image">
+                            <img [src]="card.imagen" alt="Imagen">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="play-card-stat">
+                                    {{card.raza}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="play-card-stat">
+                                    {{card.tipo}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="play-card-back">
+                        <div class="play-card-description"> {{card.descripcion}} </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="play-card">
+                            <div class="play-card-face">
+                                <div class="play-card-title"> {{card.nombre}} </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="play-card-stat">
+                                            <span class="icon-combat"></span> {{card.costo}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="play-card-stat">
+                                            <span class="icon-energy"></span> {{card.energia}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="play-card-image">
+                                    <img [src]="card.imagen" alt="Imagen">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="play-card-stat">
+                                            {{card.raza}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="play-card-stat">
+                                            {{card.tipo}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="play-card-back">
+                                <div class="play-card-description"> {{card.descripcion}} </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">&nbsp;</div>
+            </ng-template>
+        </div>
+    </div>
+</div>

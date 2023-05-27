@@ -1,0 +1,90 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="title">  Lista de Planetas  </h4>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- Search Bar -->
+                                <div class="search-container">
+                                    <input type="text" [(ngModel)]="searchTerm" placeholder="Search">
+                                    <span class="search-icon"><i class="fa fa-search"></i></span>
+                                </div>
+                                <!-- Chat GPT tiene como conectar este search bar -->
+                            </div>
+                            <div class="col-md-3">
+                                <!-- Filter -->
+                                <button (click)="addPlanet()" type="submit" class="btn pull-left">
+                                    <div class="font-icon-detail"><i class="fa fa-filter"></i></div>
+                                </button>
+                            </div>
+                            <div class="col-md-3">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-3">
+                                <!-- Add Button -->
+                                <button (click)="addPlanet()" type="submit" class="btn pull-right">
+                                    <div class="font-icon-detail"><i class="fa fa-plus-circle"></i></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let planet of planets; index as i">
+                <div *ngIf="(i + 1) % 6 != 0; else elseBlock" class="col-md-2">
+                    <div class="planet-card">
+                        <div class="planet-card-face">
+                            <div class="planet-card-title"> {{planet.nombre}} </div>
+                            <div class="planet-card-image">
+                                <img [src]="planet.imagen" alt="Imagen">
+                            </div>
+                        </div>
+                        <div class="planet-card-back">
+                            <div class="row">
+                                <div class="planet-card-description"> {{planet.descripcion}} </div>
+                            </div>
+                            <div class="row">
+                                <div class="planet-card-stat"> {{planet.tipo}} </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="planet-card">
+                                <div class="planet-card-face">
+                                    <div class="planet-card-title"> {{planet.nombre}} </div>
+                                    <div class="planet-card-image">
+                                        <img [src]="planet.imagen" alt="Imagen">
+                                    </div>
+                                </div>
+                                <div class="planet-card-back">
+                                    <div class="row">
+                                        <div class="planet-card-description"> {{planet.descripcion}} </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="planet-card-stat"> {{planet.tipo}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>

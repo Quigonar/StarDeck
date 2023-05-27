@@ -10,7 +10,8 @@ declare interface RouteInfo {
 }
 
 export const Admin: RouteInfo[] = [
-  { path: '/employees', title: 'Cartas',  icon:'fa fa-book', class: '' },
+  { path: '/cartas', title: 'Cartas',  icon:'fa fa-book', class: '' },
+  { path: '/planetas', title: 'Planetas', icon:'fa fa-globe', class: ''},
   { path: '/affiliates', title: 'Parametros',  icon:'fa fa-cog', class: '' },
   { path: '/types', title: 'Jugadores',  icon:'fa fa-users', class: '' },
   { path: '/dealers', title: 'Estadisticas',  icon:'fa fa-line-chart', class: '' },

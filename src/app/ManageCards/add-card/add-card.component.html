@@ -23,7 +23,7 @@
                                     <div class="form-group">
                                         <label>Nombre de la Carta</label>
                                         <div class="input-container">
-                                            <input type="text" formControlName="Nombre" id="nombre" placeholder="Nombre" required>
+                                            <input type="text" formControlName="nombre" id="nombre" placeholder="Nombre" required>
                                             <span class="input-counter"> {{ name_count }} / 30 </span>
                                         </div>
                                     </div>
@@ -32,13 +32,13 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <label>Energia</label>
-                                        <input formControlName="Energia" type="number" class="form-control" placeholder="Energia">
+                                        <input formControlName="energia" type="number" class="form-control" placeholder="Energia">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <label>Costo</label>
-                                        <input formControlName="Costo" type="number" class="form-control" placeholder="Costo">
+                                        <input formControlName="costo" type="number" class="form-control" placeholder="Costo">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -53,37 +53,37 @@
                                     <div class="center">
                                         <div class="play-card">
                                             <div class="play-card-face">
-                                                <div class="play-card-title"> {{card.Nombre}} </div>
+                                                <div class="play-card-title"> {{card.nombre}} </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="play-card-stat">
-                                                            <span class="icon-combat"></span> {{card.Costo}}
+                                                            <span class="icon-combat"></span> {{card.costo}}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="play-card-stat">
-                                                            <span class="icon-energy"></span> {{card.Energia}}
+                                                            <span class="icon-energy"></span> {{card.energia}}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="play-card-image">
-                                                    <img [src]="card.Imagen" alt="Imagen">
+                                                    <img [src]="card.imagen" alt="imagen">
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="play-card-stat">
-                                                            {{card.Raza}}
+                                                            {{card.raza}}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="play-card-stat">
-                                                            {{card.Tipo}}
+                                                            {{card.tipo}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="play-card-back">
-                                                <div class="play-card-description"> {{card.Descripcion}} </div>
+                                                <div class="play-card-description"> {{card.descripcion}} </div>
                                             </div>
                                         </div>
                                     </div>
@@ -99,16 +99,16 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <label>Raza</label>
-                                        <select formControlName="Raza" [attr.placeholder]="'Raza'">
+                                        <select formControlName="raza" [attr.placeholder]="'Raza'">
                                             <option value="" disabled selected style="display:none;">Raza</option>
-                                            <option *ngFor="let raza of razas" [value]="raza.Nombre">{{ raza.Nombre }}</option>
+                                            <option *ngFor="let raza of razas" [value]="raza.nombre">{{ raza.nombre }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
                                         <label>Tipo</label>
-                                        <select formControlName="Tipo" [attr.placeholder]="'Tipo'">
+                                        <select formControlName="tipo" [attr.placeholder]="'Tipo'">
                                             <option value="" disabled selected style="display:none;">Tipo</option>
                                             <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
                                         </select>
@@ -119,13 +119,13 @@
                                         <label>Descripcion</label>
                                         <span class="input-counter2"> {{ desc_count }} / 1000 </span>
                                         <div class="input-container">
-                                            <textarea type="text" formControlName="Descripcion" id="Descripcion" placeholder="Descripcion" required></textarea>
+                                            <textarea type="text" formControlName="descripcion" id="Descripcion" placeholder="Descripcion" required></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group">
-                                        <input type="checkbox" [(ngModel)]="activo" formControlName="Estado" id="Estado">
+                                        <input type="checkbox" [(ngModel)]="activo" formControlName="estado" id="Estado">
                                         <label>&nbsp; Activa</label>
                                     </div>
                                 </div>

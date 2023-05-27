@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardsI } from 'app/models/cards.interface';
 import { ApiService } from 'app/services/api.service';
+import { TestService } from 'app/services/testing.service';
 
 @Component({
   selector: 'app-cards',
@@ -9,22 +10,23 @@ import { ApiService } from 'app/services/api.service';
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit {
-  cards: CardsI[]
-  searchTerm : any
+  public cards: CardsI[]
+  public searchTerm : any
   
-  constructor(private router:Router, private api:ApiService) { }
+  constructor(private router:Router, private api:ApiService, private test:TestService) { }
 
   addCard(){
-    this.router.navigate(['/añadir_carta'])
+    this.router.navigate(['/anadir_carta'])
   }
-  editCard(id:any) {
-    this.router.navigate(['/editar-carta/',id])
+  editCard(index: number) {
+    this.router.navigate(['/editar_carta/', this.cards[index].id])
   }
 
   ngOnInit(): void {
     this.api.getCards().subscribe(cards => {
       this.cards = cards
     })
+    //this.cards = this.test.testCards(40)
   }
   
 }

@@ -12,6 +12,7 @@ import { ClientLayoutComponent } from './layouts/client-layout/client-layout.com
 import { FirstLoginLayoutComponent } from './layouts/first-login-layout/first-login-layout.component';
 import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule } from './shared/navbar/navbar.module';
+import { Navbar2Module } from './shared/navbar2/navbar2.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { UserStorageService } from './services/user-storage.service';
 
@@ -30,6 +31,7 @@ const routes: Routes =[
     HttpClientModule,
 
     NavbarModule,
+    Navbar2Module,
     FooterModule,
     SidebarModule,
   ],
@@ -38,7 +40,7 @@ const routes: Routes =[
     AdminLayoutComponent,
     ClientLayoutComponent,
     FirstLoginLayoutComponent,
-    LoginComponent,
+    LoginComponent
   ],
   providers: [
     RouteService,

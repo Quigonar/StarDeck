@@ -22,27 +22,27 @@ export class AddCardComponent implements OnInit {
   public razas : RazasI[]
   public tipos
 
-  name_count : number = 0
-  desc_count : number = 0
-  activo : boolean = true
+  public name_count : number = 0
+  public desc_count : number = 0
+  public activo : boolean = true
 
   public cardForm = new FormGroup({
-    Nombre : new FormControl(''),
-    Energia : new FormControl(0),
-    Costo : new FormControl(0),
-    Imagen : new FormControl(''),
-    Raza : new FormControl(''),
-    Tipo : new FormControl(''),
-    Descripcion : new FormControl(''),
-    Id : new FormControl(''),
-    Estado : new FormControl(true)
+    nombre : new FormControl(''),
+    energia : new FormControl(0),
+    costo : new FormControl(0),
+    imagen : new FormControl(''),
+    raza : new FormControl(''),
+    tipo : new FormControl(''),
+    descripcion : new FormControl(''),
+    id : new FormControl(''),
+    estado : new FormControl(true)
   })
 
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
     try {
       this.b64.getBase64(event.item(0)).then((imagen: any) => {
-        this.cardForm.controls['Imagen'].setValue(imagen.base)
-        this.card.Imagen = imagen.base
+        this.cardForm.controls['imagen'].setValue(imagen.base)
+        this.card.imagen = imagen.base
       })
     } catch {
       //Do nothing
@@ -51,28 +51,28 @@ export class AddCardComponent implements OnInit {
 
   constructor(private route:ActivatedRoute, private api:ApiService, private router:Router, private alert:AlertService, private b64: b64Service, private InfoVerifier:VerifyService) { 
     //Make card preview update live
-    this.cardForm.controls['Nombre'].valueChanges.subscribe((newValue) => {
+    this.cardForm.controls['nombre'].valueChanges.subscribe((newValue) => {
       this.name_count = newValue.length
-      this.card.Nombre = newValue
+      this.card.nombre = newValue
     });
-    this.cardForm.controls['Energia'].valueChanges.subscribe((newValue) => {
-      this.card.Energia = newValue
+    this.cardForm.controls['energia'].valueChanges.subscribe((newValue) => {
+      this.card.energia = newValue
     });
-    this.cardForm.controls['Costo'].valueChanges.subscribe((newValue) => {
-      this.card.Costo = newValue
+    this.cardForm.controls['costo'].valueChanges.subscribe((newValue) => {
+      this.card.costo = newValue
     });
-    this.cardForm.controls['Raza'].valueChanges.subscribe((newValue) => {
-      this.card.Raza = newValue
+    this.cardForm.controls['raza'].valueChanges.subscribe((newValue) => {
+      this.card.raza = newValue
     });
-    this.cardForm.controls['Tipo'].valueChanges.subscribe((newValue) => {
-      this.card.Tipo = newValue
+    this.cardForm.controls['tipo'].valueChanges.subscribe((newValue) => {
+      this.card.tipo = newValue
     });
-    this.cardForm.controls['Descripcion'].valueChanges.subscribe((newValue) => {
+    this.cardForm.controls['descripcion'].valueChanges.subscribe((newValue) => {
       this.desc_count = newValue.length
-      this.card.Descripcion = newValue
+      this.card.descripcion = newValue
     });
-    this.cardForm.controls['Estado'].valueChanges.subscribe((newValue) => {
-      this.card.Estado = newValue
+    this.cardForm.controls['estado'].valueChanges.subscribe((newValue) => {
+      this.card.estado = newValue
     });
   }
 
@@ -95,15 +95,15 @@ export class AddCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.card = {
-      Nombre: '',
-      Energia: 0,
-      Costo: 0,
-      Id: '',
-      Imagen: '',
-      Raza: '',
-      Tipo: '',
-      Descripcion: '',
-      Estado: true
+      nombre: '',
+      energia: 0,
+      costo: 0,
+      id: '',
+      imagen: '',
+      raza: '',
+      tipo: '',
+      descripcion: '',
+      estado: true
     }
 
     //Pedir del API las diferentes razas posibles y reemplazar this.razas

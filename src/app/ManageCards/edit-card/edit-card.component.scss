@@ -1,19 +1,57 @@
 input[type=file]::file-selector-button {
-    margin-right: 20px;
-    border: none;
-    padding: 8px, 16px;
-    height: 39px;
-    border-radius: 3px;
-    font-weight: 400;
-    font-size: 16px;
-    background: transparent;
-    padding: 8px 16px;
-    color: #fff;
-    background: #1DC7EA;
-    cursor: pointer;
-    transition: #1DC7EA .2s ease-in-out;
-  }
-  
-  input[type=file]::file-selector-button:hover {
-    background: lighten(#1DC7EA, 8%);
-  }
+  margin-right: 20px;
+  border: none;
+  padding: 8px, 16px;
+  height: 39px;
+  border-radius: 3px;
+  font-weight: 400;
+  font-size: 16px;
+  background: transparent;
+  padding: 8px 16px;
+  color: #fff;
+  background: #888888;
+  cursor: pointer;
+  transition: #777777 .2s ease-in-out;
+}
+
+input[type=file]::file-selector-button:hover {
+  background: lighten(#888888, 8%);
+}
+
+input[type=checkbox]::before{
+width: 16px;
+height: 16px;
+border-color: #888888;
+}
+
+input[type=checkbox]:checked::before {
+  background-color: lighten(#888888, 8%);
+  border-color: #888888;
+}
+
+.center {
+margin: auto;
+width: 50%;
+padding: 10px;
+}
+
+select {
+width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: white;
+  color: #565656;
+  padding: 8px 12px;
+  height: 40px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border: 1px solid #E3E3E3;
+}
+
+select:focus {
+  border: 1px solid #AAAAAA;
+  outline: 0 !important;    
+  color: #333333;   
+}

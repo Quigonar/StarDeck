@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { RouteService } from 'app/services/route.service';
 import { ApiService } from 'app/services/api.service';
 import { time } from 'console';
-import { ClientI } from 'app/models/client.interface';
 
 @Component({
     // moduleId: module.id,
@@ -19,7 +18,6 @@ export class NavbarComponent implements OnInit{
     private toggleButton: any;
     private sidebarVisible: boolean;
     public bicycleVisible: boolean = false;
-    public client: ClientI;
 
     constructor(location: Location,  private element: ElementRef, private router:Router, public user:RouteService, private api:ApiService) {
       this.location = location;
@@ -31,32 +29,10 @@ export class NavbarComponent implements OnInit{
         this.router.navigate(['login'])
     }
 
-    shoppingCart(){
-      this.router.navigate(['/shopping-cart/' + this.user.userID()])
-    }
-
     ngOnInit(){
       this.listTitles = Affiliate.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-      //GET FROM API THE CLIENT USER AND REPLACE this.client
-      this.client = {
-        ID: "",
-        FirstN: "",
-        FirstLN: "",
-        SecondLN:"",
-        BDate: "",
-        Username: "",
-        Password: "",
-        Province: "",
-        Canton: "",
-        District: "",
-        PhoneNum: "",
-        Status: "Occupied",
-      }
-      if (this.client.Status == "Occupied") {
-        this.bicycleVisible = true
-      }
     }
 
     sidebarOpen() {
@@ -97,9 +73,5 @@ export class NavbarComponent implements OnInit{
           }
       }
       return 'Home';
-    }
-
-    getAffiliations(id:any){
-        this.router.navigate(['/affiliation/' + id])
     }
 }
