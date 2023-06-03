@@ -24,7 +24,7 @@
               <input type="checkbox" (change)="toggleDeck(deck)" [checked]="deck.estado" class="deck" [class.selected]="deck === selectedDeck">
               <span (click)="toggleDeck(deck)">{{ deck.nombre }}</span>
             </div>
-          </ng-container>
+        </ng-container>
     </div>
     <div class="content">
         <div *ngFor="let card of cards; index as i">

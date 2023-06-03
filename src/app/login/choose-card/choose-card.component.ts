@@ -61,6 +61,7 @@ export class ChooseCardComponent implements OnInit {
       let message = "Se ha creado su colección de cartas correctamente"
       this.alert.createAlert(icon,type,message)
 
+      this.routeService.clearCards()
       this.routeService.switch("client",this.routeService.userID())
     }
   }

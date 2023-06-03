@@ -1,57 +1,149 @@
-<div class="main-content" >
+<div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="play-card-disabled">
-                    <div class="play-card-disabled-logo"> {{cardsLeft.length}} </div>
+                    <div class="play-card-disabled-logo"> {{cardsLeftOpponent.length}} </div>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <div class="hand">
-                    <div *ngFor="let card of hand; index as i">
+                    <div *ngFor="let card of handOpponent; index as i">
                         <div class="play-card-disabled">
                             <div class="play-card-disabled-logo"> ? </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="center2">
-                <h1 class="title"> Rival: {{opponent.username}}</h1>
-            </div>
-        </div>
-        <div class="row">&nbsp;</div>
-
-        <div class="row">
-            <div class="center2">
-                <div *ngFor="let planet of planetsOnMatch">
-                    <div class="planet-card">
-                        <div class="planet-card-face">
-                            <div class="planet-card-title"> {{planet.nombre}} </div>
-                            <div class="planet-card-image">
-                                <img [src]="planet.imagen" alt="Imagen">
+            <div class="col-md-2">
+                <div class="center2">
+                    <div class="title">
+                        <h4>Rival: {{opponent.username}}</h4>
+                        <span>
+                            <div class="title">
+                                <h4>Energia Restante: {{turn.energia}}</h4>
+                                <span>
+                                    <div class="title">
+                                        <h4>Numero de Turno: {{turn.numero_turno}}</h4>
+                                        <span>
+                                            <div class="title">
+                                                <h4>Tiempo Restante: {{timer}}</h4>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </span>
                             </div>
-                        </div>
-                        <div class="planet-card-back">
-                            <div class="row">
-                                <div class="planet-card-description"> {{planet.descripcion}} </div>
-                            </div>
-                            <div class="row">
-                                <div class="planet-card-stat"> {{planet.tipo}} </div>
-                            </div>
-                        </div>
+                        </span>
                     </div>
+                    
                 </div>
             </div>
         </div>
 
         <div class="row">&nbsp;</div>
+
+        <div class="row">
+            <div class="center2" *ngIf="!matchEnded; else elseBlock">
+                <div *ngFor="let planet of planetsOnMatch; index as i">
+                    <div class="center2">
+                        <div class="planet-card2" (click)="placeCard(planet)">
+                            <div class="planet-card2-face">
+                                <div class="planet-card2-title"> {{planet.nombre}} </div>
+                                <div class="planet-card2-image">
+                                    <img [src]="planet.imagen" alt="Imagen">
+                                </div>
+                            </div>
+                            <div class="planet-card2-back">
+                                <div class="row">
+                                    <div class="planet-card2-description"> {{planet.descripcion}} </div>
+                                </div>
+                                <div class="row">
+                                    <div class="planet-card2-stat"> {{planet.tipo}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="center2">
+                    <div class="play-card-disabled">
+                        <div class="play-card-disabled-text"> 
+                            {{planetsOnMatch[0].nombre}} <br> Ganador:  {{winnerPlanet1.username}}
+                        </div>
+                    </div>
+                    <div class="play-card-disabled">
+                        <div class="play-card-disabled-text"> 
+                            {{planetsOnMatch[1].nombre}} <br> Ganador:  {{winnerPlanet2.username}}
+                        </div>
+                    </div>
+                    <div class="play-card-disabled">
+                        <div class="play-card-disabled-text"> 
+                            {{planetsOnMatch[2].nombre}} <br> Ganador:  {{winnerPlanet3.username}}
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div class="row" *ngIf="!showOpponentsCards">
+            <div class="center2">
+                <div class="sidebar3">
+                    <h5 class="center2">Cartas en {{planetsOnMatch[0].nombre}}</h5>
+                    <ng-container *ngFor="let card of placedCards1">
+                          <input (click)="removeCard(card,0)" type="checkbox" [checked]="true" [class.selected]="true" class="card2">
+                          <span (click)="removeCard(card,0)">{{ card.nombre }} &nbsp; Daño: {{card.costo}}</span>
+                    </ng-container>
+                </div>
+                <div class="sidebar3">
+                    <h5 class="center2">Cartas en {{planetsOnMatch[1].nombre}}</h5>
+                    <ng-container *ngFor="let card of placedCards2">
+                          <input (click)="removeCard(card,1)" type="checkbox" [checked]="true" [class.selected]="true" class="card2">
+                          <span (click)="removeCard(card,1)">{{ card.nombre }} &nbsp; Daño: {{card.costo}}</span>
+                    </ng-container>
+                </div>
+                <div class="sidebar3">
+                    <h5 class="center2">Cartas en {{planetsOnMatch[2].nombre}}</h5>
+                    <ng-container *ngFor="let card of placedCards3">
+                          <input (click)="removeCard(card,2)" type="checkbox" [checked]="true" [class.selected]="true" class="card2">
+                          <span (click)="removeCard(card,2)">{{ card.nombre }} &nbsp; Daño: {{card.costo}}</span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="showOpponentsCards">
+            <div class="center2">
+                <div class="sidebar3">
+                    <h5 class="center2">Cartas del rival en {{planetsOnMatch[0].nombre}}</h5>
+                    <ng-container *ngFor="let card of placedCards1">
+                          <input type="checkbox" [checked]="true" [class.selected]="true" class="card2">
+                          <span>{{ card.nombre }} &nbsp; Daño: {{card.costo}}</span>
+                    </ng-container>
+                </div>
+                <div class="sidebar3">
+                    <h5 class="center2">Cartas del rival en {{planetsOnMatch[1].nombre}}</h5>
+                    <ng-container *ngFor="let card of placedCards2">
+                          <input type="checkbox" [checked]="true" [class.selected]="true" class="card2">
+                          <span>{{ card.nombre }} &nbsp; Daño: {{card.costo}}</span>
+                    </ng-container>
+                </div>
+                <div class="sidebar3">
+                    <h5 class="center2">Cartas del rival en {{planetsOnMatch[2].nombre}}</h5>
+                    <ng-container *ngFor="let card of placedCards3">
+                          <input type="checkbox" [checked]="true" [class.selected]="true" class="card2">
+                          <span>{{ card.nombre }} &nbsp; Daño: {{card.costo}}</span>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+
+
+
         <div class="row">&nbsp;</div>
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="play-card-disabled">
                     <div class="play-card-disabled-logo"> {{cardsLeft.length}} </div>
                 </div>
@@ -59,43 +151,46 @@
             <div class="col-md-10">
                 <div class="hand">
                     <div *ngFor="let card of hand; index as i">
-                        <div class="play-card" (click)="selectCard(card)" [class.selected]="selectedCard == card">
-                            <div class="play-card-face">
-                                <div class="play-card-title"> {{card.nombre}} </div>
+                        <div class="play-card2" (click)="selectCard(card)" [class.selected]="selectedCard == card">
+                            <div class="play-card2-face">
+                                <div class="play-card2-title"> {{card.nombre}} </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="play-card-stat">
+                                        <div class="play-card2-stat">
                                             <span class="icon-combat"></span> {{card.costo}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="play-card-stat">
+                                        <div class="play-card2-stat">
                                             <span class="icon-energy"></span> {{card.energia}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="play-card-image">
+                                <div class="play-card2-image">
                                     <img [src]="card.imagen" alt="Imagen">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="play-card-stat">
+                                        <div class="play-card2-stat">
                                             {{card.raza}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="play-card-stat">
+                                        <div class="play-card2-stat">
                                             {{card.tipo}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="play-card-back">
-                                <div class="play-card-description"> {{card.descripcion}} </div>
+                            <div class="play-card2-back">
+                                <div class="play-card2-description"> {{card.descripcion}} </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-1" *ngIf="!turnEnded">
+                <div class="btn" (click)="endTurn()">Terminar Turno</div>
             </div>
         </div>
     </div>

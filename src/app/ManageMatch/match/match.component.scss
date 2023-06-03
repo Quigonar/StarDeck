@@ -1,6 +1,32 @@
+/*{
+  border: 1px dotted red;
+}*/
+.sidebar3 {
+  background-color: white;
+  position: relative;
+  margin-top: 10px;
+  padding: 10px;
+  height: 100%;
+  width: 260px;
+}
+
+.sidebar3 .card2 {
+  margin: 20px;
+}
+
+.sidebar3 .card2.selected {
+  background-color: gray;
+}
+
+.sidebar3 span {
+  cursor: pointer;
+  color: black;
+  font-size: 20px;
+}
+
 .play-card-disabled {
-    width: 223px;
-    height: 330px;
+    width: 153px;
+    height: 220px;
     border-radius: 10px;
     background-color: darkgray;
     display: flex;
@@ -11,15 +37,26 @@
     }
 
     .play-card-disabled-logo {
-        font-size: 40px;
-        margin: 0;
-        padding-top: 55%;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        color: white;
-        font-style: bold;
-      }
+      font-size: 40px;
+      margin: 0;
+      padding-top: 55%;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: white;
+      font-style: bold;
+    }
+    .play-card-disabled-text {
+      font-size: 15px;
+      font-weight: bolder;
+      margin: 0;
+      padding-top: 50%;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: white;
+      font-style: bolder;
+    }
 
 .hand {
     display: flex;
@@ -27,9 +64,253 @@
 }
 
 .center2 {
-    //padding-top:10%;
     display: flex;
     flex-direction: row;
-    //align-items: center;
     justify-content: center;
   }
+
+.center3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+  .play-card2 {
+    width: 153px;
+    height: 220px;
+    border-radius: 10px;
+    background-color: #5d5d69;
+    //display: flex;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .play-card2.selected {
+    box-shadow: 0 0 8px 3px rgb(251, 255, 0);
+  }
+
+  .play-card2.placed {
+    width:75px;
+    height:110px;
+  }
+
+  .play-card2-face,
+  .play-card2-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+  }
+
+  .play-card2-face {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transform: rotateY(0deg);
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+    padding: 20px;
+  }
+
+  .play-card2-back {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #5d5d69;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+    padding: 20px;
+  }
+
+  .play-card2:hover .play-card2-face {
+    transform: translateY(0%);
+  }
+
+  .play-card2:hover .play-card2-back {
+    transform: translateY(0%);
+  }
+
+  .play-card2-image {
+    height: 50%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .play-card2-image img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .play-card2-stat {
+    font-size: 12px;
+    margin: 0;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #323246;
+    color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .icon-combat {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 10px;
+    height: 10px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/1816/1816022.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .icon-energy {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 10px;
+    height: 10px;
+    background-image: url('https://freepngimg.com/save/141596-energy-symbol-free-download-png-hd/512x512');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  .play-card2-info {
+    height: 35%;
+    //display: flex;
+    //flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .play-card2-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding-bottom: 5%;
+    padding-top: 5%;
+    padding-left: 5%;
+    text-align: left;
+    background-color: #343444;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .play-card2-description {
+    font-size: 12px;
+    margin: 0;
+    padding-top: 10px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: white;
+    font-style: italic;
+  }
+
+
+
+  .planet-card2 {
+    width: 153px;
+    height: 220px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  
+    .planet-card2-face,
+    .planet-card2-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+  
+    .planet-card2-face {
+      background-color: none;
+      transform: rotateY(0deg);
+      width: 100%;
+      transition: transform 0.3s ease-in-out;
+      padding: 20px;
+    }
+  
+    .planet-card2-back {
+      background-color: #5d5d69;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+      padding: 20px;
+    }
+  
+    .planet-card2:hover .planet-card2-face {
+      transform: translateY(0%);
+    }
+  
+    .planet-card2:hover .planet-card2-back {
+      transform: translateY(0%);
+    }
+  
+    .planet-card2-image {
+      height: 80%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .planet-card2-image img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      max-height: 100%;
+    }
+  
+    .planet-card2-stat {
+      font-size: 12px;
+      margin: 0;
+      text-align: center;
+      border-radius: 10px;
+      background-color: #323246;
+      color: white;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    
+    .planet-card2-title {
+      font-size: 12px;
+      font-weight: bold;
+      margin: 0;
+      padding-bottom: 5%;
+      padding-top: 5%;
+      padding-left: 5%;
+      text-align: left;
+      background-color: #343444;
+      border-radius: 10px;
+      color: white;
+    }
+    
+    .planet-card2-description {
+      font-size: 12px;
+      margin: 0;
+      padding-top: 10px;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      color: white;
+      font-style: italic;
+    }

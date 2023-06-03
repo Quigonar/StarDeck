@@ -22,6 +22,9 @@ export class Navbar2Component implements OnInit{
 
     logout(){
         this.user.switch('login','0')
+        this.user.clearUserID()
+        this.user.clearMatch()
+        this.user.clearCards()
         this.router.navigate(['login'])
     }
 
