@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardsI } from 'app/models/cards.interface';
+import { completeTurnI } from 'app/models/completeTurn.interface';
 import { DecksI } from 'app/models/decks.interface';
 import { MatchI } from 'app/models/match.interface';
-import { PartidaI } from 'app/models/partida.interface';
 import { PlayerI } from 'app/models/player.interface';
 import { TurnI } from 'app/models/turn.interface';
-import { TurnHandDeck } from 'app/models/turnHand.interface';
 import { ApiService } from 'app/services/api.service';
 import { RouteService } from 'app/services/route.service';
 import { TestService } from 'app/services/testing.service';
@@ -25,11 +24,8 @@ export class MatchmakingComponent implements OnInit {
   public match : MatchI
   private apiCallInterval : any
   private counterInterval : any
-  public deck: DecksI
-  public cardsLeft: CardsI[] = []
-  public hand : CardsI[] = []
-  public turn : TurnI
-  public handDeck : TurnHandDeck
+  private turn : TurnI
+  private completeTurn : completeTurnI
 
   constructor(private router:Router, private api:ApiService, private test:TestService, private user:RouteService) { }
 
@@ -37,29 +33,6 @@ export class MatchmakingComponent implements OnInit {
     this.api.searchGame(this.user.userID()).subscribe(player => {
       location.reload()
     })
-  }
-
-  generateNonEqualNumbers(): number[] {
-    const numbers: number[] = [];
-    
-    while (numbers.length < this.user.getParams().cartas_Mano_Inicial) {
-      const randomNumber = Math.floor(Math.random() * 18); // Generate random number from 0 to 17
-      
-      if (!numbers.includes(randomNumber)) {
-        numbers.push(randomNumber);
-      }
-    }
-    
-    return numbers;
-  }
-
-  shuffleArray(array: CardsI[]) {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-    }
-    return shuffledArray;
   }
 
   checkForConnection() {
@@ -81,59 +54,17 @@ export class MatchmakingComponent implements OnInit {
           clearInterval(this.apiCallInterval)
           clearInterval(this.counterInterval) 
 
-          //CREATE TURN
-          this.api.addTurno(this.turn).subscribe(answer => {
-            this.turn.id = answer.id
-            this.handDeck.id_Turno = answer.id
-            //GET THE DECK AND CREATE HAND
-            this.api.getDecks(this.user.userID()).subscribe(decks => {
-              decks.forEach(deck => {
-                if (deck.estado === true) {
-                  this.deck = deck
-                  this.cardsLeft = deck.cartas
+          console.log("---- COMPLETE TURN ----")
+          console.log(this.completeTurn)
 
-                  console.log("---- DECK ----")
-                  console.log(this.cardsLeft)
-                  
-
-                  let randomNums = this.generateNonEqualNumbers()
-                  for (let i = 0; i < this.user.getParams().cartas_Mano_Inicial; i++) {
-                    this.hand[i] = this.cardsLeft[randomNums[i]]
-                    this.cardsLeft = this.cardsLeft.filter(item => item !== this.cardsLeft[randomNums[i]])
-                  }
-
-                  console.log("---- HAND ----")
-                  console.log(this.hand)
-                  console.log("---- DECK LEFT ----")
-                  console.log(this.cardsLeft)
-                  
-                  //SHUFFLE REST OF DECK
-                  this.cardsLeft = this.shuffleArray(this.cardsLeft)
-
-                }        
-              });
-              //SEND API POST TO SET PLAYER'S HAND AND REST OF DECK
-              var counterForHand = 0
-              this.hand.forEach(card => {
-                this.handDeck.id_Carta = card.id
-                this.handDeck.posicion = counterForHand
-                console.log(this.handDeck)
-                this.api.addCartaMano(this.handDeck).subscribe(answer => {})
-                counterForHand++
-              })
-              var counterForDeck = 0
-              this.cardsLeft.forEach(card => {
-                this.handDeck.id_Carta = card.id
-                this.handDeck.posicion = counterForDeck
-                console.log(this.handDeck)
-                this.api.addCartaDeck(this.handDeck).subscribe(answer => {})
-                counterForDeck++
-              })
-            })
+          //CREATE NEW TURN
+          this.api.addTurnoCompleto(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(completeTurn => {
+            this.completeTurn = completeTurn
+            console.log(this.completeTurn)
+            
+            //NAVIGATE TO PLAY SCREEN
+            this.router.navigate(["/partida"])
           })
-
-          //NAVIGATE TO PLAY SCREEN
-          this.router.navigate(["/partida"])
         }
       })
     })
@@ -155,7 +86,7 @@ export class MatchmakingComponent implements OnInit {
 
   ngOnInit(){
     this.turn = {
-      id: null,
+      id: "",
       id_Partida: "",
       numero_turno: 1,
       id_Usuario: this.user.userID(),
@@ -163,11 +94,34 @@ export class MatchmakingComponent implements OnInit {
       terminado: false
     }
 
-    this.handDeck = {
-      id_Carta: "",
-      id_Turno: "",
-      id_Usuario: this.user.userID(),
-      posicion: 0
+    let cartas = this.test.testCards(1)
+    let cartasPlanetas = [cartas]
+    let planetas = this.test.testPlanets(1)
+    let user = {
+      id: "",
+      nombre: "",
+      nacionalidad: "",
+      username: "",
+      contrasena: "",
+      correo: "",
+      estado: false,
+      avatar: "",
+      ranking: 0,
+      monedas: 0,
+      administrador: false,
+      actividad: "",
+    } 
+
+    this.completeTurn = {
+      infoPartida: this.turn,
+      cartasManoUsuario: cartas,
+      cartasDeckUsuario: cartas,
+      cartasManoRival: cartas,
+      cartasDeckRival: cartas,
+      cartasPlanetas: cartasPlanetas,
+      cartasRivalPlanetas: cartasPlanetas,
+      rival: user,
+      planetasEnPartida: planetas
     }
 
     this.api.getPlayerID(this.user.userID()).subscribe(player => {

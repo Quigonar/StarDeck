@@ -33,7 +33,7 @@ export class Navbar2Component implements OnInit{
 
     setActiveSection(index: number) {
         this.activeSectionIndex = index;
-        this.router.navigate(['/' + this.sections[index].toLowerCase() + '/'])
+        this.router.navigate(['/' + this.sections[index]?.toLowerCase() + '/'])
     }
 
     getRouteName(url: string): string {
@@ -42,12 +42,28 @@ export class Navbar2Component implements OnInit{
       }
 
     ngOnInit(){
+
+        this.player = {
+            id: "",
+            nombre: "",
+            nacionalidad: "",
+            username: "",
+            contrasena: "",
+            correo: "",
+            estado: false,
+            avatar: "",
+            ranking: 0,
+            monedas: 0,
+            administrador: false,
+            actividad: "",
+        }
+
         this.router.events
             .pipe(filter(event => event instanceof NavigationEnd))
             .subscribe((event: NavigationEnd) => {
                 let currentRoute = this.getRouteName(event.url);
                 for (let i=0; i <=5; i++) {
-                    if (this.sections[i].toLowerCase() === currentRoute) {
+                    if (this.sections[i]?.toLowerCase() === currentRoute) {
                         this.activeSectionIndex = i
                     }
                 }

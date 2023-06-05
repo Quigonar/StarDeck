@@ -18,6 +18,8 @@ import { ParamsI } from 'app/models/parameters.interface';
 import { TurnHandDeck } from 'app/models/turnHand.interface';
 import { TurnPlanet } from 'app/models/turnPlanet.interface';
 import { TurnI } from 'app/models/turn.interface';
+import { completeTurnI } from 'app/models/completeTurn.interface';
+import { winnerI } from 'app/models/winner.interface';
 
 
 @Injectable({
@@ -294,9 +296,28 @@ export class ApiService {
     let dir = this.url + "Turno/updateTurno/" + id_turno
     return this.makeRequest<TurnI>(dir, 'PUT', turno) as Observable<TurnI>
   }
-  getGanadorPartida(id_planeta, id_partida, id_usuario, id_rival):Observable<PlayerI>{
-    let dir = this.url + "Turno/getganadorplaneta/" + id_planeta + "/" + id_partida + "/" + id_usuario + "/" + id_rival
-    return this.makeRequest<PlayerI>(dir, 'GET') as Observable<PlayerI>
+  
+  
+  //FIX FOR TURN LOGIC
+  addTurnoCompleto(id_partida, id_usuario, turnoCompleto:completeTurnI):Observable<completeTurnI>{
+    let dir = this.url + "Turno/addTurnoCompleto/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'POST', turnoCompleto) as Observable<completeTurnI>
+  }
+  getInfoCompletaTurno(id_partida, id_usuario):Observable<completeTurnI>{
+    let dir = this.url + "Turno/getInfoCompletaTurno/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'GET') as Observable<completeTurnI>
+  }
+  updateInfoCompletaTurno(id_partida, id_usuario, turnoCompleto:completeTurnI):Observable<completeTurnI>{
+    let dir = this.url + "Turno/updateInfoCompletaTurno/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'PUT', turnoCompleto) as Observable<completeTurnI>
+  }
+  crearNuevoTurnoCompleto(id_partida, id_usuario, turnoCompleto:completeTurnI):Observable<completeTurnI>{
+    let dir = this.url + "Turno/crearNuevoTurnoCompleto/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'POST', turnoCompleto) as Observable<completeTurnI>
+  }
+  getGanadorPartida(id_partida, id_usuario):Observable<winnerI>{
+    let dir = this.url + "Turno/getGanador/" + id_partida + "/" + id_usuario
+    return this.makeRequest<winnerI>(dir, 'GET') as Observable<winnerI>
   }
 
   //DROPDOWN TABLES REQUESTS

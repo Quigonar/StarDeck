@@ -1,0 +1,41 @@
+<div class="container">
+    <h1 class="title">Ganador:</h1>
+
+    <div class="player-cards">
+        <div class="player-card">
+            <img src="assets/img/default-avatar.png" alt="Jugador 1" class="winner">
+            <h2>{{winnerInfo?.winner?.username}}</h2>
+        </div>
+
+        <div class="player-card">
+            <img src="assets/img/default-avatar.png" alt="Jugador 2">
+            <h2>{{winnerInfo?.loser?.username}}</h2>
+        </div>
+    </div>
+
+    <div class="location-cards">
+        <div class="location-card">
+            <h3>{{winnerInfo?.planetsOnMatch[0]?.nombre}}</h3>
+            <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[0]}}</p>
+            <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[0]}}</p>
+            <p>Ganador: {{winnerInfo?.winnerPerPlanet[0]?.username}}</p>
+        </div>
+
+        <div class="location-card">
+            <h3>{{winnerInfo?.planetsOnMatch[1]?.nombre}}</h3>
+            <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[1]}}</p>
+            <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[1]}}</p>
+            <p>Ganador: {{winnerInfo?.winnerPerPlanet[1]?.username}}</p>
+        </div>
+
+        <div class="location-card">
+            <h3>{{winnerInfo?.planetsOnMatch[2]?.nombre}}</h3>
+            <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[2]}}</p>
+            <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[2]}}</p>
+            <p>Ganador: {{winnerInfo?.winnerPerPlanet[2]?.username}}</p>
+        </div>
+    </div>
+    <div class="btn-container">
+        <button (click)="goBackToPlayScreen()" class="btn">Menu Principal</button>
+    </div>
+</div>
