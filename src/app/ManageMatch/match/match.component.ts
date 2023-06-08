@@ -59,29 +59,24 @@ export class MatchComponent implements OnInit {
     }
   }
 
+  placeCardAux(planetNumber, placedCardsPlaneta:CardsI[]){
+    placedCardsPlaneta.push(this.selectedCard)
+    this.completeTurn.cartasPlanetas[planetNumber].push(this.selectedCard)
+    this.completeTurn.cartasManoUsuario = this.completeTurn.cartasManoUsuario.filter(instance => instance !== this.selectedCard)
+    this.completeTurn.infoPartida.energia -= this.selectedCard.energia
+    this.selectedCard = null
+  }
+
   placeCard(planet:PlanetsI, index){
     //PLACE THE CARD IN ITS RESPECTIVE PLANET
     if ((this.selectedCard !== null || this.selectedCard !== undefined) && (this.completeTurn.infoPartida.energia >= this.selectedCard.energia) && (!this.turnEnded)) {
-      
       if (this.completeTurn.cartasPlanetas[0]?.length < 5 && planet === this.completeTurn.planetasEnPartida[0]) {
-        this.placedCards1.push(this.selectedCard)
-        this.completeTurn.cartasPlanetas[0].push(this.selectedCard)
-        this.completeTurn.cartasManoUsuario = this.completeTurn.cartasManoUsuario.filter(instance => instance !== this.selectedCard)
-        this.completeTurn.infoPartida.energia -= this.selectedCard.energia
-        this.selectedCard = null
+        this.placeCardAux(0,this.placedCards1)
       } else if (this.completeTurn.cartasPlanetas[1]?.length < 5 && planet === this.completeTurn.planetasEnPartida[1]) {
-        this.placedCards2.push(this.selectedCard)
-        this.completeTurn.cartasPlanetas[1].push(this.selectedCard)
-        this.completeTurn.cartasManoUsuario = this.completeTurn.cartasManoUsuario.filter(instance => instance !== this.selectedCard)
-        this.completeTurn.infoPartida.energia -= this.selectedCard.energia
-        this.selectedCard = null
+        this.placeCardAux(1,this.placedCards2)
       } else if (this.completeTurn.cartasPlanetas[2]?.length < 5 && planet === this.completeTurn.planetasEnPartida[2] && 
         this.completeTurn.infoPartida.numero_turno >= 5) {
-        this.placedCards3.push(this.selectedCard)
-        this.completeTurn.cartasPlanetas[2].push(this.selectedCard)
-        this.completeTurn.cartasManoUsuario = this.completeTurn.cartasManoUsuario.filter(instance => instance !== this.selectedCard)
-        this.completeTurn.infoPartida.energia -= this.selectedCard.energia
-        this.selectedCard = null
+          this.placeCardAux(2,this.placedCards3)
       } else if (planet === this.completeTurn.planetasEnPartida[2] && this.completeTurn.infoPartida.numero_turno < 5) {
         let icon = "fa fa-exclamation-triangle"
         let type = "danger"
@@ -107,23 +102,20 @@ export class MatchComponent implements OnInit {
     } 
   }
 
+  removeCardAux(planetNumber, placedCardsPlaneta:CardsI[], card:CardsI) {
+    placedCardsPlaneta = placedCardsPlaneta.filter(instance => {instance.id !== card.id})
+    this.completeTurn.cartasPlanetas[planetNumber] = this.completeTurn.cartasPlanetas[planetNumber].filter(instance => instance.id !== card.id)
+    this.completeTurn.cartasManoUsuario.push(card)
+    this.completeTurn.infoPartida.energia += card.energia
+  }
   removeCard(card:CardsI, index){
     //REMOVE A CARD FROM ITS RESPECTIVE PLANET
     if (index === 0 && this.placedCards1.includes(card)) {
-        this.placedCards1 = this.placedCards1.filter(instance => instance.id !== card.id)
-        this.completeTurn.cartasPlanetas[0] = this.completeTurn.cartasPlanetas[0].filter(instance => instance.id !== card.id)
-        this.completeTurn.cartasManoUsuario.push(card)
-        this.completeTurn.infoPartida.energia += card.energia
+      this.removeCardAux(0, this.placedCards1, card)
     } else if (index === 1 && this.placedCards2.includes(card)) {
-        this.placedCards2 = this.placedCards2.filter(instance => instance.id !== card.id)
-        this.completeTurn.cartasPlanetas[1] = this.completeTurn.cartasPlanetas[1].filter(instance => instance.id !== card.id)
-        this.completeTurn.cartasManoUsuario.push(card)
-        this.completeTurn.infoPartida.energia += card.energia
+      this.removeCardAux(1, this.placedCards2, card)
     } else if (index === 2 && this.placedCards3) {
-        this.placedCards3 = this.placedCards3.filter(instance => instance.id !== card.id)
-        this.completeTurn.cartasPlanetas[2] = this.completeTurn.cartasPlanetas[2].filter(instance => instance.id !== card.id)
-        this.completeTurn.cartasManoUsuario.push(card)
-        this.completeTurn.infoPartida.energia += card.energia
+      this.removeCardAux(2, this.placedCards3, card)
     } else {
       //HANDLE WHERE CARD IS FROM A PREVIOUS TURN
       let icon = "fa fa-exclamation-triangle"
