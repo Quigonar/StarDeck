@@ -197,10 +197,14 @@ export class MatchComponent implements OnInit {
   stopCounterTurn(){
     clearInterval(this.turnTimerInterval)
 
-    //ALSO END OPPONENT'S TURN JUST IN CASE THE OPPONENT LEFT THE GAME
-    //this.opponentsTurn.terminado = true
-    //this.api.updateTurno(this.opponentsTurn.id, this.opponentsTurn).subscribe(answer => { })
-    //this.endTurn()
+    //END OPPONENT'S TURN JUST IN CASE THE OPPONENT LEFT THE GAME AND END MY TURN
+    this.api.getInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id).subscribe(completeTurn => {
+      completeTurn.infoPartida.terminado = true;
+      this.api.updateInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id, this.completeTurn).subscribe(updatedLastTurn => { 
+        console.log(updatedLastTurn)
+        this.endTurn()
+      })
+    })
   }
 
   stopCounterShowCards(){
