@@ -126,25 +126,33 @@ export class MatchComponent implements OnInit {
   }
 
   endTurn() {
-    this.completeTurn.infoPartida.terminado = true
-    this.turnEnded = true
+    if (this.turnEnded !== true) {
+      this.completeTurn.infoPartida.terminado = true
+      this.turnEnded = true
 
-    if (this.completeTurn.infoPartida.numero_turno <= this.parameters.turnos_totales) {
-      let lastTurn = this.completeTurn.infoPartida.numero_turno
-      
-      this.api.updateInfoCompletaTurno(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(updatedLastTurn => { })
+      if (this.completeTurn.infoPartida.numero_turno <= this.parameters.turnos_totales) {
+        let lastTurn = this.completeTurn.infoPartida.numero_turno
+        
+        this.api.updateInfoCompletaTurno(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(updatedLastTurn => { })
 
+        //START CHECKING IF THE OTHER USER ALSO FINISHED THE TURN EARLY
+        this.apiCallTurnEndedInterval = setInterval(() => {
+          this.checkForOpponentsTurn(lastTurn)
+        }, 2000)
+      }
+    } else {
       //START CHECKING IF THE OTHER USER ALSO FINISHED THE TURN EARLY
+      let lastTurn = this.completeTurn.infoPartida.numero_turno
       this.apiCallTurnEndedInterval = setInterval(() => {
         this.checkForOpponentsTurn(lastTurn)
       }, 2000)
-
     }
+    
   }
 
   checkForOpponentsTurn(lastTurn) {
     this.api.getLastTurnoNumero(this.user.matchID(), this.completeTurn.rival.id, lastTurn).subscribe(opponentsTurn => { 
-      if (opponentsTurn.terminado === true || this.matchEnded) {
+      if (opponentsTurn?.terminado === true || this.matchEnded) {
 
         //UPDATE THE TURN LAST TURN AND MAKE A NEW TURN
         this.api.crearNuevoTurnoCompleto(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(newCreatedTurn => {
@@ -244,9 +252,9 @@ export class MatchComponent implements OnInit {
     //GET TURN INFORMATION, MATCH HAS ALREADY BEEN INITIALIZED IN MATCHMAKING PROCESS
     this.api.getInfoCompletaTurno(this.user.matchID(), this.user.userID()).subscribe(completeTurn => {
       this.completeTurn = completeTurn
-      this.turnEnded = this.completeTurn.infoPartida.terminado
+      this.turnEnded = this.completeTurn.infoPartida?.terminado
       console.log(this.completeTurn)
-      if (this.completeTurn.infoPartida.numero_turno > this.parameters.turnos_totales) {
+      if (this.completeTurn.infoPartida?.numero_turno > this.parameters.turnos_totales) {
         this.finishMatch()
       } else if (this.completeTurn.infoPartida.numero_turno === 1) {
         this.alert.createAlert("fa fa-check", "info", "Suerte en la partida!")
