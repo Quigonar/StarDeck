@@ -39,72 +39,32 @@ export class ApiService {
       case 'GET':
         return this.http.get<T>(url).pipe(
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              message = "Un error ha ocurrido: ", error.error.message
-              this.alert.createAlert(icon,type,message)
-            } else {
-              if (error.status === 0 && error.statusText === 'Unknown Error') {
-                message = "Error: no se pudo conectar con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              } else {
-                message = "Error: con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              }
-            }
+            message = error.error
+            this.alert.createAlert(icon,type,message)
             return of('Something went wrong. Please try again later.') as Observable<T>;
           })
         );
       case 'PUT':
         return this.http.put<T>(url, data).pipe(
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              message = "Un error ha ocurrido: ", error.error.message
-              this.alert.createAlert(icon,type,message)
-            } else {
-              if (error.status === 0 && error.statusText === 'Unknown Error') {
-                message = "Error: no se pudo conectar con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              } else {
-                message = "Error: con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              }
-            }
+            message = error.error
+            this.alert.createAlert(icon,type,message)
             return of('Something went wrong. Please try again later.') as Observable<T>;
           })
         );
       case 'POST':
         return this.http.post<T>(url, data).pipe(
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              message = "Un error ha ocurrido: ", error.error.message
-              this.alert.createAlert(icon,type,message)
-            } else {
-              if (error.status === 0 && error.statusText === 'Unknown Error') {
-                message = "Error: no se pudo conectar con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              } else {
-                message = "Error: con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              }
-            }
+            message = error.error
+            this.alert.createAlert(icon,type,message)
             return of('Something went wrong. Please try again later.') as Observable<T>;
           })
         );
       case 'DELETE':
         return this.http.delete<T>(url).pipe(
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              message = "Un error ha ocurrido: ", error.error.message
-              this.alert.createAlert(icon,type,message)
-            } else {
-              if (error.status === 0 && error.statusText === 'Unknown Error') {
-                message = "Error: no se pudo conectar con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              } else {
-                message = "Error: con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              }
-            }
+            message = error.error
+            this.alert.createAlert(icon,type,message)
             return of('Something went wrong. Please try again later.') as Observable<T>;
           })
         );

@@ -6,6 +6,7 @@ import { DecksI } from 'app/models/decks.interface';
 import { MatchI } from 'app/models/match.interface';
 import { PlayerI } from 'app/models/player.interface';
 import { TurnI } from 'app/models/turn.interface';
+import { AlertService } from 'app/services/alert.service';
 import { ApiService } from 'app/services/api.service';
 import { RouteService } from 'app/services/route.service';
 import { TestService } from 'app/services/testing.service';
@@ -27,11 +28,19 @@ export class MatchmakingComponent implements OnInit {
   private turn : TurnI
   private completeTurn : completeTurnI
 
-  constructor(private router:Router, private api:ApiService, private test:TestService, private user:RouteService) { }
+  constructor(private router:Router, private api:ApiService, private test:TestService, private user:RouteService, private alert:AlertService) { }
 
   searchGame() {
-    this.api.searchGame(this.user.userID()).subscribe(player => {
-      location.reload()
+    this.api.getDecks(this.user.userID()).subscribe(decks => {
+      decks.forEach(deck => {
+        if (deck.estado === true) {
+          this.api.searchGame(this.user.userID()).subscribe(player => {
+            location.reload()
+          })
+        }
+      })
+
+      this.alert.createAlert("fa fa-exclamation-triangle", "danger","Porfavor seleccione un deck primero.")
     })
   }
 
@@ -48,14 +57,11 @@ export class MatchmakingComponent implements OnInit {
       }
       //CHECK IF MATCH IS READY TO BE JOINED
       this.api.getPartidaID(this.user.matchID()).subscribe(partida => {
-        if (partida.estado === matchReadyNumber) {
+        if (partida?.estado === matchReadyNumber) {
 
           //STOP COUNTERS
           clearInterval(this.apiCallInterval)
           clearInterval(this.counterInterval) 
-
-          console.log("---- COMPLETE TURN ----")
-          console.log(this.completeTurn)
 
           //CREATE NEW TURN
           this.api.addTurnoCompleto(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(completeTurn => {
@@ -88,7 +94,7 @@ export class MatchmakingComponent implements OnInit {
     this.turn = {
       id: "",
       id_Partida: "",
-      numero_turno: 1,
+      numero_turno: 0,
       id_Usuario: this.user.userID(),
       energia: this.user.getParams().energia_Inicial,
       terminado: false

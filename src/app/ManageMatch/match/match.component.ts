@@ -198,13 +198,15 @@ export class MatchComponent implements OnInit {
     clearInterval(this.turnTimerInterval)
 
     //END OPPONENT'S TURN JUST IN CASE THE OPPONENT LEFT THE GAME AND END MY TURN
-    this.api.getInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id).subscribe(completeTurn => {
+    /*this.api.getInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id).subscribe(completeTurn => {
       completeTurn.infoPartida.terminado = true;
+      console.log(completeTurn)
       this.api.updateInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id, this.completeTurn).subscribe(updatedLastTurn => { 
         console.log(updatedLastTurn)
         this.endTurn()
       })
-    })
+    })*/
+    this.endTurn()
   }
 
   stopCounterShowCards(){
@@ -243,6 +245,7 @@ export class MatchComponent implements OnInit {
     this.api.getInfoCompletaTurno(this.user.matchID(), this.user.userID()).subscribe(completeTurn => {
       this.completeTurn = completeTurn
       this.turnEnded = this.completeTurn.infoPartida.terminado
+      console.log(this.completeTurn)
       if (this.completeTurn.infoPartida.numero_turno > this.parameters.turnos_totales) {
         this.finishMatch()
       } else if (this.completeTurn.infoPartida.numero_turno === 1) {
@@ -251,5 +254,11 @@ export class MatchComponent implements OnInit {
         this.alert.createAlert("fa fa-check", "info", "Estas en un nuevo turno!")
       }
     })
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.showCardsInterval)
+    clearInterval(this.turnTimerInterval)
+    clearInterval(this.apiCallTurnEndedInterval)
   }
 }

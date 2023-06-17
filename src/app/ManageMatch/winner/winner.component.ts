@@ -15,6 +15,7 @@ import { VerifyService } from 'app/services/verifier.service';
 export class WinnerComponent implements OnInit {
 
   winnerInfo: winnerI
+  matchEndedTied: boolean = false
 
   constructor(private router:Router, private api:ApiService, private test:TestService, private InfoVerifier:VerifyService, private user:RouteService, private alert:AlertService) { }
 
@@ -37,6 +38,10 @@ export class WinnerComponent implements OnInit {
 
     this.api.getGanadorPartida(this.user.matchID(), this.user.userID()).subscribe(winnerInfo => {
       this.winnerInfo = winnerInfo
+      console.log(this.winnerInfo)
+      if (this.winnerInfo.winner === null && this.winnerInfo.loser === null) {
+        this.matchEndedTied = true
+      }
     })
   }
 
