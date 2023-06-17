@@ -154,14 +154,7 @@ export class MatchComponent implements OnInit {
           }
         })
       }
-    } else {
-      //START CHECKING IF THE OTHER USER ALSO FINISHED THE TURN EARLY
-      let lastTurn = this.completeTurn.infoPartida.numero_turno
-      this.apiCallTurnEndedInterval = setInterval(() => {
-        this.checkForOpponentsTurn(lastTurn)
-      }, 2000)
     }
-    
   }
 
   checkForOpponentsTurn(lastTurn) {
