@@ -166,8 +166,12 @@ export class ApiService {
     let dir = this.url + "matchmaking/matchmakingCheck/" + user
     return this.makeRequest<MatchI>(dir, 'GET') as Observable<MatchI>
   }
-  finishMatch(user:any):Observable<PlayerI>{
-    let dir = this.url + "matchmaking/finishMatchUser/" + user
+  finishMatch(user:any, matchId:any):Observable<PlayerI>{
+    let dir = this.url + "matchmaking/finishMatchUser/" + user + "/" + matchId
+    return this.makeRequest<PlayerI>(dir, 'PUT') as Observable<PlayerI>
+  }
+  finishMatchSearch(user:any):Observable<PlayerI>{
+    let dir = this.url + "matchmaking/finishMatchSearch/" + user
     return this.makeRequest<PlayerI>(dir, 'PUT') as Observable<PlayerI>
   }
   finishGame(match_id:any):Observable<MatchI>{
@@ -255,6 +259,10 @@ export class ApiService {
   updateTurno(id_turno, turno:TurnI):Observable<TurnI>{
     let dir = this.url + "Turno/updateTurno/" + id_turno
     return this.makeRequest<TurnI>(dir, 'PUT', turno) as Observable<TurnI>
+  }
+  giveUp(id_partida, id_usuario):Observable<any>{
+    let dir = this.url + "Turno/giveUpMatch/" + id_partida + "/" + id_usuario
+    return this.makeRequest<any>(dir, 'PUT') as Observable<any>
   }
   
   

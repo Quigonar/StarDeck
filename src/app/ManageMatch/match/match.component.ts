@@ -108,13 +108,14 @@ export class MatchComponent implements OnInit {
     this.completeTurn.cartasManoUsuario.push(card)
     this.completeTurn.infoPartida.energia += card.energia
   }
+
   removeCard(card:CardsI, index){
     //REMOVE A CARD FROM ITS RESPECTIVE PLANET
     if (index === 0 && this.placedCards1.includes(card)) {
       this.removeCardAux(0, this.placedCards1, card)
     } else if (index === 1 && this.placedCards2.includes(card)) {
       this.removeCardAux(1, this.placedCards2, card)
-    } else if (index === 2 && this.placedCards3) {
+    } else if (index === 2 && this.placedCards3.includes(card)) {
       this.removeCardAux(2, this.placedCards3, card)
     } else {
       //HANDLE WHERE CARD IS FROM A PREVIOUS TURN
@@ -136,9 +137,22 @@ export class MatchComponent implements OnInit {
         this.api.updateInfoCompletaTurno(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(updatedLastTurn => { })
 
         //START CHECKING IF THE OTHER USER ALSO FINISHED THE TURN EARLY
-        this.apiCallTurnEndedInterval = setInterval(() => {
-          this.checkForOpponentsTurn(lastTurn)
-        }, 2000)
+        if (!this.matchEnded) {
+          this.apiCallTurnEndedInterval = setInterval(() => {
+            this.checkForOpponentsTurn(lastTurn)
+          }, 2000)
+        }
+
+        const partidaTerminada = 4
+        this.api.getPartidaID(this.user.matchID()).subscribe(partidaInfo => {
+          if (partidaInfo.estado === partidaTerminada) {
+            let icon = "fa fa-check"
+            let type = "info"
+            let message = "El oponente se ha rendido"
+            this.alert.createAlert(icon, type, message)
+            this.finishMatch()
+          }
+        })
       }
     } else {
       //START CHECKING IF THE OTHER USER ALSO FINISHED THE TURN EARLY
@@ -152,16 +166,16 @@ export class MatchComponent implements OnInit {
 
   checkForOpponentsTurn(lastTurn) {
     this.api.getLastTurnoNumero(this.user.matchID(), this.completeTurn.rival.id, lastTurn).subscribe(opponentsTurn => { 
-      if (opponentsTurn?.terminado === true || this.matchEnded) {
+      if (opponentsTurn?.terminado === true) {
+        //CLEAR THE INTERVAL SINCE WE KNOW THE RIVAL ENDED HIS TURN
+        clearInterval(this.apiCallTurnEndedInterval)
 
-        //UPDATE THE TURN LAST TURN AND MAKE A NEW TURN
+        //MAKE A NEW TURN
         this.api.crearNuevoTurnoCompleto(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(newCreatedTurn => {
           this.api.getInfoCompletaTurno(this.user.matchID(), this.user.userID()).subscribe(newCreatedTurn => {
             this.completeTurn = newCreatedTurn
             this.completeTurn.infoPartida.numero_turno -= 1
 
-            //CLEAR THE INTERVAL SINCE WE KNOW THE RIVAL ENDED HIS TURN
-            clearInterval(this.apiCallTurnEndedInterval)
             
             //SHOW OPPONENTS CARDS
             this.showOpponentsCards = true
@@ -184,7 +198,7 @@ export class MatchComponent implements OnInit {
             //INITIALIZE SHOWING CARDS TIMER TO GO BACK TO NORMAL
             this.showCardsInterval = setInterval(() => {
               this.showOpponentsCards = false
-              this.ngOnInit()
+              location.reload()
             }, 10000)
           })
         })
@@ -200,6 +214,25 @@ export class MatchComponent implements OnInit {
       
       this.router.navigate(["/ganador"])
     })
+  }
+
+  giveUp(){
+    if (confirm("Esta seguro en rendirse de la partida?")) {
+      clearInterval(this.showCardsInterval)
+      clearInterval(this.turnTimerInterval)
+      clearInterval(this.apiCallTurnEndedInterval)
+      this.matchEnded = true
+      this.endTurn()
+      this.api.finishGame(this.user.matchID()).subscribe(answer => {
+        this.api.giveUp(this.user.matchID(),this.user.userID()).subscribe(answer2 => {
+          this.router.navigate(["/ganador"])
+          let icon = "fa fa-check"
+          let type = "info"
+          let message = "Te has rendido"
+          this.alert.createAlert(icon, type, message)
+        })
+      })
+    }
   }
 
   stopCounterTurn(){
@@ -250,18 +283,27 @@ export class MatchComponent implements OnInit {
     }, 1000);
 
     //GET TURN INFORMATION, MATCH HAS ALREADY BEEN INITIALIZED IN MATCHMAKING PROCESS
-    this.api.getInfoCompletaTurno(this.user.matchID(), this.user.userID()).subscribe(completeTurn => {
-      this.completeTurn = completeTurn
-      this.turnEnded = this.completeTurn.infoPartida?.terminado
-      console.log(this.completeTurn)
-      if (this.completeTurn.infoPartida?.numero_turno > this.parameters.turnos_totales) {
+    const partidaTerminada = 4
+    const partidaEnProgreso = 3
+    this.api.getPartidaID(this.user.matchID()).subscribe(partidaInfo => {
+      if (partidaInfo.estado === partidaEnProgreso) {
+        this.api.getInfoCompletaTurno(this.user.matchID(), this.user.userID()).subscribe(completeTurn => {
+          this.completeTurn = completeTurn
+          this.turnEnded = this.completeTurn.infoPartida?.terminado
+          console.log(this.completeTurn)
+          if (this.completeTurn.infoPartida?.numero_turno > this.parameters.turnos_totales) {
+            this.finishMatch()
+          } else if (this.completeTurn.infoPartida.numero_turno === 1) {
+            this.alert.createAlert("fa fa-check", "info", "Suerte en la partida!")
+          } else {
+            this.alert.createAlert("fa fa-check", "info", "Estas en un nuevo turno!")
+          }
+        })
+      } else if (partidaInfo.estado === partidaTerminada) {
         this.finishMatch()
-      } else if (this.completeTurn.infoPartida.numero_turno === 1) {
-        this.alert.createAlert("fa fa-check", "info", "Suerte en la partida!")
-      } else {
-        this.alert.createAlert("fa fa-check", "info", "Estas en un nuevo turno!")
       }
     })
+    
   }
 
   ngOnDestroy(){

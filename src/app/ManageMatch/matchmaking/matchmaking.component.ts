@@ -81,7 +81,7 @@ export class MatchmakingComponent implements OnInit {
   }
 
   stopCountdown(){
-    this.api.finishMatch(this.player.id).subscribe(player => {})
+    this.api.finishMatchSearch(this.player.id).subscribe(player => {})
     clearInterval(this.apiCallInterval)
     clearInterval(this.counterInterval)
   }
