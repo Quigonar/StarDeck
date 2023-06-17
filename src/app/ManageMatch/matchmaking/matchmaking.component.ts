@@ -155,7 +155,9 @@ export class MatchmakingComponent implements OnInit {
         this.searchingMatch = false
         this.matchNotFound = false
         this.api.isInMatch(this.user.userID()).subscribe(match => {
-          this.user.setMatchID2(match.id)
+          if(match.id !== null) {
+            this.user.setMatchID2(match.id)
+          }
         })
       }
     })
