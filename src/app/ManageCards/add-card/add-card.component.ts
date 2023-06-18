@@ -49,7 +49,7 @@ export class AddCardComponent implements OnInit {
     }
   }
 
-  constructor(private route:ActivatedRoute, private api:ApiService, private router:Router, private alert:AlertService, private b64: b64Service, private InfoVerifier:VerifyService) { 
+  constructor(private api:ApiService, private router:Router, private alert:AlertService, private b64: b64Service, private InfoVerifier:VerifyService) { 
     //Make card preview update live
     this.cardForm.controls['nombre'].valueChanges.subscribe((newValue) => {
       this.name_count = newValue.length

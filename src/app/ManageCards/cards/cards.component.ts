@@ -13,7 +13,7 @@ export class CardsComponent implements OnInit {
   public cards: CardsI[]
   public searchTerm : any
   
-  constructor(private router:Router, private api:ApiService, private test:TestService) { }
+  constructor(public router:Router, private api:ApiService, private test:TestService) { }
 
   addCard(){
     this.router.navigate(['/anadir_carta'])
