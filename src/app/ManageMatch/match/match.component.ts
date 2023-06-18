@@ -43,6 +43,7 @@ export class MatchComponent implements OnInit {
   public showOpponentsCards: boolean = false
   public turnEnded: boolean = false
   public matchEnded: boolean = false
+  private opponentDisconnected: boolean = false
 
   public completeTurn: completeTurnI
   public winnerInfo: winnerI
@@ -160,15 +161,22 @@ export class MatchComponent implements OnInit {
   checkForOpponentsTurn(lastTurn) {
     this.api.getLastTurnoNumero(this.user.matchID(), this.completeTurn.rival.id, lastTurn).subscribe(opponentsTurn => { 
       if (opponentsTurn?.terminado === true) {
+
         //CLEAR THE INTERVAL SINCE WE KNOW THE RIVAL ENDED HIS TURN
         clearInterval(this.apiCallTurnEndedInterval)
+
+        if (this.opponentDisconnected) {
+          this.api.getInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id).subscribe(turnoCompletoRival => {
+            this.api.crearNuevoTurnoCompleto(this.user.matchID(), this.completeTurn.rival.id, turnoCompletoRival).subscribe(answer => {
+            })
+          })
+        }
 
         //MAKE A NEW TURN
         this.api.crearNuevoTurnoCompleto(this.user.matchID(), this.user.userID(), this.completeTurn).subscribe(newCreatedTurn => {
           this.api.getInfoCompletaTurno(this.user.matchID(), this.user.userID()).subscribe(newCreatedTurn => {
             this.completeTurn = newCreatedTurn
             this.completeTurn.infoPartida.numero_turno -= 1
-
             
             //SHOW OPPONENTS CARDS
             this.showOpponentsCards = true
@@ -232,15 +240,18 @@ export class MatchComponent implements OnInit {
     clearInterval(this.turnTimerInterval)
 
     //END OPPONENT'S TURN JUST IN CASE THE OPPONENT LEFT THE GAME AND END MY TURN
-    /*this.api.getInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id).subscribe(completeTurn => {
-      completeTurn.infoPartida.terminado = true;
-      console.log(completeTurn)
-      this.api.updateInfoCompletaTurno(this.user.matchID(), this.completeTurn.rival.id, this.completeTurn).subscribe(updatedLastTurn => { 
-        console.log(updatedLastTurn)
+    this.api.getLastTurnoNumero(this.user.matchID(), this.completeTurn.rival.id, this.completeTurn.infoPartida.numero_turno).subscribe(turno => {
+      if (turno.terminado !== true) {
+        this.opponentDisconnected = true
+        turno.terminado = true
+        this.api.updateTurno(turno.id, turno).subscribe(updatedRivalTurn => {
+          this.endTurn()
+        })
+      } else {
         this.endTurn()
-      })
-    })*/
-    this.endTurn()
+      }
+      
+    })
   }
 
   stopCounterShowCards(){

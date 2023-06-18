@@ -32,15 +32,19 @@ export class MatchmakingComponent implements OnInit {
 
   searchGame() {
     this.api.getDecks(this.user.userID()).subscribe(decks => {
+      var found = false
       decks.forEach(deck => {
         if (deck.estado === true) {
           this.api.searchGame(this.user.userID()).subscribe(player => {
+            found = true
             location.reload()
           })
         }
       })
 
-      this.alert.createAlert("fa fa-exclamation-triangle", "danger","Porfavor seleccione un deck primero.")
+      if (!found) {
+        this.alert.createAlert("fa fa-exclamation-triangle", "danger","Porfavor seleccione o cree un deck primero.")
+      }
     })
   }
 
