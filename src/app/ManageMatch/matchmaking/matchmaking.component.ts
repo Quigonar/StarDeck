@@ -35,8 +35,8 @@ export class MatchmakingComponent implements OnInit {
       var found = false
       decks.forEach(deck => {
         if (deck.estado === true) {
+          found = true
           this.api.searchGame(this.user.userID()).subscribe(player => {
-            found = true
             location.reload()
           })
         }
