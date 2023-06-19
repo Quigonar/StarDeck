@@ -99,8 +99,7 @@ export class LoginComponent implements OnInit {
     this.player = form
 
     if (this.infoVerifier.verifyUserInfo(form)) {
-      //Encryptar la contraseña una vez verificada
-      this.player.Contrasena = SHA256(this.player.Contrasena).toString()
+      
       //Hacer el post por el API
       this.api.addUser(this.player).subscribe(answer => {
         this.routeService.switch("first",answer.id)
