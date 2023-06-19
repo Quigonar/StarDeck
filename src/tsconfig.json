@@ -16,8 +16,11 @@
       "../node_modules/@types"
     ]
   },
-  "exclude": [
-    "test.ts",
-    "**/*.spec.ts"
+
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts",
+    "**/*.ts"
   ]
+  
 }

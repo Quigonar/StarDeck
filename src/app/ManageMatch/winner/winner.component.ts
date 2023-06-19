@@ -17,7 +17,7 @@ export class WinnerComponent implements OnInit {
   winnerInfo: winnerI
   matchEndedTied: boolean = false
 
-  constructor(private router:Router, private api:ApiService, private test:TestService, private InfoVerifier:VerifyService, private user:RouteService, private alert:AlertService) { }
+  constructor(private router:Router, private api:ApiService, private test:TestService, private user:RouteService, private alert:AlertService) { }
 
   goBackToPlayScreen() {
     this.api.finishMatch(this.user.userID(), this.user.matchID()).subscribe(answer => {

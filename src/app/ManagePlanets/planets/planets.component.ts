@@ -13,7 +13,7 @@ export class PlanetsComponent implements OnInit {
   public planets: PlanetsI[]
   public searchTerm : any
   
-  constructor(private router:Router, private api:ApiService, private test:TestService) { }
+  constructor(public router:Router, private api:ApiService, private test:TestService) { }
 
   addPlanet(){
     this.router.navigate(['/anadir_planeta'])
