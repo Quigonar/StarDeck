@@ -14,6 +14,7 @@ import { cardsPerUserI } from 'app/models/cardsPerUser.interface';
 export class FirstLoginComponent implements OnInit {
   public cardsGiven : CardsI[]
   public cardsPerUser : cardsPerUserI
+  public numbers: number[] = [1, 2, 3];
   constructor(private router:Router, private api:ApiService, private routeService:RouteService, private location: Location) { }
 
   choose_card() {
@@ -25,6 +26,9 @@ export class FirstLoginComponent implements OnInit {
       this.cardsGiven = cards
       this.routeService.setCards(cards)
       this.cardsGiven = this.cardsGiven.slice(0,15)
+      this.cardsGiven.unshift(null)
+      this.cardsGiven.unshift(null)
+      this.cardsGiven.unshift(null)
     })
   }
 
