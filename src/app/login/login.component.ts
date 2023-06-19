@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     });
    }
   
-  ngOnInit(): void {
+  ngOnInit() {
     //Call api to import all nations available for the game
     this.nations = ["Costa Rica", "Mexico", "Estados Unidos"]
     this.player = {
@@ -80,13 +80,16 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(form) {
+    this.api.getParams().subscribe(answer => {
+      this.routeService.setParams(answer)
+    })
+
     this.api.login(form).subscribe(answer => {
       if (answer.found && answer.usuario.administrador) {
         this.routeService.switch("admin", answer.usuario.id)
       } else if (answer.found && !answer.usuario.administrador) {
         this.routeService.switch("client", answer.usuario.id)
-      }
-      else {
+      } else {
         this.alert.createAlert("fa fa-exclamation-triangle", "danger", "Los credenciales estan erroneos!")
       }
     })
@@ -101,11 +104,10 @@ export class LoginComponent implements OnInit {
       //Hacer el post por el API
       this.api.addUser(this.player).subscribe(answer => {
         this.routeService.switch("first",answer.id)
-        /*if (this.infoVerifier.verifyUserAnswer(answer)) {
-          this.player.id = answer
-          this.routeService.switch("first", this.player.id)
-        }
-        */
+
+        this.api.getParams().subscribe(answer => {
+          this.routeService.setParams(answer)
+        })
       })
     }
   }

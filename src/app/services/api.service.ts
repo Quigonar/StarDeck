@@ -14,6 +14,12 @@ import { loginResponseI } from 'app/models/loginResponse.interface';
 import { cardsPerUserI } from 'app/models/cardsPerUser.interface';
 import { MatchI } from 'app/models/match.interface';
 import { PartidaI } from 'app/models/partida.interface';
+import { ParamsI } from 'app/models/parameters.interface';
+import { TurnHandDeck } from 'app/models/turnHand.interface';
+import { TurnPlanet } from 'app/models/turnPlanet.interface';
+import { TurnI } from 'app/models/turn.interface';
+import { completeTurnI } from 'app/models/completeTurn.interface';
+import { winnerI } from 'app/models/winner.interface';
 
 
 @Injectable({
@@ -33,60 +39,44 @@ export class ApiService {
       case 'GET':
         return this.http.get<T>(url).pipe(
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              message = "Un error ha ocurrido: ", error.error.message
-              this.alert.createAlert(icon,type,message)
-            } else {
-              if (error.status === 0 && error.statusText === 'Unknown Error') {
-                message = "Error: no se pudo conectar con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              } else {
-                message = "Error: con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              }
-            }
+            message = error.error
+            this.alert.createAlert(icon,type,message)
             return of('Something went wrong. Please try again later.') as Observable<T>;
           })
         );
       case 'PUT':
         return this.http.put<T>(url, data).pipe(
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              message = "Un error ha ocurrido: ", error.error.message
-              this.alert.createAlert(icon,type,message)
-            } else {
-              if (error.status === 0 && error.statusText === 'Unknown Error') {
-                message = "Error: no se pudo conectar con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              } else {
-                message = "Error: con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              }
-            }
+            message = error.error
+            this.alert.createAlert(icon,type,message)
             return of('Something went wrong. Please try again later.') as Observable<T>;
           })
         );
       case 'POST':
         return this.http.post<T>(url, data).pipe(
           catchError((error) => {
-            if (error.error instanceof ErrorEvent) {
-              message = "Un error ha ocurrido: ", error.error.message
-              this.alert.createAlert(icon,type,message)
-            } else {
-              if (error.status === 0 && error.statusText === 'Unknown Error') {
-                message = "Error: no se pudo conectar con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              } else {
-                message = "Error: con el servidor, porfavor intentelo luego"
-                this.alert.createAlert(icon,type,message)
-              }
-            }
+            message = error.error
+            this.alert.createAlert(icon,type,message)
+            return of('Something went wrong. Please try again later.') as Observable<T>;
+          })
+        );
+      case 'DELETE':
+        return this.http.delete<T>(url).pipe(
+          catchError((error) => {
+            message = error.error
+            this.alert.createAlert(icon,type,message)
             return of('Something went wrong. Please try again later.') as Observable<T>;
           })
         );
       default:
         return of('Something went wrong. Please try again later.');
     }
+  }
+
+  //PARAMETERS REQUEST
+  getParams():Observable<ParamsI>{
+    let dir = this.url + "Parametros/getParametros"
+    return this.makeRequest<ParamsI>(dir, 'GET') as Observable<ParamsI>
   }
   
   //CARDS REQUESTS
@@ -176,9 +166,17 @@ export class ApiService {
     let dir = this.url + "matchmaking/matchmakingCheck/" + user
     return this.makeRequest<MatchI>(dir, 'GET') as Observable<MatchI>
   }
-  finishMatch(user:any):Observable<PlayerI>{
-    let dir = this.url + "matchmaking/finishMatch/" + user
+  finishMatch(user:any, matchId:any):Observable<PlayerI>{
+    let dir = this.url + "matchmaking/finishMatchUser/" + user + "/" + matchId
     return this.makeRequest<PlayerI>(dir, 'PUT') as Observable<PlayerI>
+  }
+  finishMatchSearch(user:any):Observable<PlayerI>{
+    let dir = this.url + "matchmaking/finishMatchSearch/" + user
+    return this.makeRequest<PlayerI>(dir, 'PUT') as Observable<PlayerI>
+  }
+  finishGame(match_id:any):Observable<MatchI>{
+    let dir = this.url + "matchmaking/finishGame/" + match_id
+    return this.makeRequest<MatchI>(dir, 'PUT') as Observable<MatchI>
   }
   getPartidaID(partida:any):Observable<PartidaI>{
     let dir = this.url + "matchmaking/getPartida/" + partida
@@ -191,6 +189,103 @@ export class ApiService {
   getRival(partida:any, user:any):Observable<PlayerI>{
     let dir = this.url + "matchmaking/getRival/" + user + "/" + partida
     return this.makeRequest<PlayerI>(dir, 'GET') as Observable<PlayerI>
+  }
+  isInMatch(id_usuario):Observable<PartidaI> {
+    let dir = this.url + "matchmaking/isInMatch/" + id_usuario
+    return this.makeRequest<PartidaI>(dir, 'GET') as Observable<PartidaI>
+  }
+
+  //TURN REQUESTS
+  getManoUsuario(id_usuario, id_turno):Observable<CardsI[]>{
+    let dir = this.url + "Turno/getmano/" + id_usuario + "/" + id_turno
+    return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
+  }
+  getDeckUsuario(id_usuario, id_turno):Observable<CardsI[]>{
+    let dir = this.url + "Turno/getdeck/" + id_usuario + "/" + id_turno
+    return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
+  }
+  getCartasPlaneta(id_planeta,id_turno,id_usuario):Observable<CardsI[]>{
+    let dir = this.url + "Turno/getcartasplaneta/" + id_planeta + "/" + id_turno + "/" + id_usuario
+    return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
+  }
+  getCartasPlanetaPartida(id_planeta,id_partida,id_usuario):Observable<CardsI[]>{
+    let dir = this.url + "Turno/getcartasplanetapartida/" + id_planeta + "/" + id_partida + "/" + id_usuario
+    return this.makeRequest<CardsI[]>(dir, 'GET') as Observable<CardsI[]>
+  }
+  addCartaMano(carta:TurnHandDeck){
+    let dir = this.url + "Turno/addCartaTurnoManoUsuario/"
+    return this.makeRequest(dir, 'POST', carta)
+  }
+  addCartaDeck(carta:TurnHandDeck){
+    let dir = this.url + "Turno/addCartaTurnoDeckUsuario/"
+    return this.makeRequest(dir, 'POST', carta)
+  }
+  addCartaPlaneta(carta:TurnPlanet){
+    let dir = this.url + "Turno/addCartaTurnoPlanetaUsuario/"
+    return this.makeRequest(dir, 'POST', carta)
+  }
+  deleteCartaMano(id_usuario,id_turno,id_carta){
+    let dir = this.url + "Turno/deleteCartaMano/" + id_usuario + "/" + id_turno + "/" + id_carta
+    return this.makeRequest(dir, 'DELETE')
+  }
+  deleteCartaDeck(id_usuario,id_turno,id_carta){
+    let dir = this.url + "Turno/deleteCartaDeck/" + id_usuario + "/" + id_turno + "/" + id_carta
+    return this.makeRequest(dir, 'DELETE')
+  }
+  deleteCartaPlaneta(id_usuario,id_turno,id_carta){
+    let dir = this.url + "Turno/deleteCartaPlaneta/" + id_usuario + "/" + id_turno + "/" + id_carta
+    return this.makeRequest(dir, 'DELETE')
+  }
+  addTurno(turno:TurnI):Observable<TurnI>{
+    let dir = this.url + "Turno/addTurno"
+    return this.makeRequest<TurnI>(dir, 'POST', turno) as Observable<TurnI>
+  }
+  getLastTurno(id_partida,id_usuario):Observable<TurnI>{
+    let dir = this.url + "Turno/getLastTurno/" + id_partida + "/" + id_usuario
+    return this.makeRequest<TurnI>(dir, 'GET') as Observable<TurnI>
+  }
+  getLastTurnoNumero(id_partida,id_usuario,numero_turno):Observable<TurnI>{
+    let dir = this.url + "Turno/getLastTurnoNumero/" + id_partida + "/" + id_usuario + "/" + numero_turno
+    return this.makeRequest<TurnI>(dir, 'GET') as Observable<TurnI>
+  }
+  getTurnoID(id_turno):Observable<TurnI>{
+    let dir = this.url + "Turno/getTurno/" + id_turno
+    return this.makeRequest<TurnI>(dir, 'GET') as Observable<TurnI>
+  }
+  updateEnergia(id_turno, id_usuario, energia):Observable<TurnI>{
+    let dir = this.url + "Turno/updateEnergia/" + id_turno + "/" + id_usuario
+    return this.makeRequest<TurnI>(dir, 'PUT', energia) as Observable<TurnI>
+  }
+  updateTurno(id_turno, turno:TurnI):Observable<TurnI>{
+    let dir = this.url + "Turno/updateTurno/" + id_turno
+    return this.makeRequest<TurnI>(dir, 'PUT', turno) as Observable<TurnI>
+  }
+  giveUp(id_partida, id_usuario):Observable<any>{
+    let dir = this.url + "Turno/giveUpMatch/" + id_partida + "/" + id_usuario
+    return this.makeRequest<any>(dir, 'PUT') as Observable<any>
+  }
+  
+  
+  //FIX FOR TURN LOGIC
+  addTurnoCompleto(id_partida, id_usuario, turnoCompleto:completeTurnI):Observable<completeTurnI>{
+    let dir = this.url + "Turno/addTurnoCompleto/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'POST', turnoCompleto) as Observable<completeTurnI>
+  }
+  getInfoCompletaTurno(id_partida, id_usuario):Observable<completeTurnI>{
+    let dir = this.url + "Turno/getInfoCompletaTurno/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'GET') as Observable<completeTurnI>
+  }
+  updateInfoCompletaTurno(id_partida, id_usuario, turnoCompleto:completeTurnI):Observable<completeTurnI>{
+    let dir = this.url + "Turno/updateInfoCompletaTurno/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'PUT', turnoCompleto) as Observable<completeTurnI>
+  }
+  crearNuevoTurnoCompleto(id_partida, id_usuario, turnoCompleto:completeTurnI):Observable<completeTurnI>{
+    let dir = this.url + "Turno/crearNuevoTurnoCompleto/" + id_partida + "/" + id_usuario
+    return this.makeRequest<completeTurnI>(dir, 'POST', turnoCompleto) as Observable<completeTurnI>
+  }
+  getGanadorPartida(id_partida, id_usuario):Observable<winnerI>{
+    let dir = this.url + "Turno/getGanador/" + id_partida + "/" + id_usuario
+    return this.makeRequest<winnerI>(dir, 'GET') as Observable<winnerI>
   }
 
   //DROPDOWN TABLES REQUESTS

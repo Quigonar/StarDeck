@@ -13,6 +13,7 @@ import { AddDeckComponent } from 'app/ManageDecks/add-deck/add-deck.component';
 import { EditDeckComponent } from 'app/ManageDecks/edit-deck/edit-deck.component';
 import { MatchComponent } from 'app/ManageMatch/match/match.component';
 import { MatchmakingComponent } from 'app/ManageMatch/matchmaking/matchmaking.component';
+import { WinnerComponent } from 'app/ManageMatch/winner/winner.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatchmakingComponent } from 'app/ManageMatch/matchmaking/matchmaking.co
     AddDeckComponent,
     EditDeckComponent,
     MatchmakingComponent,
-    MatchComponent
+    MatchComponent,
+    WinnerComponent
   ],
   providers: [
   ],

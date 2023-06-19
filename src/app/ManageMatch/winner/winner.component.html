@@ -1,0 +1,72 @@
+<div class="container">
+    <div *ngIf="!matchEndedTied; else elseBlock">
+        <h1 class="title">Ganador:</h1>
+
+        <div class="player-cards">
+            <div class="player-card">
+                <img src="assets/img/default-avatar.png" alt="Jugador 1" class="winner">
+                <h2>{{winnerInfo?.winner?.username}}</h2>
+                <p>Puntos Otorgados: +1</p>
+            </div>
+
+            <div class="player-card">
+                <img src="assets/img/default-avatar.png" alt="Jugador 2">
+                <h2>{{winnerInfo?.loser?.username}}</h2>
+                <p>Puntos Otorgados: 0</p>
+            </div>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <h1 class="title">Se obtuvo un empate en la partida, no se otorgan puntos</h1>
+    </ng-template>
+
+    <div class="location-cards">
+        <div class="location-card" *ngIf="winnerInfo?.winnerPerPlanet[0] !== null; else elseBlock1">
+            <h3>{{winnerInfo?.planetsOnMatch[0]?.nombre}}</h3>
+            <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[0]}}</p>
+            <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[0]}}</p>
+            <p>Ganador: {{winnerInfo?.winnerPerPlanet[0]?.username}}</p>
+        </div>
+        <ng-template #elseBlock1>
+            <div class="location-card">
+                <h3>{{winnerInfo?.planetsOnMatch[0]?.nombre}}</h3>
+                <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[0]}}</p>
+                <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[0]}}</p>
+                <p>Empatado</p>
+            </div>
+        </ng-template>
+
+        <div class="location-card" *ngIf="winnerInfo?.winnerPerPlanet[1] !== null; else elseBlock2">
+            <h3>{{winnerInfo?.planetsOnMatch[1]?.nombre}}</h3>
+            <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[1]}}</p>
+            <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[1]}}</p>
+            <p>Ganador: {{winnerInfo?.winnerPerPlanet[1]?.username}}</p>
+        </div>
+        <ng-template #elseBlock2>
+            <div class="location-card">
+                <h3>{{winnerInfo?.planetsOnMatch[1]?.nombre}}</h3>
+                <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[1]}}</p>
+                <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[1]}}</p>
+                <p>Empatado</p>
+            </div>
+        </ng-template>
+
+        <div class="location-card" *ngIf="winnerInfo?.winnerPerPlanet[2] !== null; else elseBlock3">
+            <h3>{{winnerInfo?.planetsOnMatch[2]?.nombre}}</h3>
+            <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[2]}}</p>
+            <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[2]}}</p>
+            <p>Ganador: {{winnerInfo?.winnerPerPlanet[2]?.username}}</p>
+        </div>
+        <ng-template #elseBlock3>
+            <div class="location-card">
+                <h3>{{winnerInfo?.planetsOnMatch[2]?.nombre}}</h3>
+                <p>Tus Puntos: {{winnerInfo?.pointsPerPlanet[2]}}</p>
+                <p>Puntos del Rival: {{winnerInfo?.pointsRivalPerPlanet[2]}}</p>
+                <p>Empatado</p>
+            </div>
+        </ng-template>
+    </div>
+    <div class="btn-container">
+        <button (click)="goBackToPlayScreen()" class="btn">Menu Principal</button>
+    </div>
+</div>

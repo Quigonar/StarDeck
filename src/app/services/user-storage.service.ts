@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CardsI } from 'app/models/cards.interface';
 import { MatchI } from 'app/models/match.interface';
+import { ParamsI } from 'app/models/parameters.interface';
 import { localservices } from 'googleapis/build/src/apis/localservices';
 
 @Injectable()
@@ -8,7 +9,7 @@ import { localservices } from 'googleapis/build/src/apis/localservices';
 export class UserStorageService {
   init(user: string) {
     // !!!CHANGE TO THIS WHENEVER THERE'S FUNCTIONAL LOGIN!!!
-    
+    console.log(localStorage)
     if (!this.exists()) {
       localStorage.setItem("user", user);
     }
@@ -24,7 +25,6 @@ export class UserStorageService {
   }
 
   getID() {
-    if (!this.exists()) throw new Error("id does not exist.");
     return localStorage.getItem("id");
   }
 
@@ -33,15 +33,28 @@ export class UserStorageService {
     for (let i = 0; i<24; i++) {
       cards[i] = localStorage.getItem("card" + (i + 1).toString())
     }
-    /*var cards = [localStorage.getItem("card1"),localStorage.getItem("card2"),localStorage.getItem("card3"),
-    localStorage.getItem("card4"),localStorage.getItem("card5"),localStorage.getItem("card6"),
-    localStorage.getItem("card7"),localStorage.getItem("card8"),localStorage.getItem("card9")]*/
 
     return cards
   }
 
   getMatchID() {
     return localStorage.getItem("matchID")
+  }
+
+  getParams() {
+    let parameters: ParamsI
+    parameters = {
+      tiempo_turno: parseInt(localStorage.getItem("tiempo_turno")),
+      turnos_totales: parseInt(localStorage.getItem("turnos_totales")),
+      cartas_Mano_Inicial: parseInt(localStorage.getItem("cartas_Mano_Inicial")),
+      energia_Inicial: parseInt(localStorage.getItem("energia_Inicial"))
+    }
+
+    return parameters
+  }
+
+  getTimer() {
+    return parseInt(localStorage.getItem("timer"))
   }
 
   set(user: string) {
@@ -54,35 +67,46 @@ export class UserStorageService {
     localStorage.setItem("id", id);
   }
 
+  clearUserID(){
+    localStorage.removeItem("id")
+  }
+
   setCards(cards: CardsI[]) {
-    localStorage.setItem("card1", cards[0].id)
-    localStorage.setItem("card2", cards[1].id)
-    localStorage.setItem("card3", cards[2].id)
-    localStorage.setItem("card4", cards[3].id)
-    localStorage.setItem("card5", cards[4].id)
-    localStorage.setItem("card6", cards[5].id)
-    localStorage.setItem("card7", cards[6].id)
-    localStorage.setItem("card8", cards[7].id)
-    localStorage.setItem("card9", cards[8].id)
-    localStorage.setItem("card10", cards[9].id)
-    localStorage.setItem("card11", cards[10].id)
-    localStorage.setItem("card12", cards[11].id)
-    localStorage.setItem("card13", cards[12].id)
-    localStorage.setItem("card14", cards[13].id)
-    localStorage.setItem("card15", cards[14].id)
-    localStorage.setItem("card16", cards[15].id)
-    localStorage.setItem("card17", cards[16].id)
-    localStorage.setItem("card18", cards[17].id)
-    localStorage.setItem("card19", cards[18].id)
-    localStorage.setItem("card20", cards[19].id)
-    localStorage.setItem("card21", cards[20].id)
-    localStorage.setItem("card22", cards[21].id)
-    localStorage.setItem("card23", cards[22].id)
-    localStorage.setItem("card24", cards[23].id)
-    
+    for (let i = 0; i<24; i++) {
+      localStorage.setItem("card" + (i + 1).toString(), cards[i].id)
+    }
+  }
+
+  clearCards(){
+    for (let i = 0; i<24; i++) {
+      localStorage.removeItem("card" + (i + 1).toString())
+    }
   }
 
   setMatchID(match:MatchI) {
     localStorage.setItem("matchID", match.id_Partida)
+  }
+
+  setMatchID2(match_id) {
+    localStorage.setItem("matchID", match_id)
+  }
+
+  clearMatchID() {
+    localStorage.removeItem("matchID")
+  }
+
+  setParams(params:ParamsI) {
+    localStorage.setItem("tiempo_turno", params[0].tiempo_turno.toString())
+    localStorage.setItem("turnos_totales", params[0].turnos_totales.toString())
+    localStorage.setItem("cartas_Mano_Inicial", params[0].cartas_Mano_Inicial.toString())
+    localStorage.setItem("energia_Inicial", params[0].energia_Inicial.toString())
+  }
+
+  setTimer(timer:string){
+    localStorage.setItem("timer", timer)
+  }
+
+  clearTimer() {
+    localStorage.removeItem("timer")
   }
 }

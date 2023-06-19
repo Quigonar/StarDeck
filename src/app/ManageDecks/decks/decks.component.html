@@ -13,55 +13,67 @@
     <div class="col-md-3">
         <!-- Add Button -->
         <button (click)="addDeck()" type="submit" class="btn pull-right">
-            <div class="font-icon-detail"><i class="fa fa-plus-circle"></i></div>
+            Agregar Nuevo Mazo
         </button>
     </div>
 </div>
 <div class="container">
     <div class="sidebar2">
-        <ng-container *ngFor="let deck of decks">
-            <div>
-              <input type="checkbox" (change)="toggleDeck(deck)" [checked]="deck.estado" class="deck" [class.selected]="deck === selectedDeck">
-              <span (click)="toggleDeck(deck)">{{ deck.nombre }}</span>
+        <h4 class="title">Lista De Mazos</h4>
+        <div *ngIf="decks?.length !== 0; else elseBlock">
+            <ng-container *ngFor="let deck of decks">
+                <div>
+                  <input type="checkbox" (change)="toggleDeck(deck)" [checked]="deck?.estado" class="deck" [class.selected]="deck === selectedDeck">
+                  <span (click)="toggleDeck(deck)">{{ deck?.nombre }}</span>
+                </div>
+                
+            </ng-container>
+        </div>
+        <ng-template #elseBlock>
+            <div class="row center2">
+                <h6>No tienes mazos aun!</h6>
             </div>
-          </ng-container>
+            <div class="row center2">
+                <h6><br> Ve a crear uno con el boton de: <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Agregar Nuevo Mazo"</h6>
+            </div>
+        </ng-template>
     </div>
     <div class="content">
         <div *ngFor="let card of cards; index as i">
             <div *ngIf="(i + 1) % 6 != 0; else elseBlock" class="col-md-2">
                 <div class="play-card">
                     <div class="play-card-face">
-                        <div class="play-card-title"> {{card.nombre}} </div>
+                        <div class="play-card-title"> {{card?.nombre}} </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    <span class="icon-combat"></span> {{card.costo}}
+                                    <span class="icon-combat"></span> {{card?.costo}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    <span class="icon-energy"></span> {{card.energia}}
+                                    <span class="icon-energy"></span> {{card?.energia}}
                                 </div>
                             </div>
                         </div>
                         <div class="play-card-image">
-                            <img [src]="card.imagen" alt="Imagen">
+                            <img [src]="card?.imagen" alt="Imagen">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    {{card.raza}}
+                                    {{card?.raza}}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="play-card-stat">
-                                    {{card.tipo}}
+                                    {{card?.tipo}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="play-card-back">
-                        <div class="play-card-description"> {{card.descripcion}} </div>
+                        <div class="play-card-description"> {{card?.descripcion}} </div>
                     </div>
                 </div>
             </div>
@@ -70,37 +82,37 @@
                     <div class="col-md-2">
                         <div class="play-card">
                             <div class="play-card-face">
-                                <div class="play-card-title"> {{card.nombre}} </div>
+                                <div class="play-card-title"> {{card?.nombre}} </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            <span class="icon-combat"></span> {{card.costo}}
+                                            <span class="icon-combat"></span> {{card?.costo}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            <span class="icon-energy"></span> {{card.energia}}
+                                            <span class="icon-energy"></span> {{card?.energia}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="play-card-image">
-                                    <img [src]="card.imagen" alt="Imagen">
+                                    <img [src]="card?.imagen" alt="Imagen">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            {{card.raza}}
+                                            {{card?.raza}}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="play-card-stat">
-                                            {{card.tipo}}
+                                            {{card?.tipo}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="play-card-back">
-                                <div class="play-card-description"> {{card.descripcion}} </div>
+                                <div class="play-card-description"> {{card?.descripcion}} </div>
                             </div>
                         </div>
                     </div>
